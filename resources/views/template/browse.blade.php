@@ -23,7 +23,7 @@
                                 <a href="#" class="btn btn-primary">Preview</a>
 
             
-                                <a href="/template/{{ $template['id'] }}" class="btn btn-primary">Details</a>
+                                <a href="/templates/{{ $template['id'] }}" class="btn btn-primary">Details</a>
                             </div>
                         </div>
                     </div>

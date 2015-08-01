@@ -12,7 +12,8 @@
     <title>Bootstrap Dashboards</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="/css/bootstrap-paper.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/app.css" rel="stylesheet">
@@ -35,12 +36,12 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Bootstrap Dashboard</a>
+            <a class="navbar-brand" href="/browse">Bootstrap Dashboard</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li class="active"><a href="#">Browse</a></li>
-              <li><a href="#">Sell</a></li>
+              <li><a href="/sell">Sell</a></li>
               <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

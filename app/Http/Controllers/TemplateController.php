@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 use App\Template;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateTemplateRequest;
 
 class TemplateController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['create', 'store']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +35,7 @@ class TemplateController extends Controller
      */
     public function create()
     {
-        //
+        return view('template.create');
     }
 
     /**
@@ -38,9 +44,9 @@ class TemplateController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateTemplateRequest $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -51,7 +57,9 @@ class TemplateController extends Controller
      */
     public function show($id)
     {
-        //
+        $template = Template::findOrFail($id);
+
+        return view('template.show', compact('template'));
     }
 
     /**

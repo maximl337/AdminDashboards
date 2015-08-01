@@ -13,3 +13,9 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 
 Route::get('browse', 'TemplateController@index');
+
+Route::get('sell', 'TemplateController@create');
+
+Route::post('/templates', 'TemplateController@store');
+
+Route::get('templates/{id}', 'TemplateController@show');
