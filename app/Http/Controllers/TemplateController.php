@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use App\Template;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -46,7 +47,13 @@ class TemplateController extends Controller
      */
     public function store(CreateTemplateRequest $request)
     {
-        dd($request);
+        $input = $request->input();
+
+        $template = new Template($input);
+
+        Auth::user()->templates()->save($template);
+
+        return redirect()->action('TemplateController@show', [ $template->id ]);
     }
 
     /**

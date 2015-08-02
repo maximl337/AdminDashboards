@@ -7,7 +7,7 @@
             
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h5>Create a Template</h5>
+                    <h5 class="text-white">Submit a Template</h5>
                 </div>
                 <div class="panel-body">
                     

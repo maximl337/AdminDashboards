@@ -41,7 +41,7 @@
                   <li><a href="/sell">Sell</a></li>
                   @if(Auth::check())
 
-                    <li><a href="/user/{{ Auth::id() }}"> {{ Auth::user()->username }}</a></li>
+                    <li class="hidden"><a href="/user/{{ Auth::id() }}"> {{ Auth::user()->username }}</a></li>
                     <li><a href="/dashboard">Dashboard</a></li>
                     <li><a href="/auth/logout">Logout</a></li>
                   @else

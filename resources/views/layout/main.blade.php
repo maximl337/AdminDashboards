@@ -27,7 +27,7 @@
 
   <body>
 
-     <nav class="navbar navbar-default">
+     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -36,14 +36,20 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/browse">Bootstrap Dashboard</a>
+            <a class="navbar-brand" href="/browse">Bootstrap Dashboards</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Browse</a></li>
+              <li class="active"><a href="/browse">Browse</a></li>
               <li><a href="/sell">Sell</a></li>
               <li><a href="#">Contact</a></li>
             </ul>
+             <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
             <ul class="nav navbar-nav navbar-right">
               @if(Auth::check())
 

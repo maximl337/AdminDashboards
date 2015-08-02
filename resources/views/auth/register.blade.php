@@ -10,7 +10,7 @@
 
             <div class="form-group">
                 <label>Username</label>
-                <input class="form-control" type="text" name="username" value="">
+                <input class="form-control" type="text" name="username" value="" required>
             </div>
 
 
@@ -21,12 +21,12 @@
 
             <div class="form-group">
                 <label>Password</label>
-                <input class="form-control" type="password" name="password">
+                <input class="form-control" type="password" name="password" required>
             </div>
 
             <div class="form-group">
                 <label>Confirm Password</label>
-                <input class="form-control" type="password" name="password_confirmation">
+                <input class="form-control" type="password" name="password_confirmation" required>
             </div>
 
             <div class="form-group">

@@ -19,3 +19,5 @@ Route::get('sell', 'TemplateController@create');
 Route::post('/templates', 'TemplateController@store');
 
 Route::get('templates/{id}', 'TemplateController@show');
+
+Route::get('dashboard', 'PagesController@dashboard');
