@@ -11,7 +11,7 @@
                 </div>
                 <div class="panel-body">
                     
-                    <form action="/templates" method="POST">
+                    <form enctype="multipart/form-data" action="/templates" method="POST">
                         {!! csrf_field() !!}
                         
                         <div class="form-group">
@@ -37,11 +37,12 @@
                         </div>
                         <div class="form-group">
                             <label>Description *</label>
-                            <textarea name="description" class="form-control" rows="5" value="{{ old('description') }}"></textarea>
+                            <textarea name="description" class="form-control" rows="5">{{ old('description') }}</textarea>
                         </div>
                         <div class="form-group">
-                            <label>Screenshot URL *</label>
-                            <input name="screenshot" id="screenshot" type="text" class="form-control" value="{{ old('screenshot') }}">
+                            <label>Screenshot *</label>
+                                <input type="file" name="screenshot" id="screenshot" class="form-control" />
+                            
                         </div>
                         <div class="form-group">
                             <label>Preview URL *</label>

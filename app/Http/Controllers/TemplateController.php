@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Imgur;
 use Auth;
 use App\Template;
 use App\Http\Requests;
@@ -56,6 +57,20 @@ class TemplateController extends Controller
         $input['price_multiple'] = round($request->get('price_multiple'));
 
         $input['price_extended'] = round($request->get('price_extended'));
+
+        $image_path = $request->file('screenshot')->getRealPath();
+
+        $imageData = array(
+            'image' => $image_path,
+            'type'  => 'file'
+        );
+
+        $basic = Imgur::api('image')->upload($imageData);
+
+        //parse response
+        $resp = $basic->getData();
+
+        $input['screenshot'] = $resp['link'];
 
         $template = new Template($input);
 

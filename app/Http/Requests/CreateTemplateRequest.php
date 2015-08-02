@@ -29,7 +29,7 @@ class CreateTemplateRequest extends Request
             'price_multiple'    => 'numeric',
             'price_extended'    => 'numeric',
             'description'       => 'required',
-            'screenshot'        => 'required',
+            'screenshot'        => 'required|mimes:png',
             'preview_url'       => 'required',
             'files_url'         => 'required'
         ];
