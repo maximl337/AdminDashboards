@@ -33,3 +33,4 @@ $factory->define(App\Template::class, function ($faker) {
         'files_url' => $faker->url
     ];
 });
+

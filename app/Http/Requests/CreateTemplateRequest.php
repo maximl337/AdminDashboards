@@ -24,12 +24,14 @@ class CreateTemplateRequest extends Request
     public function rules()
     {
         return [
-            'name'          => 'required', 
-            'price'         => 'required',
-            'description'   => 'required',
-            'screenshot'    => 'required',
-            'preview_url'   => 'required',
-            'files_url'     => 'required'
+            'name'              => 'required', 
+            'price'             => 'required|numeric',
+            'price_multiple'    => 'numeric',
+            'price_extended'    => 'numeric',
+            'description'       => 'required',
+            'screenshot'        => 'required',
+            'preview_url'       => 'required',
+            'files_url'         => 'required'
         ];
     }
 }

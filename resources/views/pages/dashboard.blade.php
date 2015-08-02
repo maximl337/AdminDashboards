@@ -4,7 +4,12 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            
+            @if (session('status'))
+                <div class="alert alert-success text-center">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     
@@ -80,9 +85,8 @@
                                   <th>Price</th>
                                   <th>Version</th>
                                   <th>Preview</th>
-                                  <th>Live</th>
-                                  <th>Accepted</th>
-                                  <th>Disabled</th>
+                                  <th>Approved</th>
+                                  <th>Rejected</th>
                                   <th>Submit Date</th>
                                 </tr>
                               </thead>
@@ -93,9 +97,8 @@
                                     <td>{{ $template['price'] }}</td>
                                     <td>{{ $template['version'] }}</td>
                                     <td>{{ $template['preview_url'] }}</td>
-                                    <td>pending</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $template['approved'] }}</td>
+                                    <td>{{ $template['rejected'] }}</td>
                                     <td>{{ $template['created_at'] }}</td>
                                   </tr>
                                 @endforeach
@@ -105,7 +108,7 @@
 
                             <p class="alert alert-warning">You dont have any templates</p>
 
-                            <a href="/sell">Submit a template</a>
+                            <a class="btn btn-primary" href="/sell">Submit a template</a>
 
                          @endif
                       </div>
@@ -142,7 +145,7 @@
 
                       </div>
                       <div class="tab-pane fade" id="payment-settings">
-                        <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
+                        @include('_partials._payment-settings-form', ['user' => Auth::user()])
                       </div>
                     </div>
                 </div> <!-- .panel-body -->

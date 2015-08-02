@@ -67,4 +67,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasManyThrough('App\Order', 'App\Template');
     }
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
 }

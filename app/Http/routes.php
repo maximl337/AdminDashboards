@@ -21,3 +21,5 @@ Route::post('/templates', 'TemplateController@store');
 Route::get('templates/{id}', 'TemplateController@show');
 
 Route::get('dashboard', 'PagesController@dashboard');
+
+Route::post('users/payment-settings', 'UserController@updatePaymentSettings');

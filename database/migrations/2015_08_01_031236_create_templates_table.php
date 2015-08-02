@@ -24,6 +24,9 @@ class CreateTemplatesTable extends Migration
             $table->string('preview_url');
             $table->string('files_url');
             $table->integer('user_id')->unsigned();
+            $table->boolean('approved')->default(false);
+            $table->boolean('rejected')->default(false);
+            $table->boolean('disabled')->default(false);
             $table->timestamps();
         });
 

@@ -24,7 +24,9 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        $templates = Template::all()->toArray();
+        $templates = Template::approved()->get();
+
+        $templates = $templates->toArray();
 
         return view('template.browse', compact('templates'));
     }
@@ -48,6 +50,12 @@ class TemplateController extends Controller
     public function store(CreateTemplateRequest $request)
     {
         $input = $request->input();
+
+        $input['price'] = round($input['price']);
+
+        $input['price_multiple'] = round($request->get('price_multiple'));
+
+        $input['price_extended'] = round($request->get('price_extended'));
 
         $template = new Template($input);
 

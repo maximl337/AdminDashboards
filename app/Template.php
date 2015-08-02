@@ -34,6 +34,20 @@ class Template extends Model
                 ];
 
 
+    public function scopeApproved($query)
+    {
+        return $query->where('approved', true);
+    }
+
+    public function scopeRejected($query)
+    {
+        return $query->where('rejected', true);
+    }
+
+    public function scopeDisabled($query)
+    {
+        return $query->where('disabled', true);
+    }
 
     public function user()
     {
