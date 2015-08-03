@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'local',
+    'default' => 'rackspace',
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'cloud' => 's3',
+    'cloud' => 'rackspace',
 
     /*
     |--------------------------------------------------------------------------
@@ -72,9 +72,9 @@ return [
 
         'rackspace' => [
             'driver'    => 'rackspace',
-            'username'  => 'your-username',
-            'key'       => 'your-key',
-            'container' => 'your-container',
+            'username'  => getenv('RACKSPACE_USERNAME'),
+            'key'       => getenv('RACKSPACE_KEY'),
+            'container' => getenv('RACKSPACE_CONTAINER'),
             'endpoint'  => 'https://identity.api.rackspacecloud.com/v2.0/',
             'region'    => 'IAD',
             'url_type'  => 'publicURL',

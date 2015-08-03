@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label>Screenshot *</label>
-                                <input type="file" name="screenshot" id="screenshot" class="form-control" />
+                            <input type="file" name="screenshot" id="screenshot" class="form-control" />
                             
                         </div>
                         <div class="form-group">
@@ -49,8 +49,8 @@
                             <input name="preview_url" id="preview_url" type="text" class="form-control" value="{{ old('preview_url') }}">
                         </div>
                         <div class="form-group">
-                            <label>Files URL *</label>
-                            <input name="files_url" id="files_url" type="text" class="form-control" value="{{ old('files_url') }}">
+                            <label>Files *</label> <small>Zip - max size 150 MB</small>
+                            <input name="files" id="files" type="file" class="form-control" />
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary form-control">

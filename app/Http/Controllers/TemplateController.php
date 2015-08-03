@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Imgur;
 use Auth;
+use Storage;
+use OpenCloud\Rackspace;
 use App\Template;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -58,6 +60,7 @@ class TemplateController extends Controller
 
         $input['price_extended'] = round($request->get('price_extended'));
 
+        // Handle Image
         $image_path = $request->file('screenshot')->getRealPath();
 
         $imageData = array(
@@ -71,6 +74,19 @@ class TemplateController extends Controller
         $resp = $basic->getData();
 
         $input['screenshot'] = $resp['link'];
+
+        $fileDestination = 'templates/' 
+                            . Auth::id() 
+                            . '-' . Auth::user()->templates()->count() 
+                            . '-' . $request->file('files')->getClientOriginalName();
+
+        //Handle File
+        Storage::put(
+            $fileDestination,
+            file_get_contents($request->file('files')->getRealPath())
+        );
+
+        $input['files_url'] = $fileDestination;
 
         $template = new Template($input);
 
@@ -90,6 +106,32 @@ class TemplateController extends Controller
         $template = Template::findOrFail($id);
 
         return view('template.show', compact('template'));
+    }
+
+    public function testTempUrl($id)
+    {
+        $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+            'username' => getenv('RACKSPACE_USERNAME'),
+            'apiKey'   => getenv('RACKSPACE_KEY')
+        ));
+
+        $objectStoreService = $client->objectStoreService(null, 'IAD');
+
+        $container = $objectStoreService->getContainer('bd-files');
+
+        $template = Template::find($id);
+
+        $object = $container->getObject($template->files_url);
+
+        $account = $objectStoreService->getAccount();
+
+        $account->setTempUrlSecret();
+
+        // Get a temporary URL that will expire in 3600 seconds (1 hour) from now
+        // and only allow GET HTTP requests to it.
+        $tempUrl = $object->getTemporaryUrl(3600, 'GET');
+
+        return $tempUrl;
     }
 
     /**

@@ -1,5 +1,8 @@
 <?php
 
+
+Route::get('tempUrl/{id}', 'TemplateController@testTempUrl');
+
 Route::get('/', 'PagesController@home');
 
 // Authentication routes...

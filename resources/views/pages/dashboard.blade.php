@@ -33,6 +33,7 @@
                         </ul>
                       </li>
                     </ul>
+                    <hr />
                     <div id="myTabContent" class="tab-content">
 
                       <div class="tab-pane fade active in" id="home">

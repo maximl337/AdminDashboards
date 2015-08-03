@@ -29,9 +29,9 @@ class CreateTemplateRequest extends Request
             'price_multiple'    => 'numeric',
             'price_extended'    => 'numeric',
             'description'       => 'required',
-            'screenshot'        => 'required|mimes:png',
+            'screenshot'        => 'required|image',
             'preview_url'       => 'required',
-            'files_url'         => 'required'
+            'files'             => 'required|mimes:zip|max:150000',
         ];
     }
 }
