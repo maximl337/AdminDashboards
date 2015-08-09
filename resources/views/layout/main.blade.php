@@ -53,13 +53,25 @@
             <ul class="nav navbar-nav navbar-right">
               @if(Auth::check())
 
-                <li><a href="/user/{{ Auth::id() }}">@ {{ Auth::user()->username }}</a></li>
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/auth/logout">Logout</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  @ {{ Auth::user()->username }}
+                  <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li role="separator" class="divider"></li>
+                    @if(Auth::user()->roles()->where('name', 'admin')->exists())
+                      <li><a href="/admin/">Admin</a></li>
+                    @endif
+                    <li><a href="/auth/logout">Logout</a></li>
+                  </ul>
+                </li>
+
               @else
 
                 <li><a href="/auth/login">Sign in</a></li>
                 <li><a href="/auth/register">Sign up</a></li>
+                
               @endif
              
               

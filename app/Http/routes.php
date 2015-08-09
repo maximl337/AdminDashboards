@@ -26,3 +26,10 @@ Route::get('templates/{id}', 'TemplateController@show');
 Route::get('dashboard', 'PagesController@dashboard');
 
 Route::post('users/payment-settings', 'UserController@updatePaymentSettings');
+
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+
+    Route::get('/', 'AdminController@index');
+    
+});
