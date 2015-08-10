@@ -55,7 +55,6 @@ class OrderController extends Controller
                 //create order
                     
             }
-            
 
         } 
         else if (strcmp ($res, "INVALID") == 0) {
