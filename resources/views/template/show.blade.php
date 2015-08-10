@@ -39,7 +39,7 @@
                         data-currency="CAD" 
                         data-shipping="0" 
                         data-tax="3.50" 
-                        data-callback="http://localhost:8888/paypal/callback" 
+                        data-callback="{{ url('/') }} . paypal/ipn" 
                         data-custom="template_id:{{ $template->id }}"
                         data-env="sandbox"
                         data-notify_url="http://localhost:8888/paypal/ipn"
