@@ -32,6 +32,7 @@ class OrderController extends Controller
 
         $res = $response->getBody();
 
+        Log::info($res);
         
         if (strcmp ($res, "VERIFIED") == 0) {
 
