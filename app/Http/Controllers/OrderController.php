@@ -32,7 +32,7 @@ class OrderController extends Controller
 
         $res = $response->getBody();
 
-        Log::info($res);
+
         
         if (strcmp ($res, "VERIFIED") == 0) {
 
@@ -54,14 +54,21 @@ class OrderController extends Controller
                 $paypalIpn = PaypalIpn::create($input);
 
                 //create order
-                    
+                Log::info('created a paypal transaction record');
             }
 
         } 
         else if (strcmp ($res, "INVALID") == 0) {
 
-            return "Payment is not legit yo!!!";
+            
+            Log::error('Payment was not successful or transaction was old');
+
+            throw new \Exception('Payment was not successful or transaction was old');
         }
-        
+        else {
+            Log::error("Paypal Ipn Failed" . $res);
+
+            throw new \Exception("Paypal Ipn Failed" . $res);
+        }
     }
 }
