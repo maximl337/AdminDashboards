@@ -21,7 +21,7 @@ class OrderController extends Controller
 
         $input = $request->input();
 
-        PaypalDump::create(['dump' => implode(",", $input)]);
+
 
         $input = ['cmd' => '_notify-validate'] + $input;
 
@@ -35,6 +35,11 @@ class OrderController extends Controller
 
         $res = $response->getBody();
 
+        PaypalDump::create([
+            'dump'      => serialize($input),
+            'response'  => $res
+
+            ]);
 
         
         if (strcmp ($res, "VERIFIED") == 0) {

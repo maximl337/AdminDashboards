@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PaypalDump extends Model
 {
     protected $fillable = [
-        'dump'
+        'dump',
+        'response'
     ];
 }
