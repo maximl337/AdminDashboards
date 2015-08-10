@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "redeman/imgur-laravel": "^0.0.2",
         "league/flysystem-rackspace": "~1.0",
-        "rackspace/php-opencloud": "^1.14"
+        "rackspace/php-opencloud": "^1.14",
+        "fzaninotto/faker": "~1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
