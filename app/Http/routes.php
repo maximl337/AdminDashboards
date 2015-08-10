@@ -27,6 +27,12 @@ Route::get('dashboard', 'PagesController@dashboard');
 
 Route::post('users/payment-settings', 'UserController@updatePaymentSettings');
 
+Route::post('paypal/ipn', 'OrderController@paypalIPN');
+
+Route::get('paypal/callback', function() {
+
+    return "Thank you for your payment. Your transaction has been completed, and a receipt for your purchase has been emailed to you. You may log into your account at www.sandbox.paypal.com/ca to view details of this transaction.";
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
 

@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-7 col-md-offset-1">
             
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -24,6 +24,30 @@
             </div>
 
             @include('errors.list')
+        </div>
+
+        <div class="col-md-2">
+            
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        
+                    <script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=angad_dubey_bd@hotmail.com" 
+                        data-button="buynow" 
+                        data-name="{{ $template->name }}" 
+                        data-quantity="1" 
+                        data-amount="{{ $template->price }}" 
+                        data-currency="CAD" 
+                        data-shipping="0" 
+                        data-tax="3.50" 
+                        data-callback="http://localhost:8888/paypal/callback" 
+                        data-custom="template_id:{{ $template->id }}"
+                        data-env="sandbox"
+                        data-notify_url="http://localhost:8888/paypal/ipn"
+                    ></script>
+
+
+                </div>
+            </div>
         </div>
     </div>
 

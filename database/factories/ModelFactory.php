@@ -25,12 +25,13 @@ $factory->define(App\User::class, function ($faker) {
 $factory->define(App\Template::class, function ($faker) {
     return [
         'name' => $faker->sentence, 
-        'price' => $faker->randomFloat, 
+        'price' => 20, 
         'version' => $faker->randomFloat,
         'description' => $faker->text,
         'screenshot' => $faker->imageUrl($width=600, $height=375, 'nature', true, 'Faker'),
         'preview_url' => $faker->url,
-        'files_url' => $faker->url
+        'files_url' => $faker->url,
+        'approved'  => true
     ];
 });
 

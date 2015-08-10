@@ -58,5 +58,10 @@ class Template extends Model
     {
         return $this->hasMany('App\Order');
     }
+
+    public function paypalipn()
+    {
+        return $this->hasMany('App\PaypalIpn');
+    }
     
 }

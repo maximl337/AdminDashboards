@@ -20,10 +20,8 @@
                             <img src="{{ $template['screenshot'] }}" class="template-screenshot">
                           </div>
                             <div class="panel-footer">
-                                <a href="#" class="btn btn-primary">Preview</a>
-
-            
-                                <a href="/templates/{{ $template['id'] }}" class="btn btn-primary">Details</a>
+                                <a href="/templates/{{ $template['id'] }}" class="btn btn-primary">Preview</a>
+                                <a href="/templates/{{ $template['id'] }}" class="btn btn-primary pull-right">Details</a>
                             </div>
                         </div>
                     </div>
