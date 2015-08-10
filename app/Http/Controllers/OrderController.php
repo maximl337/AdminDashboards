@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Guzzle\Service\Client as GuzzleClient;
 use Log;
 use App\PaypalIpn;
+use App\PaypalDump;
 use App\Order;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -19,6 +20,8 @@ class OrderController extends Controller
         //Log::debug($request->all());
 
         $input = $request->input();
+
+        PaypalDump::create(['dump' => implode(",", $input)]);
 
         $input = ['cmd' => '_notify-validate'] + $input;
 
