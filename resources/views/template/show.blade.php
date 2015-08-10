@@ -18,8 +18,6 @@
                         {{ $template->description }}
                     </h5>
                     <p>$ {{ $template->price }}</p>
-
-                    <button class="btn btn-primary">Purchase</button>
                 </div>
             </div>
 
@@ -39,10 +37,10 @@
                         data-currency="CAD" 
                         data-shipping="0" 
                         data-tax="3.50" 
-                        data-callback="{{ url('/') }} . paypal/ipn" 
-                        data-custom="template_id:{{ $template->id }}"
+                        data-callback="{{ url('/') }} . paypal/callback" 
+                        data-custom="{{ $template->id . ', single' }}"
                         data-env="sandbox"
-                        data-notify_url="http://localhost:8888/paypal/ipn"
+                        data-notify_url="{{ url('/') }} . paypal/ipn"
                     ></script>
 
 
