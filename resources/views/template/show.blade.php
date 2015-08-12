@@ -29,7 +29,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                         
-                    <script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=angad_dubey_bd@hotmail.com" 
+                <script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant={{ env('PAYPAL_MERCHANT_ACCOUNT_ID') }}"
                         data-button="buynow" 
                         data-name="{{ $template->name }}" 
                         data-quantity="1" 

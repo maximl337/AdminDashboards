@@ -21,8 +21,6 @@ class OrderController extends Controller
 
         $input = $request->input();
 
-
-
         $input = ['cmd' => '_notify-validate'] + $input;
 
         $preValidateUrl = http_build_query($input);
