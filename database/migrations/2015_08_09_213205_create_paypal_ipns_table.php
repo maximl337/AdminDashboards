@@ -55,6 +55,7 @@ class CreatePaypalIpnsTable extends Migration
             $table->string('transaction_subject')->nullable();
             $table->string('payment_gross')->nullable();
             $table->string('shipping')->nullable();
+            $table->string('item_number')->nullable();
 
             $table->timestamps();
         });
