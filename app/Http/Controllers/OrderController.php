@@ -133,10 +133,19 @@ class OrderController extends Controller
 
             } elseif($status == 'SUCC') {
               
-              // Do success stuff
-              
-              list($key,$val) = explode("=", $contents);
-              $response[urldecode($key)] = urldecode($val);
+                // Do success stuff
+                $lines = explode("\n", $res);
+ 
+                $response = array();
+
+                for ($i=1; $i<count($lines);$i++) {
+
+                    list($key,$val) = explode("=", $lines[$i]);
+
+                    $response[urldecode($key)] = urldecode($val);
+
+                }
+                
 
               return $response;
 
