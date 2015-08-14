@@ -59,14 +59,14 @@ class OrderController extends Controller
 
         $preValidateUrl = http_build_query($req);
 
-        //$validateUrl = '?' . $preValidateUrl;
+        $validateUrl = '?' . $preValidateUrl;
          
         
         //$req .= "&tx=$tx_token&at=$auth_token";
 
         $client = new GuzzleClient(getenv('PAYPAL_HOST_URL'));
 
-        $response = $client->post($preValidateUrl)->send();
+        $response = $client->post($validateUrl)->send();
 
         $res = $response->getBody();
 
