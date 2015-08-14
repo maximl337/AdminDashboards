@@ -45,15 +45,26 @@ class OrderController extends Controller
     {
         $pp_hostname = env('PAYPAL_HOST_URL'); 
 
-        $req = '?cmd=_notify-synch';
+        //$req = '?cmd=_notify-synch';
+
+        $req = [
+            "cmd" => "_notify-synch",
+            "tx"  => $tx_token,
+            "at"  => $auth_token
+        ];
+
+
+        $preValidateUrl = http_build_query($req);
+
+        $validateUrl = '?' . $preValidateUrl;
          
         $tx_token = $transaction_id;
         $auth_token = env('PAYPAL_PDT_TOKEN');
-        $req .= "&tx=$tx_token&at=$auth_token";
+        //$req .= "&tx=$tx_token&at=$auth_token";
 
         $client = new GuzzleClient(getenv('PAYPAL_HOST_URL'));
 
-        $response = $client->post($req)->send();
+        $response = $client->post($validateUrl)->send();
 
         $res = $response->getBody();
 
