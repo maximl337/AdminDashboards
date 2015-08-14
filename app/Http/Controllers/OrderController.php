@@ -8,6 +8,7 @@ use Guzzle\Service\Client as GuzzleClient;
 use Log;
 use App\PaypalIpn;
 use App\PaypalDump;
+use App\PaypalPdt;
 use App\Order;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -66,6 +67,45 @@ class OrderController extends Controller
         // $response = $client->post($validateUrl)->send();
 
         // $res = $response->getBody();
+        // 
+        // SUCCESS 
+        // mc_gross=23.50 
+        // protection_eligibility=Eligible 
+        // address_status=confirmed 
+        // payer_id=S9H3YCCR9VKX2 
+        // tax=3.50 
+        // address_street=1+Maire-Victorin 
+        // payment_date=20%3A02%3A41+Aug+13%2C+2015+PDT 
+        // payment_status=Completed 
+        // charset=windows-1252 
+        // address_zip=M5A+1E1 
+        // first_name=Angad 
+        // mc_fee=0.98 
+        // address_country_code=CA 
+        // address_name=Angad+Dubey 
+        // custom=12%2Csingle 
+        // payer_status=verified 
+        // business=angad_dubey_bd_seller%40gmail.com 
+        // address_country=Canada 
+        // address_city=Toronto 
+        // quantity=1 
+        // payer_email=angad_dubey_bd_buyer%40hotmail.com 
+        // txn_id=63W73412XG250043F 
+        // payment_type=instant 
+        // last_name=Dubey 
+        // address_state=Ontario 
+        // receiver_email=angad_dubey_bd_seller%40gmail.com 
+        // payment_fee= 
+        // receiver_id=H3JF3H2DJ7EKG 
+        // txn_type=web_accept 
+        // item_name=Deserunt+perferendis+molestias+reiciendis+adipisci+animi. 
+        // mc_currency=CAD 
+        // item_number= 
+        // residence_country=CA 
+        // handling_amount=0.00 
+        // transaction_subject=12%2Csingle 
+        // payment_gross= 
+        // shipping=0.00
 
         $req = 'cmd=_notify-synch';
         $tx_token = $_GET['tx'];
@@ -82,15 +122,24 @@ class OrderController extends Controller
 
         if(!$contents || $response_code != 200) {
             // HTTP error or bad response, do something
-            abort(500);
+            abort($response_code);
         } else {
            // Check PayPal verification (FAIL or SUCCESS)
            $status = substr($contents, 0, 4);
+
            if($status == 'FAIL') {
+
               abort(422);
+
             } elseif($status == 'SUCC') {
+              
               // Do success stuff
-              return $contents;
+              
+              list($key,$val) = explode("=", $contents);
+              $response[urldecode($key)] = urldecode($val);
+
+              return $response;
+
             }
         }
     }
