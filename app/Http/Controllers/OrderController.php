@@ -26,10 +26,18 @@ class OrderController extends Controller
         $licence_type       = $customVars[0];
         $user_id            = isset($customVars[1]) ? $customVars[1] : "";
 
-        
+        $res = $this->paypalPDT($transaction_id);
+
+
+        // user comes back on the payment confirmation
+        // check if PDT of the transaction
+        // if transaction was successful create an order 
+
+
+                                                                              
 
         
-        return view('payment.confirmation');
+        return view('payment.confirmation', compact('res'));
 
     }
 
@@ -52,6 +60,7 @@ class OrderController extends Controller
         if(!$res){
             abort(404);
         } else {
+            return $res;
             // parse the data
             $lines = explode("\n", $res);
             $keyarray = array();
@@ -63,6 +72,7 @@ class OrderController extends Controller
                     $keyarray[urldecode($key)] = urldecode($val);
                 }
                 // check the payment_status is Completed
+             
                 // check that txn_id has not been previously processed
                 // check that receiver_email is your Primary PayPal email
                 // check that payment_amount/payment_currency are correct
