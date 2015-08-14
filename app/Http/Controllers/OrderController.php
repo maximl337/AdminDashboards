@@ -47,6 +47,9 @@ class OrderController extends Controller
 
         //$req = '?cmd=_notify-synch';
 
+        $tx_token = $transaction_id;
+        $auth_token = env('PAYPAL_PDT_TOKEN');
+        
         $req = [
             "cmd" => "_notify-synch",
             "tx"  => $tx_token,
@@ -58,8 +61,7 @@ class OrderController extends Controller
 
         $validateUrl = '?' . $preValidateUrl;
          
-        $tx_token = $transaction_id;
-        $auth_token = env('PAYPAL_PDT_TOKEN');
+        
         //$req .= "&tx=$tx_token&at=$auth_token";
 
         $client = new GuzzleClient(getenv('PAYPAL_HOST_URL'));
