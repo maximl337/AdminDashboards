@@ -147,7 +147,7 @@ class OrderController extends Controller
                 }
                 
 
-              return $response;
+              return $contents;
 
             }
         }
