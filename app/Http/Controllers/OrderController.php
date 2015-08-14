@@ -134,7 +134,7 @@ class OrderController extends Controller
             } elseif($status == 'SUCC') {
               
                 // Do success stuff
-                $lines = explode("\n", $res);
+                $lines = explode("\n", $contents);
  
                 $response = array();
 
