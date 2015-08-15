@@ -123,7 +123,7 @@ class OrderController extends Controller
 
                 }
 
-            return $keyarray;
+            return $res;
             // check the payment_status is Completed
             // check that txn_id has not been previously processed
             // check that receiver_email is your Primary PayPal email
