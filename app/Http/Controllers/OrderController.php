@@ -103,18 +103,18 @@ class OrderController extends Controller
         // //set cacert.pem verisign certificate path in curl using 'CURLOPT_CAINFO' field here,
         // //if your server does not bundled with default verisign certificates.
         // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, array("Host: $pp_hostname"));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Host: www.sandbox.paypal.com"));
         $res = curl_exec($ch);
         curl_close($ch);
 
         if(!$res){
-            //HTTP ERROR
+            return "error";
         } else {
              // parse the data
             $lines = explode(" ", $res);
 
             $keyarray = [];
-            
+
             if (strcmp ($lines[0], "SUCCESS") == 0) {
 
                 for ($i=1; $i<count($lines);$i++) {
