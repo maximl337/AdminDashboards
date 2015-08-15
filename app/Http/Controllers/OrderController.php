@@ -125,28 +125,11 @@ class OrderController extends Controller
 
                 }
 
-            return $keyarray;
-            // check the payment_status is Completed
-            // check that txn_id has not been previously processed
-            // check that receiver_email is your Primary PayPal email
-            // check that payment_amount/payment_currency are correct
-            // process payment
-            // $firstname = $keyarray['first_name'];
-            // $lastname = $keyarray['last_name'];
-            // $itemname = $keyarray['item_name'];
-            // $amount = $keyarray['payment_gross'];
-             
-            // echo ("<p><h3>Thank you for your purchase!</h3></p>");
-             
-            // echo ("<b>Payment Details</b><br>\n");
-            // echo ("<li>Name: $firstname $lastname</li>\n");
-            // echo ("<li>Item: $itemname</li>\n");
-            // echo ("<li>Amount: $amount</li>\n");
-            // echo ("");
+            return $res;
             }
             else if (strcmp ($lines[0], "FAIL") == 0) {
                 // log for manual investigation
-                abort(500);
+                return "error";
             }
         }
     }
