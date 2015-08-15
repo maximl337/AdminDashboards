@@ -112,18 +112,20 @@ class OrderController extends Controller
         } else {
              // parse the data
             $lines = explode(" ", $res);
-            // $keyarray = array();
+
+            $keyarray = [];
+            
             if (strcmp ($lines[0], "SUCCESS") == 0) {
 
-                // for ($i=1; $i<count($lines);$i++) {
+                for ($i=1; $i<count($lines);$i++) {
 
-                //     list($key,$val) = explode("=", $lines[$i]);
+                    list($key,$val) = explode("=", $lines[$i]);
 
-                //     $keyarray[urldecode($key)] = urldecode($val);
+                    $keyarray[urldecode($key)] = urldecode($val);
 
-                // }
+                }
 
-            return $lines;
+            return $keyarray;
             // check the payment_status is Completed
             // check that txn_id has not been previously processed
             // check that receiver_email is your Primary PayPal email
