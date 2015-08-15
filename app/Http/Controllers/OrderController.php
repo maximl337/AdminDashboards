@@ -44,111 +44,107 @@ class OrderController extends Controller
 
     protected function paypalPDT($transaction_id)
     {
-        // $pp_hostname = env('PAYPAL_HOST_URL'); 
 
-        // //$req = '?cmd=_notify-synch';
-
-        // $tx_token = $transaction_id;
-        // $auth_token = env('PAYPAL_PDT_TOKEN');
-
-        // $req = [
-        //     "cmd" => "_notify-synch",
-        //     "tx"  => $tx_token,
-        //     "at"  => $auth_token
-        // ];
-
-
-        // $preValidateUrl = http_build_query($req);
-
-        // $validateUrl = '?' . $preValidateUrl;
-
-        // $client = new GuzzleClient(getenv('PAYPAL_HOST_URL'));
-
-        // $response = $client->post($validateUrl)->send();
-
-        // $res = $response->getBody();
-        // 
-        // SUCCESS 
-        // mc_gross=23.50 
-        // protection_eligibility=Eligible 
-        // address_status=confirmed 
-        // payer_id=S9H3YCCR9VKX2 
-        // tax=3.50 
-        // address_street=1+Maire-Victorin 
-        // payment_date=20%3A02%3A41+Aug+13%2C+2015+PDT 
-        // payment_status=Completed 
-        // charset=windows-1252 
-        // address_zip=M5A+1E1 
-        // first_name=Angad 
-        // mc_fee=0.98 
-        // address_country_code=CA 
-        // address_name=Angad+Dubey 
-        // custom=12%2Csingle 
-        // payer_status=verified 
-        // business=angad_dubey_bd_seller%40gmail.com 
-        // address_country=Canada 
-        // address_city=Toronto 
-        // quantity=1 
-        // payer_email=angad_dubey_bd_buyer%40hotmail.com 
-        // txn_id=63W73412XG250043F 
-        // payment_type=instant 
-        // last_name=Dubey 
-        // address_state=Ontario 
-        // receiver_email=angad_dubey_bd_seller%40gmail.com 
-        // payment_fee= 
-        // receiver_id=H3JF3H2DJ7EKG 
-        // txn_type=web_accept 
-        // item_name=Deserunt+perferendis+molestias+reiciendis+adipisci+animi. 
-        // mc_currency=CAD 
-        // item_number= 
-        // residence_country=CA 
-        // handling_amount=0.00 
-        // transaction_subject=12%2Csingle 
-        // payment_gross= 
-        // shipping=0.00
 
         $req = 'cmd=_notify-synch';
         $tx_token = $_GET['tx'];
         $auth_token = env('PAYPAL_PDT_TOKEN');
         $req .= '&tx='.$tx_token.'&at='.$auth_token;
-        // Post back to PayPal to validate
-        $c = curl_init(env('PAYPAL_HOST_URL')); // SANDBOX
-        curl_setopt($c, CURLOPT_POST, true);
-        curl_setopt($c, CURLOPT_POSTFIELDS, $req);
-        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-        $contents = curl_exec($c);
-        $response_code = curl_getinfo($c, CURLINFO_HTTP_CODE);
-        curl_close($c);
 
-        if(!$contents || $response_code != 200) {
-            // HTTP error or bad response, do something
-            abort($response_code);
-        } else {
-           // Check PayPal verification (FAIL or SUCCESS)
-           $status = substr($contents, 0, 4);
 
-           if($status == 'FAIL') {
 
-              abort(422);
+        // // Post back to PayPal to validate
+        // $c = curl_init(env('PAYPAL_HOST_URL')); // SANDBOX
+        // curl_setopt($c, CURLOPT_POST, 1);
+        // curl_setopt($c, CURLOPT_POSTFIELDS, $req);
+        // curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+        // $contents = curl_exec($c);
+        // $response_code = curl_getinfo($c, CURLINFO_HTTP_CODE);
+        // curl_close($c);
 
-            } elseif($status == 'SUCC') {
+        // if(!$contents || $response_code != 200) {
+        //     // HTTP error or bad response, do something
+        //     abort($response_code);
+        // } else {
+        //    // Check PayPal verification (FAIL or SUCCESS)
+        //    $status = substr($contents, 0, 4);
+
+        //    if($status == 'FAIL') {
+
+        //       abort(422);
+
+        //     } elseif($status == 'SUCC') {
               
-                //Do success stuff
-                $lines = explode(" ", $contents);
+        //         //Do success stuff
+        //         $lines = explode(" ", $contents);
  
-                $response = array();
+        //         $response = array();
+
+        //         for ($i=1; $i<count($lines);$i++) {
+
+        //             list($key,$val) = explode("=", $lines[$i]);
+
+        //             $response[urldecode($key)] = urldecode($val);
+
+        //         }
+                
+
+        //       return $response;
+
+        //     }
+        // }
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, env('PAYPAL_HOST_URL'));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+        // //set cacert.pem verisign certificate path in curl using 'CURLOPT_CAINFO' field here,
+        // //if your server does not bundled with default verisign certificates.
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, array("Host: $pp_hostname"));
+        $res = curl_exec($ch);
+        curl_close($ch);
+
+        if(!$res){
+            //HTTP ERROR
+        } else {
+             // parse the data
+            $lines = explode("\n", $res);
+            $keyarray = array();
+            if (strcmp ($lines[0], "SUCCESS") == 0) {
 
                 for ($i=1; $i<count($lines);$i++) {
 
-                    list($key,$val) = explode("=", $lines[$i]);
+                list($key,$val) = explode("=", $lines[$i]);
 
-                    $response[urldecode($key)] = urldecode($val);
+                $keyarray[urldecode($key)] = urldecode($val);
 
                 }
-                
 
-              return $response;
-
+            return $keyarray;
+            // check the payment_status is Completed
+            // check that txn_id has not been previously processed
+            // check that receiver_email is your Primary PayPal email
+            // check that payment_amount/payment_currency are correct
+            // process payment
+            // $firstname = $keyarray['first_name'];
+            // $lastname = $keyarray['last_name'];
+            // $itemname = $keyarray['item_name'];
+            // $amount = $keyarray['payment_gross'];
+             
+            // echo ("<p><h3>Thank you for your purchase!</h3></p>");
+             
+            // echo ("<b>Payment Details</b><br>\n");
+            // echo ("<li>Name: $firstname $lastname</li>\n");
+            // echo ("<li>Item: $itemname</li>\n");
+            // echo ("<li>Amount: $amount</li>\n");
+            // echo ("");
+            }
+            else if (strcmp ($lines[0], "FAIL") == 0) {
+                // log for manual investigation
+                abort(500);
             }
         }
     }
