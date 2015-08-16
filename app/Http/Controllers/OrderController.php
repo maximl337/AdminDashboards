@@ -88,6 +88,8 @@ class OrderController extends Controller
 
                     $t = explode("=", $line);
 
+                    if(!isset($t[1])) $t[1] = null;
+                    
                     $response[urldecode($t[0])] = urldecode($t[1]);
 
                 } // end foreach
