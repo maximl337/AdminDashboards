@@ -91,7 +91,7 @@ class OrderController extends Controller
 
                 //return $contents;
 
-                $c = explode(" ", $contents);
+                $c = explode("\n", $contents);
 
                 return $c;
 
