@@ -94,7 +94,7 @@ class OrderController extends Controller
 
                 $paypalpdt = PaypalPdt::create($response);
 
-                $template = Template::find($response['template_id'])->exists();
+                $template = Template::find($response['template_id']);
 
                 if(!$template) return "Template with the given ID does not exist";
 
