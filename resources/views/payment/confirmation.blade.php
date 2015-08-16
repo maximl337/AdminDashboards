@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
         
-            @if($internalResp['status'] == true)
+            @if($res['status'] == true)
         
                 <div class="panel panel-success">
                     <div class="panel-heading">
@@ -14,23 +14,23 @@
                     </div>
                     <div class="panel-body">
                         
-                        <p class="alert alert-success"> {{ $internalResp['message'] }} </p> <hr />
+                        <p class="alert alert-success"> {{ $res['message'] }} </p> <hr />
 
                         <h4> Transaction Details </h4>
 
                         <ul class="list-group">
-                          <li class="list-group-item">First Name: {{ $internalResp['transaction']['first_name'] }}</li>
-                          <li class="list-group-item">Last Name: {{ $internalResp['transaction']['last_name'] }}</li>
-                          <li class="list-group-item">Amount: {{ $internalResp['transaction']['amount'] }} CAD</li>
-                          <li class="list-group-item">Template: {{ $internalResp['transaction']['template']->name }}</li>
+                          <li class="list-group-item">First Name: {{ $res['transaction']['first_name'] }}</li>
+                          <li class="list-group-item">Last Name: {{ $res['transaction']['last_name'] }}</li>
+                          <li class="list-group-item">Amount: {{ $res['transaction']['amount'] }} CAD</li>
+                          <li class="list-group-item">Template: {{ $res['transaction']['template']->name }}</li>
                         </ul>
                         <hr />
 
                         <h4>Files</h4>
 
-                        <a class="btn btn-lg btn-success" href="{{ $internalResp['file']['url'] }}">Download File</a><br />
+                        <a class="btn btn-lg btn-success" href="{{ $res['file']['url'] }}">Download File</a><br />
                         
-                        <p><small>{{ $internalResp['file']['message']  }}</small></p>
+                        <p><small>{{ $res['file']['message']  }}</small></p>
                     </div>
                 </div>
 
@@ -42,7 +42,7 @@
                     </div>
                     <div class="panel-body">
                         
-                        <p class="alert alert-danger text-center"> {{ $internalResp['message'] }} </p> <hr />
+                        <p class="alert alert-danger text-center"> {{ $res['message'] }} </p> <hr />
 
                     </div>
                 </div>
