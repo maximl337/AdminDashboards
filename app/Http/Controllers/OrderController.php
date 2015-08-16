@@ -89,7 +89,11 @@ class OrderController extends Controller
                 // }
                 
 
-              return $contents;
+                //return $contents;
+
+                $c = explode(" ", $contents);
+
+                return $c;
 
             }
         }
