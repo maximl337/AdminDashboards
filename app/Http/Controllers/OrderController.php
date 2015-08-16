@@ -9,6 +9,7 @@ use Log;
 use App\PaypalIpn;
 use App\PaypalDump;
 use App\PaypalPdt;
+use App\Template;
 use App\Order;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
