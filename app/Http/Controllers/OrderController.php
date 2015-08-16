@@ -45,6 +45,10 @@ class OrderController extends Controller
     {
 
 
+        $internalResp = [
+            'status'    => false
+        ];
+
         // params to post
         $req = 'cmd=_notify-synch';
         $tx_token = $_GET['tx'];
@@ -68,7 +72,9 @@ class OrderController extends Controller
         if(!$contents || $response_code != 200) {
 
             // HTTP error or bad response, do something
-            return $response_code;
+            $internalResp['message'] = 'There was an HTTP failure. Transaction details have been recorded and will be investigated.'; 
+
+            return $internalResp;
 
         } else {
 
@@ -77,7 +83,9 @@ class OrderController extends Controller
 
            if($status == 'FAIL') {
 
-              return "Payment Failed";
+              $internalResp['message'] = 'Paypal reported transaction as Failed. We have recorded all the information and will investigate.';
+
+              return $internalResp;
 
             } elseif($status == 'SUCC') {
               
@@ -103,16 +111,33 @@ class OrderController extends Controller
 
                 $template = Template::find($response['template_id']);
 
-                if(!$template) return "Template with the given ID does not exist";
+                if(!$template) {
+
+                    $internalResp['message'] = 'The request Template was not found in the system. We have recorded the transaction and will investigate';
+
+                    return $internalResp;
+
+                }
 
                 // check that txn_id has not been previously processed
                 $orderExists = Order::where('txn_id', $response['txn_id'])->exists();
 
-                if($orderExists) return "This Order has been processed in the past.";
+                if($orderExists) {
+
+                    $internalResp['message'] = 'Our records indicate that this Transaction has been previously fullfilled.';
+
+                    return $internalResp;
+                }
             
                 // check that receiver_email is your Primary PayPal email
 
-                if($response['receiver_id'] != env('PAYPAL_MERCHANT_ACCOUNT_ID')) return "This Transaction does not belong to our ID";
+                if($response['receiver_id'] != env('PAYPAL_MERCHANT_ACCOUNT_ID')) {
+
+                    $internalResp['message'] = 'The transaction was not wired to the right account. We have recorded the transaction and will investigate';
+
+                    return $internalResp;
+
+                }
 
                 // check that payment_amount/payment_currency are correct
 
@@ -134,13 +159,20 @@ class OrderController extends Controller
                 }
                 elseif (empty($response['custom'])) {
 
-                    return "Licence type was not given";
+                    $internalResp['message'] = 'The correct licence was not provided. We have recorded the transaction and will investigate.';
+
+                    return $internalResp;
 
                 }
 
-                if($paypalTxnPrice != $templatePrice) 
+                if($paypalTxnPrice != $templatePrice) {
 
-                    return "The payment price of the transaction does not match the amount in our records. Expected: " . $template->price . " | Given: " . $paypalTxnPrice;
+                    $internalResp['message'] = "The payment price of the transaction does not match the price in our records for the template. Expected: " . $template->price . " | Given: " . $paypalTxnPrice . "<br /> We have recoded the transaction and will investigate";
+
+                    return $internalResp;
+                }
+
+                   
 
                 $paypalpdt = PaypalPdt::create($response);
 
@@ -154,7 +186,13 @@ class OrderController extends Controller
                         'tax'                       => $response['tax']
                     ]);
 
-                if($response['payment_status'] !== 'Completed') return "Payment failed";
+                if($response['payment_status'] !== 'Completed') {
+
+                    $internalResp['message'] = 'Paypal indicates this transaction as: ' . $response['payment_status'] . '<br /> We have recorded the transaction and will investigate.';
+
+                    return $internalResp;
+
+                }
 
 
                 $fileUrl = $this->storage->getTempUrl($template->files_url);
@@ -167,7 +205,26 @@ class OrderController extends Controller
 
                 // get rackspack link - investigate bootwrap
 
-                return $fileUrl;  
+                $internalResp['status'] = true;
+
+                $internalResp['message'] = 'Thank you for your payment. Your transaction has been completed, and a receipt for your purchase has been emailed to you. You may log into your account at www.sandbox.paypal.com/ca to view details of this transaction.';
+
+                $internalResp['transaction'] = [
+                    'first_name' => $response['first_name'],
+                    'last_name' => $response['last_name'],
+                    'amount' => $response['mc_gross'],
+                    'template' => $template
+
+                ];
+
+                $internalResp['file'] = [
+                    'url' => $fileUrl,
+                    'message' => 'This URL will only work for <strong>One Hour</strong>!'
+                ];
+                
+                return $internalResp;
+
+                  
 
             } // EO success
 
