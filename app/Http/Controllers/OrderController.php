@@ -112,21 +112,21 @@ class OrderController extends Controller
 
                 $paypalTxnPrice = (float) $response['mc_gross'] - (float) $response['tax'];
 
-                if($response['cm'] == 'single') {
+                if($response['custom'] == 'single') {
 
                     $templatePrice = $template->price;
                 }
-                elseif ($response['cm'] == 'multiple') {
+                elseif ($response['custom'] == 'multiple') {
 
                     $templatePrice = $template->price_multiple;
 
                 }
-                elseif ($response['cm'] == 'extended') {
+                elseif ($response['custom'] == 'extended') {
 
                     $templatePrice = $template->price_extended;
 
                 }
-                elseif (empty($response['cm'])) {
+                elseif (empty($response['custom'])) {
 
                     return "Licence type was not given";
 
