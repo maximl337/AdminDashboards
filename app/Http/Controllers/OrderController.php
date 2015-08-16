@@ -82,7 +82,7 @@ class OrderController extends Controller
  
                 $response = [];
 
-                for ($i=0; $i<count($lines);$i++) {
+                for ($i=1; $i<count($lines);$i++) {
 
                     list($key,$val) = explode("=", $lines[$i]);
 
