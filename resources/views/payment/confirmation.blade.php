@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
         
-            @if($interalResp['status'] == true)
+            @if($internalResp['status'] == true)
         
                 <div class="panel panel-success">
                     <div class="panel-heading">
