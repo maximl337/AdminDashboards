@@ -38,7 +38,7 @@
                         data-shipping="0" 
                         data-tax="3.50" 
                         data-callback="{{ url('/') }}/paypal/callback" 
-                        data-custom="{{ $data['licence_type'] }}"
+                        data-custom="{{ $data['license_type'] }}"
                         data-env="sandbox"
                         data-notify_url="{{ url('/') }}/paypal/ipn"
                         data-item_number="{{ $data['template']->id }}"
