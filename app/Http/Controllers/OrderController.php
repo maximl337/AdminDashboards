@@ -33,10 +33,6 @@ class OrderController extends Controller
         // user comes back on the payment confirmation
         // check if PDT of the transaction
         // if transaction was successful create an order 
-
-
-                                                                              
-
         
         return view('payment.confirmation', compact('res'));
 

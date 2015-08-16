@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaypalPdt extends Model
 {
+    protected $table = 'paypal_pdts';
+    
     protected $fillable = [
             'mc_gross',
             'protection_eligibility',
