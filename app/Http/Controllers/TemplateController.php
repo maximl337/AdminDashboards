@@ -101,11 +101,32 @@ class TemplateController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $template = Template::findOrFail($id);
 
-        return view('template.show', compact('template'));
+        $license_type = $request->get('license_type') ?: 'single';
+
+        if($license_type == 'single') {
+
+            $amount = $template->price;
+        }
+        elseif($license_type == 'multiple') {
+
+            $amount = $template->price * 4;
+        }
+        elseif($license_type == 'extended') {
+
+            $amount = "80.00";
+        }
+
+        $data = [
+            'template'      => $template,
+            'amount'        => $amount,
+            'license_type'  => $license_type
+        ];
+
+        return view('template.show', compact('data'));
     }
 
     public function testTempUrl($id)

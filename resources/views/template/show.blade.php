@@ -7,17 +7,17 @@
             
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>{{ $template->name }}</h4>
+                    <h4>{{ $data['template']->name }}</h4>
                 </div>
                 <div class="panel-body">
-                    <img src="{{ $template->screenshot }}" class="template-screenshot">
+                    <img src="{{ $data['template']->screenshot }}" class="template-screenshot">
                     
                 </div>
                 <div class="panel-footer">
                     <h5>
-                        {{ $template->description }}
+                        {{ $data['template']->description }}
                     </h5>
-                    <p>$ {{ $template->price }}</p>
+                    <p>$ {{ $data['template']->price }}</p>
                 </div>
             </div>
 
@@ -31,17 +31,17 @@
                         
                 <script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant={{ getenv('PAYPAL_MERCHANT_ACCOUNT_ID') }}"
                         data-button="buynow" 
-                        data-name="{{ $template->name }}" 
+                        data-name="{{ $data['template']->name }}" 
                         data-quantity="1" 
-                        data-amount="{{ $template->price }}" 
+                        data-amount="{{ $data['amount'] }}" 
                         data-currency="CAD" 
                         data-shipping="0" 
                         data-tax="3.50" 
                         data-callback="{{ url('/') }}/paypal/callback" 
-                        data-custom="{{ $_GET['licence_type'] ?: 'single' }}"
+                        data-custom="{{ $data['licence_type'] }}"
                         data-env="sandbox"
                         data-notify_url="{{ url('/') }}/paypal/ipn"
-                        data-item_number="{{ $template->id }}"
+                        data-item_number="{{ $data['template']->id }}"
                     ></script>
 
 
