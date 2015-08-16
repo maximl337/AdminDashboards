@@ -14,20 +14,18 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
             $table->string('txn_id');
             $table->integer('template_id')->unsigned();
             $table->string('licence_type');
             $table->string('status')->default('pending');
+            $table->string('email');
+            $table->float('payment_gross');
+            $table->float('tax');
             $table->integer('download_request_count')->unsigned()->default(0);
             $table->timestamps();
         });
 
         Schema::table('orders', function (Blueprint $table) {
-            
-            $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users');
 
             $table->foreign('template_id')
                     ->references('id')

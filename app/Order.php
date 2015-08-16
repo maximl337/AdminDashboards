@@ -23,8 +23,11 @@ class Order extends Model
                 'licence_type',
                 'template_id',
                 'user_id',
-                'payment_successful',
-                'txn_id'
+                'txn_id',
+                'download_request_count',
+                'status',
+                'payment_gross',
+                'tax'
 
                 ];
 

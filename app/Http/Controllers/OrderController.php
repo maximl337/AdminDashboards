@@ -71,7 +71,7 @@ class OrderController extends Controller
 
             } elseif($status == 'SUCC') {
               
-                //Do success stuff
+                // Parser
                 $lines = explode("\n", $contents);
 
                 $response = [];
@@ -87,12 +87,71 @@ class OrderController extends Controller
                     $response[urldecode($t[0])] = urldecode($t[1]);
 
                 } // end foreach
+                // EO Parser
 
                 $response['template_id'] = $response['item_number'];
 
                 $paypalpdt = PaypalPdt::create($response);
 
-                return $paypalpdt->toArray();
+                $template = Template::find($response['template_id'])->exists();
+
+                if(!$template) return "Template with the given ID does not exist";
+
+                // check that txn_id has not been previously processed
+                $orderExists = Order::where('txn_id', $response['txn_id'])->exists();
+
+                if($orderExists) return "This Order has been processed in the past.";
+
+            
+                // check that receiver_email is your Primary PayPal email
+
+                if($response['receiver_id'] != env('PAYPAL_MERCHANT_ACCOUNT_ID')) return "This Transaction does not belong to our ID";
+
+                // check that payment_amount/payment_currency are correct
+
+                $paypalTxnPrice = (float) $response['mc_gross'] - (float) $response['tax'];
+
+                if($response['cm'] == 'single') {
+
+                    $templatePrice = $template->price;
+                }
+                elseif ($response['cm'] == 'multiple') {
+
+                    $templatePrice = $template->price_multiple;
+
+                }
+                elseif ($response['cm'] == 'extended') {
+
+                    $templatePrice = $template->price_extended;
+
+                }
+                elseif (empty($response['cm'])) {
+
+                    return "Licence type was not given";
+
+                }
+
+                if($paypalTxnPrice !== $templatePrice) return "The payment price of the transaction does not match the amount in our records";
+
+
+
+                // process the order
+
+                $order = Order::create([
+                        'template_id'               => $response['item_number'],
+                        'licence_type'              => $response['cm'],
+                        'txn_id'                    => $response['txn_id'],
+                        'payment_gross'             => $response['mc_gross'],
+                        'tax'                       => $response['tax']
+                    ]);
+
+                if($response['payment_status'] !== 'Completed') return "Payment failed";
+                
+                $order->update([
+                        'status' => 'complete'
+                    ]);
+
+                return $order->toArray();
 
             } // EO success
 
