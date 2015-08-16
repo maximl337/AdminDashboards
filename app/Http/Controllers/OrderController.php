@@ -142,7 +142,7 @@ class OrderController extends Controller
 
                 $order = Order::create([
                         'template_id'               => $response['item_number'],
-                        'licence_type'              => $response['cm'],
+                        'licence_type'              => $response['custom'],
                         'txn_id'                    => $response['txn_id'],
                         'payment_gross'             => $response['mc_gross'],
                         'tax'                       => $response['tax']
