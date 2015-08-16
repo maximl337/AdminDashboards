@@ -90,11 +90,13 @@ class OrderController extends Controller
 
                     $response[urldecode($t[0])] = urldecode($t[1]);
 
-                    $paypalpdt = PaypalPdt::create($response);
-
-                    return $paypalpdt->toArray();
-
                 } // end foreach
+
+                $response['template_id'] = $response['item_number'];
+
+                $paypalpdt = PaypalPdt::create($response);
+
+                return $paypalpdt->toArray();
 
             } // EO success
 

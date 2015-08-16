@@ -48,7 +48,6 @@ class CreatePaypalIpnsTable extends Migration
             $table->string('txn_type')->nullable();
             $table->string('item_name')->nullable();
             $table->string('mc_currency')->nullable();
-            $table->string('item_number')->nullable();
             $table->string('residence_country')->nullable();
             $table->string('test_ipn')->nullable();
             $table->string('handling_amount')->nullable();

@@ -41,6 +41,7 @@
                         data-custom="{{ $template->id . ',single' }}"
                         data-env="sandbox"
                         data-notify_url="{{ url('/') }}/paypal/ipn"
+                        data-item_number="{{ $template->id }}"
                     ></script>
 
 

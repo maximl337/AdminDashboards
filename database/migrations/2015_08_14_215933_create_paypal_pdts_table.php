@@ -52,7 +52,6 @@ class CreatePaypalPdtsTable extends Migration
             $table->string('payment_gross')->nullable();
             $table->string('shipping')->nullable();
             $table->integer('template_id')->unsigned();
-            $table->integer('order_id')->unsigned();
             $table->timestamps();
         });
 
@@ -60,9 +59,6 @@ class CreatePaypalPdtsTable extends Migration
 
             $table->foreign('template_id')
                 ->references('id')->on('templates');
-
-            $table->foreign('order_id')
-                ->references('id')->on('orders');
 
         });
     }
