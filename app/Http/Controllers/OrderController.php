@@ -22,7 +22,7 @@ class OrderController extends Controller
 
     public function __construct(FileStorage $storage)
     {
-        $this->stroage = $storage;
+        $this->storage = $storage;
     }
 
     public function confirmation(Request $request)
@@ -157,7 +157,7 @@ class OrderController extends Controller
                 if($response['payment_status'] !== 'Completed') return "Payment failed";
 
 
-                $res = $this->storage->getTempUrl($template->files_url);
+                $fileUrl = $this->storage->getTempUrl($template->files_url);
                 
                 $order->update([
                         'status' => 'complete'
@@ -167,7 +167,7 @@ class OrderController extends Controller
 
                 // get rackspack link - investigate bootwrap
 
-                return $res;
+                return $fileUrl;  
 
             } // EO success
 
