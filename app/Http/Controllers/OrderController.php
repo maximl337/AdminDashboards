@@ -78,8 +78,6 @@ class OrderController extends Controller
                 //Do success stuff
                 $lines = explode("\n", $contents);
 
-                //return $lines[1];
- 
                 $response = [];
 
                 foreach($lines as $line) {
@@ -89,69 +87,19 @@ class OrderController extends Controller
                     $t = explode("=", $line);
 
                     if(!isset($t[1])) $t[1] = null;
-                    
+
                     $response[urldecode($t[0])] = urldecode($t[1]);
+
+                    $paypalpdt = PaypalPdt::create($response);
+
+                    return $paypalpdt->toArray();
 
                 } // end foreach
 
-                // for ($i=1; $i<count($lines);$i++) {
+            } // EO success
 
-                //     list($key,$val) = explode("=", $lines[$i]);
+        } // EO HTTP ok
 
-                //     $response[urldecode($key)] = urldecode($val);
-
-                // }
-
-                return $response;
-                
-
-                //return $contents;
-
-                $c = explode("\n", $contents);
-
-                return $c;
-
-            }
-        }
-
-        // $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_URL, env('PAYPAL_HOST_URL'));
-        // curl_setopt($ch, CURLOPT_POST, 1);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
-        // // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-        // // //set cacert.pem verisign certificate path in curl using 'CURLOPT_CAINFO' field here,
-        // // //if your server does not bundled with default verisign certificates.
-        // // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, array("Host: www.sandbox.paypal.com"));
-        // $res = curl_exec($ch);
-        // curl_close($ch);
-
-        // if(!$res){
-        //     return "error";
-        // } else {
-        //      // parse the data
-        //     $lines = explode(" ", $res);
-
-        //     $keyarray = [];
-
-        //     if (strcmp ($lines[0], "SUCCESS") == 0) {
-
-        //         for ($i=1; $i<count($lines);$i++) {
-
-        //             list($key,$val) = explode("=", $lines[$i]);
-
-        //             $keyarray[urldecode($key)] = urldecode($val);
-
-        //         }
-
-        //     return $res;
-        //     }
-        //     else if (strcmp ($lines[0], "FAIL") == 0) {
-        //         // log for manual investigation
-        //         return "error";
-        //     }
-        // }
     }
 
     public function paypalIPN(Request $request)
