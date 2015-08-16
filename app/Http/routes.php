@@ -1,5 +1,7 @@
 <?php
 
+use App\Contracts\FileStorage;
+
 if (App::environment('staging')) {
     $monolog = Log::getMonolog();
     $syslog = new \Monolog\Handler\SyslogHandler('papertrail');
@@ -8,6 +10,28 @@ if (App::environment('staging')) {
 
     $monolog->pushHandler($syslog);
 }
+
+Route::get('filesPut', function(FileStorage $fileStorage) {
+
+    $remote = 'test/readme.md';
+
+    $file = base_path() . '/readme.md';
+
+    $c = $fileStorage->put($remote, $file);
+
+    dd($c);
+
+});
+
+Route::get('fileGet', function(FileStorage $fileStorage) {
+
+    $remote = 'test/readme.md';
+
+    $c = $fileStorage->getTempUrl($remote);
+
+    dd($c);
+
+});
 
 
 Route::get('tempUrl/{id}', 'TemplateController@testTempUrl');

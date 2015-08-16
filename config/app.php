@@ -137,6 +137,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Redeman\Imgur\ImgurServiceProvider::class,
+        App\Providers\RackspaceServiceProvider::class,
 
         /*
          * Application Service Providers...

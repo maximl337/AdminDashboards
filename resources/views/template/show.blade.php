@@ -28,7 +28,9 @@
             
             <div class="panel panel-default">
                 <div class="panel-body">
-                        
+            
+                @if($data['template']->approved == 1)
+
                 <script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant={{ getenv('PAYPAL_MERCHANT_ACCOUNT_ID') }}"
                         data-button="buynow" 
                         data-name="{{ $data['template']->name }}" 
@@ -44,6 +46,10 @@
                         data-item_number="{{ $data['template']->id }}"
                     ></script>
 
+                @else
+    
+                    <p class="alert alert-warning text-center"> Approval Pending </p>
+                @endif
 
                 </div>
             </div>

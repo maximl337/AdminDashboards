@@ -11,15 +11,22 @@ use App\PaypalDump;
 use App\PaypalPdt;
 use App\Template;
 use App\Order;
+use App\Contracts\FileStorage;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
 
+    protected $storage;
+
+    public function __construct(FileStorage $storage)
+    {
+        $this->stroage = $storage;
+    }
+
     public function confirmation(Request $request)
     {
-        //tx=4M99706209265834U&st=Completed&amt=23%2e50&cc=CAD&cm=2%2csingle&item_number=
 
         $transaction_id     = $request->get('tx');
         $status             = $request->get('st'); 
@@ -29,11 +36,6 @@ class OrderController extends Controller
         $user_id            = isset($customVars[1]) ? $customVars[1] : "";
 
         $res = $this->paypalPDT($transaction_id);
-
-
-        // user comes back on the payment confirmation
-        // check if PDT of the transaction
-        // if transaction was successful create an order 
         
         return view('payment.confirmation', compact('res'));
 
@@ -43,15 +45,14 @@ class OrderController extends Controller
     {
 
 
+        // params to post
         $req = 'cmd=_notify-synch';
         $tx_token = $_GET['tx'];
         $auth_token = env('PAYPAL_PDT_TOKEN');
         $req .= '&tx='.$tx_token.'&at='.$auth_token;
 
-
-
         // Post back to PayPal to validate
-        $c = curl_init(env('PAYPAL_HOST_URL')); // SANDBOX
+        $c = curl_init(env('PAYPAL_HOST_URL'));
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_POSTFIELDS, $req);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
@@ -59,16 +60,24 @@ class OrderController extends Controller
         $response_code = curl_getinfo($c, CURLINFO_HTTP_CODE);
         curl_close($c);
 
+        PaypalDump::create([
+            'dump'      => serialize($contents),
+            'response'  => $response_code
+            ]);
+
         if(!$contents || $response_code != 200) {
+
             // HTTP error or bad response, do something
-            abort($response_code);
+            return $response_code;
+
         } else {
+
            // Check PayPal verification (FAIL or SUCCESS)
            $status = substr($contents, 0, 4);
 
            if($status == 'FAIL') {
 
-              abort(422);
+              return "Payment Failed";
 
             } elseif($status == 'SUCC') {
               
@@ -92,8 +101,6 @@ class OrderController extends Controller
 
                 $response['template_id'] = $response['item_number'];
 
-                $paypalpdt = PaypalPdt::create($response);
-
                 $template = Template::find($response['template_id']);
 
                 if(!$template) return "Template with the given ID does not exist";
@@ -102,7 +109,6 @@ class OrderController extends Controller
                 $orderExists = Order::where('txn_id', $response['txn_id'])->exists();
 
                 if($orderExists) return "This Order has been processed in the past.";
-
             
                 // check that receiver_email is your Primary PayPal email
 
@@ -136,7 +142,7 @@ class OrderController extends Controller
 
                     return "The payment price of the transaction does not match the amount in our records. Expected: " . $template->price . " | Given: " . $paypalTxnPrice;
 
-
+                $paypalpdt = PaypalPdt::create($response);
 
                 // process the order
 
@@ -149,12 +155,19 @@ class OrderController extends Controller
                     ]);
 
                 if($response['payment_status'] !== 'Completed') return "Payment failed";
+
+
+                $res = $this->storage->getTempUrl($template->files_url);
                 
                 $order->update([
                         'status' => 'complete'
                     ]);
 
-                return $order->toArray();
+                // send mail
+
+                // get rackspack link - investigate bootwrap
+
+                return $res;
 
             } // EO success
 

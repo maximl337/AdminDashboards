@@ -8,6 +8,7 @@ use Imgur;
 use Auth;
 use Storage;
 use OpenCloud\Rackspace;
+use App\Contracts\FileStorage;
 use App\Template;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -16,9 +17,13 @@ use App\Http\Requests\CreateTemplateRequest;
 class TemplateController extends Controller
 {
 
-    public function __construct()
+    protected $storage;
+
+    public function __construct(FileStorage $storage)
     {
         $this->middleware('auth', ['only' => ['create', 'store']]);
+
+        $this->storage = $storage;
     }
     /**
      * Display a listing of the resource.
@@ -81,10 +86,12 @@ class TemplateController extends Controller
                             . '-' . $request->file('files')->getClientOriginalName();
 
         //Handle File
-        Storage::put(
-            $fileDestination,
-            file_get_contents($request->file('files')->getRealPath())
-        );
+        // Storage::put(
+        //     $fileDestination,
+        //     file_get_contents($request->file('files')->getRealPath())
+        // );
+
+        $this->storage->put($fileDestination, $request->file('files')->getRealPath());     
 
         $input['files_url'] = $fileDestination;
 
@@ -131,28 +138,32 @@ class TemplateController extends Controller
 
     public function testTempUrl($id)
     {
-        $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-            'username' => getenv('RACKSPACE_USERNAME'),
-            'apiKey'   => getenv('RACKSPACE_KEY')
-        ));
+        // $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+        //     'username' => getenv('RACKSPACE_USERNAME'),
+        //     'apiKey'   => getenv('RACKSPACE_KEY')
+        // ));
 
-        $objectStoreService = $client->objectStoreService(null, 'IAD');
+        // $objectStoreService = $client->objectStoreService(null, 'IAD');
 
-        $container = $objectStoreService->getContainer('bd-files');
+        // $container = $objectStoreService->getContainer('bd-files');
 
-        $template = Template::find($id);
+        // $template = Template::find($id);
 
-        $object = $container->getObject($template->files_url);
+        // $object = $container->getObject($template->files_url);
 
-        $account = $objectStoreService->getAccount();
+        // $account = $objectStoreService->getAccount();
 
-        $account->setTempUrlSecret();
+        // $account->setTempUrlSecret();
 
-        // Get a temporary URL that will expire in 3600 seconds (1 hour) from now
-        // and only allow GET HTTP requests to it.
-        $tempUrl = $object->getTemporaryUrl(3600, 'GET');
+        // // Get a temporary URL that will expire in 3600 seconds (1 hour) from now
+        // // and only allow GET HTTP requests to it.
+        // $tempUrl = $object->getTemporaryUrl(3600, 'GET');
 
-        return $tempUrl;
+        $template = Template::findOrFail($id);
+
+        return $this->stroage->getTempUrl($template->files_url);
+
+        //return $tempUrl;
     }
 
     /**
