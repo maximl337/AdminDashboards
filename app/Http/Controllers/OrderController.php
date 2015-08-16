@@ -53,85 +53,85 @@ class OrderController extends Controller
 
 
 
-        // // Post back to PayPal to validate
-        // $c = curl_init(env('PAYPAL_HOST_URL')); // SANDBOX
-        // curl_setopt($c, CURLOPT_POST, 1);
-        // curl_setopt($c, CURLOPT_POSTFIELDS, $req);
-        // curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-        // $contents = curl_exec($c);
-        // $response_code = curl_getinfo($c, CURLINFO_HTTP_CODE);
-        // curl_close($c);
+        // Post back to PayPal to validate
+        $c = curl_init(env('PAYPAL_HOST_URL')); // SANDBOX
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_POSTFIELDS, $req);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+        $contents = curl_exec($c);
+        $response_code = curl_getinfo($c, CURLINFO_HTTP_CODE);
+        curl_close($c);
 
-        // if(!$contents || $response_code != 200) {
-        //     // HTTP error or bad response, do something
-        //     abort($response_code);
-        // } else {
-        //    // Check PayPal verification (FAIL or SUCCESS)
-        //    $status = substr($contents, 0, 4);
+        if(!$contents || $response_code != 200) {
+            // HTTP error or bad response, do something
+            abort($response_code);
+        } else {
+           // Check PayPal verification (FAIL or SUCCESS)
+           $status = substr($contents, 0, 4);
 
-        //    if($status == 'FAIL') {
+           if($status == 'FAIL') {
 
-        //       abort(422);
+              abort(422);
 
-        //     } elseif($status == 'SUCC') {
+            } elseif($status == 'SUCC') {
               
-        //         //Do success stuff
-        //         $lines = explode(" ", $contents);
+                //Do success stuff
+                $lines = explode(" ", $contents);
  
-        //         $response = array();
+                // $response = array();
+
+                // for ($i=1; $i<count($lines);$i++) {
+
+                //     list($key,$val) = explode("=", $lines[$i]);
+
+                //     $response[urldecode($key)] = urldecode($val);
+
+                // }
+                
+
+              return $contents;
+
+            }
+        }
+
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, env('PAYPAL_HOST_URL'));
+        // curl_setopt($ch, CURLOPT_POST, 1);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
+        // // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+        // // //set cacert.pem verisign certificate path in curl using 'CURLOPT_CAINFO' field here,
+        // // //if your server does not bundled with default verisign certificates.
+        // // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, array("Host: www.sandbox.paypal.com"));
+        // $res = curl_exec($ch);
+        // curl_close($ch);
+
+        // if(!$res){
+        //     return "error";
+        // } else {
+        //      // parse the data
+        //     $lines = explode(" ", $res);
+
+        //     $keyarray = [];
+
+        //     if (strcmp ($lines[0], "SUCCESS") == 0) {
 
         //         for ($i=1; $i<count($lines);$i++) {
 
         //             list($key,$val) = explode("=", $lines[$i]);
 
-        //             $response[urldecode($key)] = urldecode($val);
+        //             $keyarray[urldecode($key)] = urldecode($val);
 
         //         }
-                
 
-        //       return $response;
-
+        //     return $res;
+        //     }
+        //     else if (strcmp ($lines[0], "FAIL") == 0) {
+        //         // log for manual investigation
+        //         return "error";
         //     }
         // }
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, env('PAYPAL_HOST_URL'));
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-        // //set cacert.pem verisign certificate path in curl using 'CURLOPT_CAINFO' field here,
-        // //if your server does not bundled with default verisign certificates.
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Host: www.sandbox.paypal.com"));
-        $res = curl_exec($ch);
-        curl_close($ch);
-
-        if(!$res){
-            return "error";
-        } else {
-             // parse the data
-            $lines = explode(" ", $res);
-
-            $keyarray = [];
-
-            if (strcmp ($lines[0], "SUCCESS") == 0) {
-
-                for ($i=1; $i<count($lines);$i++) {
-
-                    list($key,$val) = explode("=", $lines[$i]);
-
-                    $keyarray[urldecode($key)] = urldecode($val);
-
-                }
-
-            return $res;
-            }
-            else if (strcmp ($lines[0], "FAIL") == 0) {
-                // log for manual investigation
-                return "error";
-            }
-        }
     }
 
     public function paypalIPN(Request $request)
