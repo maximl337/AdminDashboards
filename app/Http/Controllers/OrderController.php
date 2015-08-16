@@ -132,7 +132,9 @@ class OrderController extends Controller
 
                 }
 
-                if($paypalTxnPrice !== $templatePrice) return "The payment price of the transaction does not match the amount in our records";
+                if($paypalTxnPrice !== $templatePrice) 
+
+                    return "The payment price of the transaction does not match the amount in our records. Expected: " . $template->price . " | Given: " . $paypalTxnPrice;
 
 
 
