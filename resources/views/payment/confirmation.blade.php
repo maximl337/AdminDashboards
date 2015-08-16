@@ -28,9 +28,9 @@
 
                         <h4>Files</h4>
 
-                        <a class="btn btn-lg btn-success" href="{{ $res['file']['url'] }}">Download File</a><br />
+                        <a class="btn btn-lg btn-success" href="{{ $res['file']['url'] }}">Click to download file</a><br />
                         
-                        <p><small>{{ $res['file']['message']  }}</small></p>
+                        <p><small>{{ $res['file']['message'] }}</small></p>
                     </div>
                 </div>
 

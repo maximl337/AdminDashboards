@@ -183,6 +183,7 @@ class OrderController extends Controller
                         'licence_type'              => $response['custom'],
                         'txn_id'                    => $response['txn_id'],
                         'payment_gross'             => $response['mc_gross'],
+                        'email'                     => $response['payer_email'],
                         'tax'                       => $response['tax']
                     ]);
 
@@ -194,16 +195,12 @@ class OrderController extends Controller
 
                 }
 
-
+                // get rackspack link
                 $fileUrl = $this->storage->getTempUrl($template->files_url);
                 
                 $order->update([
                         'status' => 'complete'
                     ]);
-
-                // send mail
-
-                // get rackspack link - investigate bootwrap
 
                 $internalResp['status'] = true;
 
@@ -219,12 +216,10 @@ class OrderController extends Controller
 
                 $internalResp['file'] = [
                     'url' => $fileUrl,
-                    'message' => 'This URL will only work for <strong>One Hour</strong>!'
+                    'message' => 'This URL will only work for One Hour!'
                 ];
                 
                 return $internalResp;
-
-                  
 
             } // EO success
 
