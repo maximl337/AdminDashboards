@@ -78,7 +78,7 @@ class OrderController extends Controller
                 //Do success stuff
                 $lines = explode("\n", $contents);
 
-                return $lines;
+                //return $lines;
  
                 $response = [];
 
