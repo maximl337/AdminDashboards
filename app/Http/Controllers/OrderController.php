@@ -78,17 +78,27 @@ class OrderController extends Controller
                 //Do success stuff
                 $lines = explode("\n", $contents);
 
-                return $lines[1];
+                //return $lines[1];
  
                 $response = [];
 
-                for ($i=1; $i<count($lines);$i++) {
+                foreach($lines as $line) {
 
-                    list($key,$val) = explode("=", $lines[$i]);
+                    if($line == 'SUCCESS') continue;
 
-                    $response[urldecode($key)] = urldecode($val);
+                    $t = explode("=", $line);
 
-                }
+                    $response[$t[0]] == $t[1];
+
+                } // end foreach
+
+                // for ($i=1; $i<count($lines);$i++) {
+
+                //     list($key,$val) = explode("=", $lines[$i]);
+
+                //     $response[urldecode($key)] = urldecode($val);
+
+                // }
 
                 return $response;
                 
