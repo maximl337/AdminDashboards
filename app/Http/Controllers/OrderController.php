@@ -88,7 +88,7 @@ class OrderController extends Controller
 
                     $t = explode("=", $line);
 
-                    $response[$t[0]] == $t[1];
+                    $response[urldecode($t[0])] = urldecode($t[1]);
 
                 } // end foreach
 
