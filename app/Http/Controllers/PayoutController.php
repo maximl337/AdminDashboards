@@ -22,11 +22,15 @@ class PayoutController extends Controller
 
         $grand_total = 0;
 
+        $t = [];
+
         foreach( $orders as $order ) {
 
             $amount = ( (float) $order->payment_gross - (float) $order->tax );
 
             $grand_total += $amount;
+
+            $t[$order->template->id][] = $order->template; 
 
         }
 
@@ -34,9 +38,14 @@ class PayoutController extends Controller
 
             'total_orders' => $orders->count(),
 
-            'grand_total' => $grand_total
-            
+            'grand_total' => $grand_total,
+
+            'tempaltes' => $t
+
         ];
+
+
+        
         
 
 
