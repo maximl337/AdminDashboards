@@ -40,7 +40,7 @@ class PayoutController extends Controller
 
             $commission = Commission::where('amount', '<=', $order_amount_per_template)->orderBy('amount', 'DESC')->first();
 
-            if(!$commision) {
+            if(!$commission) {
 
                 $seller_payment += $order_amount_per_template * $commission->percentage / 100;
 
