@@ -44,7 +44,7 @@ class PayoutController extends Controller
 
             if(!$commission) {
 
-                $seller_payment += $order_amount_per_template;
+                $seller_payment += $order_amount_per_template * 55 / 100;
 
             } else {
 
