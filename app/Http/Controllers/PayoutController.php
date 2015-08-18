@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Payout;
 use App\User;
+use App\Order;
+use App\Template;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -17,34 +19,42 @@ class PayoutController extends Controller
         // Get user for testing
         $user = User::where('email', 'angad_dby@hotmail.com')->firstOrFail();
 
-        // Get total orders of user
-        $orders = $user->orders()->with('template')->get();
+        $templates = $user->templates()->get();
 
-        $grand_total = 0;
+        $commission = ( 50 / 100 );
 
-        $t = [];
+        $order_amount = 0;
 
-        foreach( $orders as $order ) {
+        $seller_payment = 0;
 
-            $amount = ( (float) $order->payment_gross - (float) $order->tax );
 
-            $grand_total += $amount;
+        foreach($templates as $template) {
 
-            $t[$order->template->id][] = $order->template; 
+            $orders = $template->orders()->get();
+
+            foreach($orders as $order) {
+
+                $order_amount += ( $order->payment_gross - $order->tax );
+            
+            }
+
+            if( (float) $order_amount > 1000.00 ) {
+
+                $seller_payment += $order_amount;
+                
+            }
+            else {
+
+                $seller_payment += $order_amount * $commission;
+
+            }
 
         }
 
         return [
 
-            'total_orders' => $orders->count(),
-
-            'grand_total' => $grand_total,
-
-            'tempaltes' => $t
-
+            'payout_amount' => $seller_payment
         ];
-
-
         
         
 
