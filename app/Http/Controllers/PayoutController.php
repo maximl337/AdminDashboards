@@ -28,6 +28,8 @@ class PayoutController extends Controller
 
         $commission_amount = 0;
 
+        $commission_rate = 35;
+
         foreach($templates as $template) {
 
             $order_amount_per_template = 0;
@@ -40,17 +42,18 @@ class PayoutController extends Controller
             
             }
 
-            $commission = Commission::where('amount', '<=', $order_amount_per_template)->orderBy('amount', 'DESC')->first();
+            if($template->exclusive) {
 
-            if(!$commission) {
+                $commission_rate = 55;
 
-                $seller_payment += $order_amount_per_template * 55 / 100;
+                $commission = Commission::where('amount', '<=', $order_amount_per_template)->orderBy('amount', 'DESC')->first();
 
-            } else {
-
-                $seller_payment += $order_amount_per_template * $commission->percentage / 100;
+                if($commission) $commission_rate = $commission->percentage;
 
             }
+            
+
+            $seller_payment += $order_amount_per_template * $commission_rate / 100;
             
             $grand_total += $order_amount_per_template;
 
