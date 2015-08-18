@@ -18,10 +18,10 @@ class PayoutController extends Controller
         $user = User::where('email', 'angad_dby@hotmail.com')->firstOrFail();
 
         // Get total orders of user
-        $total_orders = $user->orders()->get();
+        $total_orders = $user->orders()->with('template')->get();
 
-        dd($total_orders);
-        
+        return $total_orders;
+
 
         // // get all payouts
         // $payouts = $user->payouts()->where('status', 'complete')->get();
