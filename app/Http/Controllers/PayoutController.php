@@ -37,7 +37,7 @@ class PayoutController extends Controller
             
             }
 
-            $commission = App\Commission::where('amount', '<=', $order_amount_per_template)->orderBy('amount', 'DESC')->first();
+            $commission = Commission::where('amount', '<=', $order_amount_per_template)->orderBy('amount', 'DESC')->first();
 
             //$seller_payment += $order_amount_per_template * 50 / 100;
 
@@ -54,17 +54,11 @@ class PayoutController extends Controller
 
             'earnings' => $seller_payment,
 
-            'commision' => $commission_amount,
+            'commission' => $commission_amount,
 
             'grand_total' => $grand_total
 
         ];
-        
-        
-
-
-
-
 
     }
 }
