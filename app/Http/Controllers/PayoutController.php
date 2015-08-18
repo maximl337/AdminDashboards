@@ -26,6 +26,8 @@ class PayoutController extends Controller
 
         $grand_total = 0;
 
+        $commission_amount = 0;
+
         foreach($templates as $template) {
 
             $order_amount_per_template = 0;
