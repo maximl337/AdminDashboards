@@ -30,7 +30,14 @@ class PayoutController extends Controller
 
         }
 
-        return $grand_total;
+        return [
+
+            'total_orders' => $orders->count(),
+
+            'grand_total' => $grand_total
+            
+        ];
+        
 
 
         // // get all payouts
