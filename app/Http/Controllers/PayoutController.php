@@ -23,29 +23,31 @@ class PayoutController extends Controller
 
         $commission = ( 50 / 100 );
 
-        $order_amount = 0;
+        
 
         $seller_payment = 0;
 
 
         foreach($templates as $template) {
 
+            $order_amount_per_template = 0;
+
             $orders = $template->orders()->get();
 
             foreach($orders as $order) {
 
-                $order_amount += ( $order->payment_gross - $order->tax );
+                $order_amount_per_template += ( $order->payment_gross - $order->tax );
             
             }
 
-            if( (float) $order_amount > 1000.00 ) {
+            if( (float) $order_amount_per_template > 1000.00 ) {
 
-                $seller_payment += $order_amount;
+                $seller_payment += $order_amount_per_template;
                 
             }
             else {
 
-                $seller_payment += $order_amount * 50 / 100;
+                $seller_payment += $order_amount_per_template * 50 / 100;
 
             }
 
