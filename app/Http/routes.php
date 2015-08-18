@@ -11,30 +11,10 @@ if (App::environment('staging')) {
     $monolog->pushHandler($syslog);
 }
 
-Route::get('filesPut', function(FileStorage $fileStorage) {
-
-    $remote = 'test/readme.md';
-
-    $file = base_path() . '/readme.md';
-
-    $c = $fileStorage->put($remote, $file);
-
-    dd($c);
-
-});
-
-Route::get('fileGet', function(FileStorage $fileStorage) {
-
-    $remote = 'test/readme.md';
-
-    $c = $fileStorage->getTempUrl($remote);
-
-    dd($c);
-
-});
+Route::get('payout', 'PayoutController@test');
 
 
-Route::get('tempUrl/{id}', 'TemplateController@testTempUrl');
+
 
 Route::get('/', 'PagesController@home');
 

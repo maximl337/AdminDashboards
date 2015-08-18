@@ -53,17 +53,30 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
+    /**
+     * [templates description]
+     * @return [type] [description]
+     */
     public function templates()
     {
         return $this->hasMany('App\Template');
     }
 
-    public function orders()
-    {
-        return $this->hasMany('App\Order');
-    }
+    /**
+     * [orders description]
+     * @return [type] [description]
+     */
+    // public function orders()
+    // {
+    //     return $this->hasMany('App\Order');
+    // }
 
-    public function incoming_orders()
+
+    /**
+     * [incoming_orders description]
+     * @return [type] [description]
+     */
+    public function orders()
     {
         return $this->hasManyThrough('App\Order', 'App\Template');
     }
@@ -74,5 +87,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function roles()
     {
         return $this->belongsToMany('App\Role');
+    }
+
+    public function payouts()
+    {
+        return $this->hasMany('App\Payout');
     }
 }

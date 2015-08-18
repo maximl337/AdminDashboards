@@ -28,7 +28,7 @@ class PagesController extends Controller
     {
         $templates = Auth::user()->templates->toArray();
 
-        $incomingOrders = Auth::user()->incoming_orders()->with('template')->get();
+        $incomingOrders = Auth::user()->orders()->with('template')->get();
 
         $orders = $incomingOrders->toArray();
 
