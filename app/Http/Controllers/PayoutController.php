@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Payout;
 use App\User;
 use App\Order;
+use App\Commission;
 use App\Template;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
