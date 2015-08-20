@@ -16,9 +16,10 @@ class PayoutService implements PayoutContract
     protected $base_exclusive_commission = 55;
 
     /**
-     * Get Users Earnings
+     * Get Users Earnings and commission
+     * 
      * @param  User   $user 
-     * @return array       earnings
+     * @return array  earnings
      */
     public function earnings(User $user) {
 
@@ -30,9 +31,6 @@ class PayoutService implements PayoutContract
 
         // Init grand total
         $grand_total = 0;
-
-        // Init lifetime commission
-        $lifetime_commission = 0;
 
         // Init paid earnings
         $paid_earnings = 0;
@@ -92,11 +90,15 @@ class PayoutService implements PayoutContract
         
         return [
 
-            'lifetime' => $lifetime_earnings,
+            'lifetime'      => $lifetime_earnings,
 
-            'paid' => $paid_earnings,
+            'paid'          => $paid_earnings,
 
-            'pending' => $lifetime_earnings - $paid_earnings
+            'pending'       => $lifetime_earnings - $paid_earnings,
+
+            'grand_total'   => $grand_total,
+
+            'commission'    => $grand_total - $lifetime_earnings
 
         ];
 
