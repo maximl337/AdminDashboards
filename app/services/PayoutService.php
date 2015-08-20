@@ -14,12 +14,12 @@ class PayoutService implements PayoutContract
     /**
      * Set non exclusive commission rate
      */
-    CONST _NONEXCLUSIVE_COMMISSION = 35;
+    const NONEXCLUSIVE_COMMISSION = 35;
 
     /**
      * Set base exclusive commision rate
      */
-    CONST _BASE_EXCLUSIVE_COMMISSION = 55;
+    const BASE_EXCLUSIVE_COMMISSION = 55;
 
     /**
      * Get Users Earnings
@@ -44,7 +44,7 @@ class PayoutService implements PayoutContract
         $paid_earnings = 0;
 
         // Init commision rate
-        $commission_rate = _NONEXCLUSIVE_COMMISSION;
+        $commission_rate = NONEXCLUSIVE_COMMISSION;
 
         // Iterate through templates
         foreach($templates as $template) {
@@ -69,7 +69,7 @@ class PayoutService implements PayoutContract
             if($template->exclusive) {
 
                 // Get base exclusive commission rate
-                $commission_rate = _BASE_EXCLUSIVE_COMMISSION;
+                $commission_rate = BASE_EXCLUSIVE_COMMISSION;
 
                 $commission = Commission::where('amount', '<=', $order_amount_per_template)->orderBy('amount', 'DESC')->first();
 
