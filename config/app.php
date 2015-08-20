@@ -136,8 +136,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Redeman\Imgur\ImgurServiceProvider::class,
-        App\Providers\RackspaceServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -145,6 +143,9 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Redeman\Imgur\ImgurServiceProvider::class,
+        App\Providers\RackspaceServiceProvider::class,
+        App\Providers\PayoutServiceProvider::class,
 
     ],
 

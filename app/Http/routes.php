@@ -11,7 +11,7 @@ if (App::environment('staging')) {
     $monolog->pushHandler($syslog);
 }
 
-Route::get('payout', 'PayoutController@test');
+Route::get('payout/{id}', 'PayoutController@test');
 
 
 
