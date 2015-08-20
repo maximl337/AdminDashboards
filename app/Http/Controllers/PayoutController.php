@@ -11,7 +11,7 @@ use App\Commission;
 use App\Template;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Contract\Payout as PayoutContract;
+use App\Contracts\Payout as PayoutContract;
 
 class PayoutController extends Controller
 {
