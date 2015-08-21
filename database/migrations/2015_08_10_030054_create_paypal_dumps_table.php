@@ -15,7 +15,7 @@ class CreatePaypalDumpsTable extends Migration
         Schema::create('paypal_dumps', function (Blueprint $table) {
             $table->increments('id');
             $table->text('dump');
-            $table->text('response');
+            $table->text('type');
             $table->timestamps();
         });
     }

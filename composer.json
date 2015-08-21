@@ -10,7 +10,8 @@
         "redeman/imgur-laravel": "^0.0.2",
         "league/flysystem-rackspace": "~1.0",
         "rackspace/php-opencloud": "^1.14",
-        "fzaninotto/faker": "^1.5"
+        "fzaninotto/faker": "^1.5",
+        "paypal/rest-api-sdk-php": "*"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",

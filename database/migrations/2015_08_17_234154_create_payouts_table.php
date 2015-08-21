@@ -16,7 +16,6 @@ class CreatePayoutsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->float('amount')->unsigned();
-            $table->float('commission')->unsigned();
             $table->string('status')->default('pending');
             $table->timestamps();
         });

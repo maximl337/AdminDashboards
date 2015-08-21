@@ -16,7 +16,6 @@ use App\Contracts\Payout as PayoutContract;
 class PayoutController extends Controller
 {
 
-
     public function test($id, PayoutContract $payoutContract)
     {
 
@@ -26,5 +25,12 @@ class PayoutController extends Controller
 
         return $earnings;
         
+    }
+
+    public function testPaypal()
+    {
+        $payouts = new \PayPal\Api\Payout();
+
+        return $payouts;
     }
 }

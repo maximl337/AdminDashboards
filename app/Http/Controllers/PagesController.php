@@ -41,8 +41,8 @@ class PagesController extends Controller
         }
 
         $data = [
-            'templates' => $templates,
-            'orders' => $orders,
+            'templates'     => $templates,
+            'orders'        => $orders,
             'earnings'      => $earnings
         ];
 
