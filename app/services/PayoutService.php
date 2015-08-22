@@ -115,7 +115,7 @@ class PayoutService implements PayoutContract
         // GET ORDERS
         $orders = Order::with('user');
 
-        return $orders->toArray();
+        dd($orders);
 
         // GET USERS OF ORDER
 
