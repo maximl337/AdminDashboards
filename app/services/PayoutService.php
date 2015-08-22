@@ -119,7 +119,9 @@ class PayoutService implements PayoutContract
 
         foreach($orders as $order) {
 
-            $users[] = $order->user()->get();
+            //$template = $order->template()->user()->get();
+
+            $users[] = $order->template()->user()->get();
 
         } // end for each
 

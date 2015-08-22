@@ -43,8 +43,4 @@ class Order extends Model
         return $this->belongsTo('App\Template');
     }
 
-    public function user()
-    {
-        return $this->hasManyThrough('App\Template', 'App\User');
-    }
 }
