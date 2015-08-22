@@ -21,9 +21,10 @@ class PayoutController extends Controller
 
         $user = User::findOrFail($id);
 
-        $earnings = $payoutContract->earnings($user);
+        // $earnings = $payoutContract->earnings($user);
 
-        return $earnings;
+        // return $earnings;
+        return $payoutContract->pay();
         
     }
 
