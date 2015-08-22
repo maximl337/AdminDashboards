@@ -45,6 +45,6 @@ class Order extends Model
 
     public function user()
     {
-        return $this->hasManyThrough('App\User', 'App\Template');
+        return $this->hasManyThrough('App\Template', 'App\User');
     }
 }
