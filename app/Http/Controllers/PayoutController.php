@@ -29,9 +29,6 @@ class PayoutController extends Controller
 
     public function testPaypal()
     {
-        // $payouts = new \PayPal\Api\Payout();
-
-        // return $payouts;
 
         // After Step 1
         $apiContext = new \PayPal\Rest\ApiContext(
@@ -49,6 +46,7 @@ class PayoutController extends Controller
                             ->setEmailSubject("You have a Payout!");
 
         $senderItem = new \PayPal\Api\PayoutItem();
+
         $senderItem->setRecipientType('Email')
                     ->setNote('Thanks for your patronage!')
                     ->setReceiver('shirt-supplier-one@gmail.com')

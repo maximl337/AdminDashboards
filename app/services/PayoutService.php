@@ -104,13 +104,22 @@ class PayoutService implements PayoutContract
 
     }
 
-    public function commission(User $user) {
-
-
-    }
-
     public function pay() {
 
+        // GET ORDERS
+        $orders = Order::with('user');
+
+        return $orders;
+
+        // GET USERS OF ORDER
+
+        // GET PENDING OF USERS
+
+        // SEND PAYOUTS
+
+        // SAVE PAYOUTS
+
+        // UPDATE PAYOUTS
 
     } // send mass payout
 }

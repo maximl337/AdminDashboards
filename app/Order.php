@@ -33,13 +33,18 @@ class Order extends Model
 
 
 
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo('App\User');
+    // }
 
     public function template()
     {
         return $this->belongsTo('App\Template');
+    }
+
+    public function user()
+    {
+        return $this->hasManyThrough('App\User', 'App\Template');
     }
 }
