@@ -104,7 +104,7 @@ class PayoutService implements PayoutContract
 
     }
 
-    public function commission()
+    public function commission(User $user)
     {
         # code...
     }
