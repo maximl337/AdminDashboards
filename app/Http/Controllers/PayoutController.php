@@ -29,8 +29,16 @@ class PayoutController extends Controller
 
     public function testPaypal()
     {
-        $payouts = new \PayPal\Api\Payout();
+        // $payouts = new \PayPal\Api\Payout();
 
-        return $payouts;
+        // return $payouts;
+
+        // After Step 1
+        $apiContext = new \PayPal\Rest\ApiContext(
+            new \PayPal\Auth\OAuthTokenCredential(
+                env('PAYPAL_CLIENT_ID'),     // ClientID
+                env('PAYPAL_CLIENT_SECRET')      // ClientSecret
+            )
+        );
     }
 }
