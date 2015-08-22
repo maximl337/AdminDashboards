@@ -55,7 +55,7 @@ class PayoutController extends Controller
                     ->setSenderItemId("2014031400023")
                     ->setAmount(new \PayPal\Api\Currency('{
                                         "value":"1.0",
-                                        "currency":"USD"
+                                        "currency":"CAD"
                                     }'));
 
         $payouts->setSenderBatchHeader($senderBatchHeader)
