@@ -104,6 +104,11 @@ class PayoutService implements PayoutContract
 
     }
 
+    public function commision()
+    {
+        # code...
+    }
+
     public function pay() {
 
         // GET ORDERS
