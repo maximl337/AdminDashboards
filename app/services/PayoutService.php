@@ -113,9 +113,17 @@ class PayoutService implements PayoutContract
     public function pay() {
 
         // GET ORDERS
-        $orders = Order::with('user');
+        $orders = Order::all();
 
-        dd($orders);
+        $users = [];
+
+        foreach($orders as $order) {
+
+            $users[] = $order->user()->get();
+
+        } // end for each
+
+        return $users;
 
         // GET USERS OF ORDER
 
