@@ -115,15 +115,24 @@ class PayoutService implements PayoutContract
         // GET ORDERS
         $orders = Order::all();
 
+        $templates = [];
+
         $users = [];
+
+        $payouts = [];
 
         foreach($orders as $order) {
 
             //$template = $order->template()->user()->get();
 
-            $users[] = $order->template()->with('user')->get();
+            $templates[] = $order->template()->get();
 
         } // end for each
+
+        foreach($templates as $template) {
+
+            $users[] = $template->user()->get();
+        }
 
         return $users;
 
