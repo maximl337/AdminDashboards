@@ -134,7 +134,7 @@ class PayoutService implements PayoutContract
             $users[] = $template->user()->get();
         }
 
-        return $users;
+        return $templates;
 
         // GET USERS OF ORDER
 
