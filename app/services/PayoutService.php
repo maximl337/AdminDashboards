@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\User;
 use App\Payout;
+use App\Order;
 use App\Commission;
 use App\Contracts\Payout as PayoutContract;
 
