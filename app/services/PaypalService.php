@@ -29,23 +29,25 @@ class PaypalService implements Payment {
      * @param  string $note         [description]
      * @return [type]               [description]
      */
-    public function sendSinglePayment($type, $recipient, $amount, $senderItemId, $currency = 'CAD', $note = '') {
+    public function sendSinglePayment($recipient, $amount, $senderItemId, $senderBatchId, $type= 'Email', $currency = 'CAD', $note = '') {
 
         $payouts = new \PayPal\Api\Payout();
 
         $senderBatchHeader = new \PayPal\Api\PayoutSenderBatchHeader();
 
-        $senderBatchHeader->setSenderBatchId(uniqid())
+        $senderBatchHeader->setSenderBatchId($senderBatchId)
                             ->setEmailSubject("You have a Payout!");
 
         $senderItem = new \PayPal\Api\PayoutItem();
 
+        $amount = (float) $amount;
+
         $senderItem->setRecipientType('Email')
                     ->setNote('Thanks for your patronage!')
-                    ->setReceiver('shirt-supplier-one@gmail.com')
-                    ->setSenderItemId("2014031400023")
+                    ->setReceiver($recipient)
+                    ->setSenderItemId($senderItemId)
                     ->setAmount(new \PayPal\Api\Currency('{
-                                        "value":"1.0",
+                                        "value":$amount,
                                         "currency":"CAD"
                                     }'));
 
@@ -57,7 +59,9 @@ class PaypalService implements Payment {
 
 
         try {
+
             $output = $payouts->createSynchronous($this->apiContext);
+
         } catch (Exception $ex) {
 
             return response()->json([
@@ -88,6 +92,7 @@ class PaypalService implements Payment {
                             ->setEmailSubject("You have a Payout!");
 
         
+        $payouts->setSenderBatchHeader($senderBatchHeader);
 
         foreach ($recipientsAndAmountAndSenderItemId as $payoutItem) {
 
@@ -116,22 +121,8 @@ class PaypalService implements Payment {
                                             "currency":"CAD"
                                         }'));
 
-            // $senderItem = new \PayPal\Api\PayoutItem(
-            //     [
-            //         "recipient_type" => "EMAIL",
-            //         "receiver" => $receiver,
-            //         "note" => "Bootstrap Dashboard Payments",
-            //         "sender_item_id" => $item_id,
-            //         "amount" => array(
-            //             "value" => $value,
-            //             "currency" => $currency
-            //         )
 
-            //     ]
-            // );
-
-            $payouts->setSenderBatchHeader($senderBatchHeader)
-                        ->addItem($senderItem);
+            $payouts->addItem($senderItem);
 
 
         } // EO foreach
