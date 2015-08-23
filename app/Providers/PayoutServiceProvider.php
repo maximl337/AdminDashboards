@@ -31,9 +31,7 @@ class PayoutServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Payout::class, function() {
 
-                return new PayoutService(
-                        new Payment
-                    );
+                return new PayoutService;
         });
     }
 

@@ -17,13 +17,6 @@ class PayoutService implements PayoutContract
 
     protected $base_exclusive_commission = 55;
 
-    protected $payment;
-
-    public function __construct(Payment $payment)
-    {
-        $this->payment = $payment;
-    }
-
     /**
      * Get Users Earnings and commission
      * 
@@ -167,7 +160,7 @@ class PayoutService implements PayoutContract
 
         } // EO foreach
 
-        return $this->payment->sendBatchPayment($payoutItems, $payoutBatchId);
+        return $payment->sendBatchPayment($payoutItems, $payoutBatchId);
 
     } // send mass payout
 }

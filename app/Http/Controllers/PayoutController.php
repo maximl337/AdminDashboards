@@ -17,12 +17,12 @@ use App\Contracts\Payment;
 class PayoutController extends Controller
 {
 
-    public function test($id, Payout $payoutContract)
+    public function test($id, Payout $payoutContract, Payment $payment)
     {
 
         $user = User::findOrFail($id);
 
-        return $payoutContract->pay();
+        return $payoutContract->pay($payment);
         
     }
 
