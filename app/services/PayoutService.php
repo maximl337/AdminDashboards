@@ -111,56 +111,56 @@ class PayoutService implements PayoutContract
         # code...
     }
 
-    public function pay(Payment $payment) {
+    // public function pay(Payment $payment) {
 
-        // GET ORDERS
-        $orders = Order::with('template')->get();
+    //     // GET ORDERS
+    //     $orders = Order::with('template')->get();
 
-        $templates = [];
+    //     $templates = [];
 
-        $users = [];
+    //     $users = [];
 
-        $payouts = [];
+    //     $payouts = [];
 
-        $earnings = [];
+    //     $earnings = [];
 
-        $payoutItems = [];
+    //     $payoutItems = [];
 
-        $payoutBatchId = uniqid() . microtime(true);
+    //     $payoutBatchId = uniqid() . microtime(true);
 
-        // Get users of orders
-        foreach($orders as $order) {
+    //     // Get users of orders
+    //     foreach($orders as $order) {
 
-            $users[] = $order->template->user()->first();
+    //         $users[] = $order->template->user()->first();
 
-        } // end for each
+    //     } // end for each
 
-        $users = array_unique($users);
+    //     $users = array_unique($users);
 
-        foreach($users as $user) {
+    //     foreach($users as $user) {
 
-            $earnings = $this->earnings($user); 
+    //         $earnings = $this->earnings($user); 
 
-            $payoutItemId = $user->id . '-' . microtime(true) . uniqid();
+    //         $payoutItemId = $user->id . '-' . microtime(true) . uniqid();
 
-            $payoutItems[] = [
+    //         $payoutItems[] = [
 
-                'sender_item_id'    => $payoutItemId,
-                'email'             => $user->email,
-                'amount'            => $earnings['pending']
+    //             'sender_item_id'    => $payoutItemId,
+    //             'email'             => $user->email,
+    //             'amount'            => $earnings['pending']
 
-            ];
+    //         ];
 
-            Payout::create([
-                    'user_id' => $user->id,
-                    'amount' => $earnings['pending'],
-                    'payout_batch_id' => $payoutBatchId,
-                    'payout_item_id' => $payoutItemId,
-                ]);
+    //         Payout::create([
+    //                 'user_id' => $user->id,
+    //                 'amount' => $earnings['pending'],
+    //                 'payout_batch_id' => $payoutBatchId,
+    //                 'payout_item_id' => $payoutItemId,
+    //             ]);
 
-        } // EO foreach
+    //     } // EO foreach
 
-        return $payment->sendBatchPayment($payoutItems, $payoutBatchId);
+    //     return $payment->sendBatchPayment($payoutItems, $payoutBatchId);
 
-    } // send mass payout
+    // } // send mass payout
 }
