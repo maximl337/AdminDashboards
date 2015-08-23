@@ -126,7 +126,7 @@ class PayoutService implements PayoutContract
 
         $payoutItems = [];
 
-        $payoutBatchId = uniqid() . microtime(true);
+        $payoutBatchId = uniqid();
 
         // Get users of orders
         foreach($orders as $order) {
@@ -141,7 +141,7 @@ class PayoutService implements PayoutContract
 
             $earnings = $this->earnings($user); 
 
-            $payoutItemId = $user->id . '-' . microtime(true) . uniqid();
+            $payoutItemId = $user->id . '-' . uniqid();
 
             $payoutItems[] = [
 
