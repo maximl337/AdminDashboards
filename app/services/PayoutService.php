@@ -125,7 +125,7 @@ class PayoutService implements PayoutContract
 
             //$template = $order->template()->user()->get();
 
-            $templates[] = $order->template();
+            $templates[] = $order->template()->get();
 
         } // end for each
 
