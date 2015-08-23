@@ -18,7 +18,9 @@ class Payout extends Model
      */
     protected $fillable = [
         'user_id',
-        'amount'
+        'amount',
+        'payout_batch_id',
+        'payout_item_id',
     ];
 
     /**

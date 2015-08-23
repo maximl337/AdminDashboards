@@ -7,6 +7,7 @@ use App\Payout;
 use App\Order;
 use App\Commission;
 use App\Contracts\Payout as PayoutContract;
+use App\Contracts\Payment;
 
 
 class PayoutService implements PayoutContract
@@ -110,7 +111,7 @@ class PayoutService implements PayoutContract
         # code...
     }
 
-    public function pay() {
+    public function pay(Payment $payment) {
 
         // GET ORDERS
         $orders = Order::with('template')->get();
@@ -122,6 +123,10 @@ class PayoutService implements PayoutContract
         $payouts = [];
 
         $earnings = [];
+
+        $payoutItems = [];
+
+        $payoutBatchId = uniqid() . microtime(true);
 
         // Get users of orders
         foreach($orders as $order) {
@@ -136,14 +141,26 @@ class PayoutService implements PayoutContract
 
             $earnings = $this->earnings($user); 
 
-            //create payout record
-            //Payout::create(['']);
+            $payoutItemId = $user->id . '-' . microtime(true) . uniqid();
 
-            //send paypal payout
+            $payoutItems[] = [
 
-        }
+                'sender_item_id'    => $payoutItemId,
+                'email'             => $user->email,
+                'amount'            => $earnings['pending']
 
-        return $earnings;
+            ];
+
+            Payout::create([
+                    'user_id' => $user->id,
+                    'amount' => $earnings['pending'],
+                    'payout_batch_id' => $payoutBatchId,
+                    'payout_item_id' => $payoutItemId,
+                ]);
+
+        } // EO foreach
+
+        return $payment->sendBatchPayment($payoutItems, $payoutBatchId);
 
     } // send mass payout
 }
