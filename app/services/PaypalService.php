@@ -144,7 +144,7 @@ class PaypalService implements Payment {
 
         } catch (\Exception $ex) {
 
-            return $ex;
+            return $ex->getMessage();
         }
 
         return $output;
