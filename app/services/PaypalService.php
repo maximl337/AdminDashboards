@@ -82,7 +82,7 @@ class PaypalService implements Payment {
      * @param  string $note                               [description]
      * @return [type]                                     [description]
      */
-    public function sendBatchPayment(array $recipientsAndAmountAndSenderItemId, $senderBatchId, $type= 'Email',  $currency = 'CAD', $note = '') {
+    public function sendBatchPayment(array $recipientsAndAmountAndSenderItemId, $senderBatchId, $type= 'EMAIL',  $currency = 'CAD', $note = '') {
 
         $payouts = new \PayPal\Api\Payout();
 
@@ -112,7 +112,7 @@ class PaypalService implements Payment {
 
             $senderItem = new \PayPal\Api\PayoutItem();
 
-            $senderItem->setRecipientType('Email')
+            $senderItem->setRecipientType('EMAIL')
                         ->setNote('Bootstrap Dashboard Payments')
                         ->setReceiver($receiver)
                         ->setSenderItemId($item_id)
