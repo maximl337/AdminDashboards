@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Contracts\Payout;
 use App\Services\PayoutService;
+use App\Contracts\Payment;
 
 class PayoutServiceProvider extends ServiceProvider
 {
@@ -30,7 +31,9 @@ class PayoutServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Payout::class, function() {
 
-                return new PayoutService;
+                return new PayoutService(
+                        new Payment
+                    );
         });
     }
 
