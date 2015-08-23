@@ -65,8 +65,7 @@ class OrderController extends Controller
         curl_close($c);
 
         PaypalDump::create([
-            'dump'      => serialize($contents),
-            'response'  => $response_code
+            'dump'      => serialize($contents)
             ]);
 
         if(!$contents || $response_code != 200) {
