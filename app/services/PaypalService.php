@@ -99,9 +99,9 @@ class PaypalService implements Payment {
 
             if(!$emailExists || !$amountExists || !$senderItemIdExists) continue;
 
-            $receiver = $payoutItem['sender_item_id'];
+            $receiver = $payoutItem['email'];
 
-            $item_id = $payoutItem['email'];
+            $item_id = $payoutItem['sender_item_id'];
 
             $value = $payoutItem['amount'];
 
