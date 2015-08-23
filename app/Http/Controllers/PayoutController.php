@@ -12,6 +12,7 @@ use App\Template;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Contracts\Payout as PayoutContract;
+use App\Contracts\Payment;
 
 class PayoutController extends Controller
 {
@@ -26,6 +27,13 @@ class PayoutController extends Controller
         // return $earnings;
         return $payoutContract->pay();
         
+    }
+
+    public function testPayment(Payment $payment)
+    {
+        $payout = $payment->sendSinglePayment('tst', 'tst', 'tst', 'tst');
+
+        return $payout;
     }
 
     public function testPaypal()

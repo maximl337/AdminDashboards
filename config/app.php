@@ -146,6 +146,7 @@ return [
         Redeman\Imgur\ImgurServiceProvider::class,
         App\Providers\RackspaceServiceProvider::class,
         App\Providers\PayoutServiceProvider::class,
+        App\Providers\PaypalServiceProvider::class,
 
     ],
 

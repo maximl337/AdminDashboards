@@ -113,7 +113,7 @@ class PayoutService implements PayoutContract
     public function pay() {
 
         // GET ORDERS
-        $orders = Order::all();
+        $orders = Order::with('template')->get();
 
         $templates = [];
 
@@ -121,30 +121,29 @@ class PayoutService implements PayoutContract
 
         $payouts = [];
 
+        $earnings = [];
+
+        // Get users of orders
         foreach($orders as $order) {
 
-            //$template = $order->template()->user()->get();
-
-            $templates[] = $order->template()->with('user')->get();
+            $users[] = $order->template->user()->first();
 
         } // end for each
 
-        // foreach($templates as $template) {
+        $users = array_unique($users);
 
-        //     $users[] = $template->user;
-        // }
+        foreach($users as $user) {
 
-        return $templates;
+            $earnings = $this->earnings($user); 
 
-        // GET USERS OF ORDER
+            //create payout record
+            //Payout::create(['']);
 
-        // GET PENDING OF USERS
+            //send paypal payout
 
-        // SEND PAYOUTS
+        }
 
-        // SAVE PAYOUTS
-
-        // UPDATE PAYOUTS
+        return $earnings;
 
     } // send mass payout
 }
