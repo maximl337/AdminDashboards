@@ -64,10 +64,6 @@ class OrderController extends Controller
         $response_code = curl_getinfo($c, CURLINFO_HTTP_CODE);
         curl_close($c);
 
-        PaypalDump::create([
-            'dump'      => serialize($contents)
-            ]);
-
         if(!$contents || $response_code != 200) {
 
             // HTTP error or bad response, do something
