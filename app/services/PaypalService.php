@@ -117,7 +117,7 @@ class PaypalService implements Payment {
                         ->setReceiver($receiver)
                         ->setSenderItemId($item_id)
                         ->setAmount(new \PayPal\Api\Currency('{
-                                            "value":$value,
+                                            "value": ' . $value . ',
                                             "currency":"CAD"
                                         }'));
 
