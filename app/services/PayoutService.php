@@ -158,11 +158,11 @@ class PayoutService implements PayoutContract
                     'payout_item_id' => $payoutItemId,
                 ]);
 
-            $payment->sendSinglePayment();
+            //$payment->sendSinglePayment();
 
         } // EO foreach
 
-        //return $payment->sendBatchPayment($payoutItems, $payoutBatchId);
+        return $payment->sendBatchPayment($payoutItems, $payoutBatchId);
 
     } // send mass payout
 }
