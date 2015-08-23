@@ -33,5 +33,11 @@ class PayoutController extends Controller
     //     return $payout;
     // }
 
+    public function testPayout($id, Payout $payoutContract)
+    {
+        $user = User::findOrFail($id);
+
+        return $payoutContract->earnings($user);
+    }
     
 }
