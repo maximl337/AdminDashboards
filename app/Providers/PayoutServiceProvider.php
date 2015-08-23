@@ -5,12 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Contracts\Payout;
 use App\Services\PayoutService;
-use App\Contracts\Payment;
 
 class PayoutServiceProvider extends ServiceProvider
 {
-
-    protected $defer = true;
 
     /**
      * Bootstrap the application services.
@@ -35,12 +32,5 @@ class PayoutServiceProvider extends ServiceProvider
         });
     }
 
-    public function provides()
-    {
-        return [ 
-        
-            Payout::class 
 
-        ];
-    }
 }
