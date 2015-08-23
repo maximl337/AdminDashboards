@@ -105,30 +105,30 @@ class PaypalService implements Payment {
 
             $value = (float) $payoutItem['amount'];
 
-            // $senderItem = new \PayPal\Api\PayoutItem();
+            $senderItem = new \PayPal\Api\PayoutItem();
 
-            // $senderItem->setRecipientType('Email')
-            //             ->setNote('Bootstrap Dashboard Payments')
-            //             ->setReceiver($receiver)
-            //             ->setSenderItemId($item_id)
-            //             ->setAmount(new \PayPal\Api\Currency('{
-            //                                 "value":$value,
-            //                                 "currency":$currency
-            //                             }'));
+            $senderItem->setRecipientType('Email')
+                        ->setNote('Bootstrap Dashboard Payments')
+                        ->setReceiver($receiver)
+                        ->setSenderItemId($item_id)
+                        ->setAmount(new \PayPal\Api\Currency('{
+                                            "value":$value,
+                                            "currency":$currency
+                                        }'));
 
-            $senderItem = new \PayPal\Api\PayoutItem(
-                [
-                    "recipient_type" => "EMAIL",
-                    "receiver" => $receiver,
-                    "note" => "Bootstrap Dashboard Payments",
-                    "sender_item_id" => $item_id,
-                    "amount" => array(
-                        "value" => $value,
-                        "currency" => $currency
-                    )
+            // $senderItem = new \PayPal\Api\PayoutItem(
+            //     [
+            //         "recipient_type" => "EMAIL",
+            //         "receiver" => $receiver,
+            //         "note" => "Bootstrap Dashboard Payments",
+            //         "sender_item_id" => $item_id,
+            //         "amount" => array(
+            //             "value" => $value,
+            //             "currency" => $currency
+            //         )
 
-                ]
-            );
+            //     ]
+            // );
 
             $payouts->setSenderBatchHeader($senderBatchHeader)
                         ->addItem($senderItem);
