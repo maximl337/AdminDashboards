@@ -15,7 +15,7 @@ class PayoutService implements PayoutContract
     
     protected $nonexclusive_commission = 35;
 
-    protected $base_exclusive_commission = 55;.
+    protected $base_exclusive_commission = 55;
 
     protected $payment;
 
