@@ -103,7 +103,7 @@ class PaypalService implements Payment {
 
             $item_id = $payoutItem['sender_item_id'];
 
-            $value = $payoutItem['amount'];
+            $value = (float) $payoutItem['amount'];
 
             $senderItem = new \PayPal\Api\PayoutItem();
 
