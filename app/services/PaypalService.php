@@ -142,9 +142,9 @@ class PaypalService implements Payment {
 
             $output = $payouts->create(null, $this->apiContext);
 
-        } catch (\Exception $ex) {
+        } catch (Exception $e) {
 
-            return $ex->getMessage();
+            return $e;
         }
 
         return $output;
