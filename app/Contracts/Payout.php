@@ -3,6 +3,7 @@
 namespace App\Contracts;
 
 use App\User;
+use App\Contracts\Payment;
 
 interface Payout {
 
@@ -11,7 +12,7 @@ interface Payout {
 
     public function commission(User $user);
 
-    public function pay(); // send mass payout
+    public function pay(Payment $payment); // send mass payout
 
     
 }
