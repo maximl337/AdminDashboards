@@ -13,6 +13,8 @@ if (App::environment('staging')) {
 
 Route::get('test/payout', 'PayoutController@test');
 
+Route::get('test/payout/{id}', 'PayoutController@testPayout');
+
 
 
 
