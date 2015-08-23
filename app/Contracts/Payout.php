@@ -12,7 +12,7 @@ interface Payout {
 
     public function commission(User $user);
 
-    //public function pay(Payment $payment); // send mass payout
+    public function massPay(Payment $payment); // send mass payout
 
     
 }

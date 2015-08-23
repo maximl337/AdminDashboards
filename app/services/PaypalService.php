@@ -131,7 +131,7 @@ class PaypalService implements Payment {
         } catch (\Exception $ex) {
 
             return response()->json([
-                    $output, $ex
+                    $ex
                 ]);
         }
 
