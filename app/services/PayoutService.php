@@ -129,12 +129,12 @@ class PayoutService implements PayoutContract
 
         } // end for each
 
-        foreach($templates as $template) {
+        // foreach($templates as $template) {
 
-            $users[] = $template->user;
-        }
+        //     $users[] = $template->user;
+        // }
 
-        return $users;
+        return $templates;
 
         // GET USERS OF ORDER
 
