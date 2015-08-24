@@ -126,7 +126,7 @@ class PayoutService implements PayoutContract
 
         $payoutItems = [];
 
-        $payoutBatchId = uniqid();
+        $payoutBatchId = uniqid().date("Ymd");
 
         // Get users of orders
         foreach($orders as $order) {
@@ -141,7 +141,7 @@ class PayoutService implements PayoutContract
 
             $earnings = $this->earnings($user); 
 
-            $payoutItemId = $user->id . '-' . uniqid();
+            $payoutItemId = $user->id . '-' . date("Ymd");
 
             $payoutItems[] = [
 
@@ -158,11 +158,20 @@ class PayoutService implements PayoutContract
                     'payout_item_id' => $payoutItemId,
                 ]);
 
-            //$payment->sendSinglePayment();
+            
 
         } // EO foreach
 
-        return $payment->sendBatchPayment($payoutItems, $payoutBatchId);
+        $output = $payment->sendBatchPayment($payoutItems, $payoutBatchId);
+
+        $payoutBatchStatus = $output->batch_header->batch_status;
+
+        Payout::where('payout_batch_id', $payoutBatchId)
+                ->update([
+                        'status' => $payoutBatchStatus
+                    ]);
+                
+        return $output;
 
     } // send mass payout
 }
