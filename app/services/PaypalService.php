@@ -167,7 +167,7 @@ class PaypalService implements Payment {
     {
         try {
 
-            $output = \PayPal\Api\PayoutItem::get($payoutItemId, $apiContext);
+            $output = \PayPal\Api\PayoutItem::get($payoutItemId, $this->apiContext);
 
         } catch (\Exception $e) {
 
