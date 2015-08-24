@@ -16,9 +16,13 @@ class CreatePayoutsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->float('amount')->unsigned();
-            $table->string('payout_batch_id');
-            $table->string('payout_item_id');
-            $table->string('status')->nullable();
+            $table->string('sender_batch_id');
+            $table->string('sender_item_id');
+            $table->string('payout_batch_id')->nullable();
+            $table->string('payout_item_id')->nullable();
+            $table->string('batch_status')->nullable();
+            $table->string('trasaction_id')->nullable();
+            $table->string('transaction_status')->nullable();
             $table->timestamps();
         });
 

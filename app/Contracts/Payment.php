@@ -10,4 +10,6 @@ interface Payment {
 
     public function getBatchPaymentDetails($batchPaymentId);
 
+    public function getPaymentItemDetails($paymentItemId);
+
 }

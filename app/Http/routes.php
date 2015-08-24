@@ -17,6 +17,8 @@ Route::get('test/payout/{id}', 'PayoutController@testPayout');
 
 Route::get('test/payoutDetails/{id}', 'PayoutController@payoutDetails');
 
+Route::get('test/payoutItem/{id}', 'PayoutController@payoutItem');
+
 Route::get('/', 'PagesController@home');
 
 // Authentication routes...

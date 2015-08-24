@@ -163,4 +163,18 @@ class PaypalService implements Payment {
         return $output;
     }
 
+    public function getPaymentItemDetails($payoutItemId)
+    {
+        try {
+
+            $output = \PayPal\Api\PayoutItem::get($payoutItemId, $apiContext);
+
+        } catch (\Exception $e) {
+
+            return $e->getMessage();
+        }
+
+        return $output;
+    }
+
 }

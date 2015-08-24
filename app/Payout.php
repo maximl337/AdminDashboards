@@ -17,10 +17,17 @@ class Payout extends Model
      * @var array
      */
     protected $fillable = [
+
         'user_id',
         'amount',
+        'sender_batch_id',
+        'sender_item_id',
         'payout_batch_id',
         'payout_item_id',
+        'batch_status',
+        'trasaction_id',
+        'transaction_status'
+        
     ];
 
     /**

@@ -82,7 +82,7 @@ class PayoutService implements PayoutContract
 
         }
 
-        $payouts = $user->payouts()->whereNull('status')->get();
+        $payouts = $user->payouts()->whereNotNull('transaction_status')->get();
 
         foreach($payouts as $payout) {
 
@@ -113,17 +113,6 @@ class PayoutService implements PayoutContract
 
     public function massPay(Payment $payment) {
 
-        // UPDATE PAYOUTS
-        // $payouts = Payout::all();
-
-        // foreach($payouts as $payout) {
-
-        //     $payoutBatchId = $payout->payout_batch_id;
-
-        //     $payment->
-
-        // } //EO payouts
-
         // GET ORDERS
         $orders = Order::with('template')->get();
 
@@ -137,7 +126,7 @@ class PayoutService implements PayoutContract
 
         $payoutItems = [];
 
-        $payoutBatchId = uniqid();
+        $senderBatchId = uniqid();
 
         // Get users of orders
         foreach($orders as $order) {
@@ -154,7 +143,7 @@ class PayoutService implements PayoutContract
 
             //if($earnings['pending'] < 100) continue;
 
-            $payoutItemId = $user->id . '-' . date("Ymd");
+            $senderItemId = substr($user->id . '-' . microtime(true), 0, 30);
 
             $payoutItems[] = [
 
@@ -167,25 +156,55 @@ class PayoutService implements PayoutContract
             Payout::create([
                     'user_id' => $user->id,
                     'amount' => $earnings['pending'],
-                    'payout_batch_id' => $payoutBatchId,
-                    'payout_item_id' => $payoutItemId,
+                    'sender_batch_id' => $senderBatchId,
+                    'sender_item_id' => $senderItemId,
                 ]);
-
-            
 
         } // EO foreach
 
-        $output = $payment->sendBatchPayment($payoutItems, $payoutBatchId);
+        // Send payment
+        $output = $payment->sendBatchPayment($payoutItems, $senderBatchId);
 
+        // Get batch id
         $batchId = $output->getBatchHeader()->getPayoutBatchId();
 
-        $payoutBatchStatus = $output->batch_header->batch_status;
+        // get batch_status
+        $batchStatus = $output->getBatchHeader()->getBatchStatus();
 
-        Payout::where('payout_batch_id', $payoutBatchId)
-                ->update([
-                        'status' => $payoutBatchStatus,
-                        'payout_batch_id' => $batchId
-                    ]);
+        // Get Payout Batch Data
+        $batchResponse = $payment->getBatchPaymentDetails($batchId);
+
+        // Get each payout item
+        $batchItems = $batchResponse->getItems();
+
+        foreach($batchItems as $batchItem) {
+
+            //get payout item info
+            $payoutItemId = $batchItem->getPayoutItemId();
+
+
+            // get payoutItem
+            $payoutItem = $payment->getPaymentItemDetails($payoutItemId);
+
+            //sender item id
+            $senderItemId = $payoutItem->getSenderItemId();
+            
+            // trasaction_id
+            $transactionStatus = $payoutItem->getTransactionId();
+
+            // trasaction_status 
+            $transactionId = $payoutItem->getTransactionStatus();
+            
+            Payout::where('sender_item_id', $senderItemId)
+                    ->update([
+                            'payout_batch_id'       => $batchId,
+                            'payout_item_id'        => $payoutItemId,
+                            'batch_status'          => $batchStatus,
+                            'trasaction_id'         => $transactionId,
+                            'transaction_status'    => $transactionStatus
+                        ]);
+
+        } // EO foreach
 
         return $output;
 

@@ -37,6 +37,11 @@ class PayoutController extends Controller
         return $payment->getBatchPaymentDetails($id);
     }
 
+    public function payoutItem($id, Payment $payment)
+    {
+        return $payment->getPaymentItemDetails($id);
+    }
+
     public function PaypalIpn(Request $request)
     {
         $input = $request->input();
