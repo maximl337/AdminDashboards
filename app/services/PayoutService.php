@@ -139,7 +139,7 @@ class PayoutService implements PayoutContract
 
         $payoutItems = [];
 
-        $payoutBatchId = uniqid().date("Ymd");
+        $payoutBatchId = uniqid();
 
         // Get users of orders
         foreach($orders as $order) {
