@@ -189,10 +189,10 @@ class PayoutService implements PayoutContract
             $senderItemId = $payoutItem->payout_item->getSenderItemId();
 
             // trasaction_id
-            $transactionStatus = $payoutItem->getTransactionId();
+            $transactionId = $payoutItem->getTransactionId();
 
             // trasaction_status 
-            $transactionId = $payoutItem->getTransactionStatus();
+            $transactionStatus = $payoutItem->getTransactionStatus();
             
             Payout::where('sender_item_id', $senderItemId)
                     ->update([
