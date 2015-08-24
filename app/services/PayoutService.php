@@ -82,7 +82,7 @@ class PayoutService implements PayoutContract
 
         }
 
-        $payouts = $user->payouts()->where('status', 'complete')->get();
+        $payouts = $user->payouts()->whereNotNull('status')->get();
 
         foreach($payouts as $payout) {
 
@@ -112,6 +112,17 @@ class PayoutService implements PayoutContract
     }
 
     public function massPay(Payment $payment) {
+
+        // UPDATE PAYOUTS
+        // $payouts = Payout::all();
+
+        // foreach($payouts as $payout) {
+
+        //     $payoutBatchId = $payout->payout_batch_id;
+
+        //     $payment->
+
+        // } //EO payouts
 
         // GET ORDERS
         $orders = Order::with('template')->get();
@@ -170,7 +181,7 @@ class PayoutService implements PayoutContract
                 ->update([
                         'status' => $payoutBatchStatus
                     ]);
-                
+
         return $output;
 
     } // send mass payout

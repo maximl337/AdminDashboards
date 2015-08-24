@@ -15,6 +15,8 @@ Route::get('test/payout', 'PayoutController@test');
 
 Route::get('test/payout/{id}', 'PayoutController@testPayout');
 
+Route::get('test/payoutDetails/{id}', 'PayoutController@payoutDetails');
+
 
 
 
