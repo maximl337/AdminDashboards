@@ -82,9 +82,7 @@ class PayoutService implements PayoutContract
 
         }
 
-        //$payouts = $user->payouts()->whereNotNull('status')->get();
-
-        $payouts = $user->payouts()->get();
+        $payouts = $user->payouts()->whereNull('status')->get();
 
         foreach($payouts as $payout) {
 
@@ -153,6 +151,8 @@ class PayoutService implements PayoutContract
         foreach($users as $user) {
 
             $earnings = $this->earnings($user); 
+
+            //if($earnings['pending'] < 100) continue;
 
             $payoutItemId = $user->id . '-' . date("Ymd");
 
