@@ -25,9 +25,9 @@ class Payout extends Model
         'payout_batch_id',
         'payout_item_id',
         'batch_status',
-        'trasaction_id',
+        'transaction_id',
         'transaction_status'
-        
+
     ];
 
     /**

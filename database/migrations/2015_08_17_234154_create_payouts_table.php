@@ -21,7 +21,7 @@ class CreatePayoutsTable extends Migration
             $table->string('payout_batch_id')->nullable();
             $table->string('payout_item_id')->nullable();
             $table->string('batch_status')->nullable();
-            $table->string('trasaction_id')->nullable();
+            $table->string('transaction_id')->nullable();
             $table->string('transaction_status')->nullable();
             $table->timestamps();
         });

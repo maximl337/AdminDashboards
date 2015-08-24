@@ -179,6 +179,7 @@ class PayoutService implements PayoutContract
 
         foreach($batchItems as $batchItem) {
             
+            dd($batchItem->transaction_id);
             //get payout item info
             $payoutItemId = $batchItem->getPayoutItemId();
 
@@ -199,7 +200,7 @@ class PayoutService implements PayoutContract
                             'payout_batch_id'       => $batchId,
                             'payout_item_id'        => $payoutItemId,
                             'batch_status'          => $batchStatus,
-                            'trasaction_id'         => $transactionId,
+                            'transaction_id'        => $transactionId,
                             'transaction_status'    => $transactionStatus
                         ]);
 
