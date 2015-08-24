@@ -175,12 +175,12 @@ class PayoutService implements PayoutContract
 
         $output = $payment->sendBatchPayment($payoutItems, $payoutBatchId);
 
-        $payoutBatchStatus = $output->batch_header->batch_status;
+        // $payoutBatchStatus = $output->batch_header->batch_status;
 
-        Payout::where('payout_batch_id', $payoutBatchId)
-                ->update([
-                        'status' => $payoutBatchStatus
-                    ]);
+        // Payout::where('payout_batch_id', $payoutBatchId)
+        //         ->update([
+        //                 'status' => $payoutBatchStatus
+        //             ]);
 
         return $output;
 
