@@ -153,12 +153,12 @@ class PayoutService implements PayoutContract
 
             ];
 
-            // Payout::create([
-            //         'user_id' => $user->id,
-            //         'amount' => $earnings['pending'],
-            //         'sender_batch_id' => $senderBatchId,
-            //         'sender_item_id' => $senderItemId,
-            //     ]);
+            Payout::create([
+                    'user_id' => $user->id,
+                    'amount' => $earnings['pending'],
+                    'sender_batch_id' => $senderBatchId,
+                    'sender_item_id' => $senderItemId,
+                ]);
 
         } // EO foreach
 
@@ -179,13 +179,14 @@ class PayoutService implements PayoutContract
 
         foreach($batchItems as $batchItem) {
 
-            dd($batchItem->payout_item->sender_item_id);
+            
             //get payout item info
             $payoutItemId = $batchItem->getPayoutItemId();
 
             // get payoutItem
             $payoutItem = $payment->getPaymentItemDetails($payoutItemId);
 
+            dd($payoutItem);
             //sender item id
             $senderItemId = $batchItem->payout_item->sender_item_id;
 
