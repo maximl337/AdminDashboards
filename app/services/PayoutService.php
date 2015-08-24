@@ -182,13 +182,12 @@ class PayoutService implements PayoutContract
             //get payout item info
             $payoutItemId = $batchItem->getPayoutItemId();
 
-
             // get payoutItem
             $payoutItem = $payment->getPaymentItemDetails($payoutItemId);
 
             //sender item id
             $senderItemId = $batchItem->getSenderItemId();
-            
+
             // trasaction_id
             $transactionStatus = $payoutItem->getTransactionId();
 
