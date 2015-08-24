@@ -147,7 +147,7 @@ class PayoutService implements PayoutContract
 
             $payoutItems[] = [
 
-                'sender_item_id'    => $payoutItemId,
+                'sender_item_id'    => $senderItemId,
                 'email'             => $user->email,
                 'amount'            => $earnings['pending']
 
