@@ -29,7 +29,7 @@ class UpdatePayout extends Command
      *
      * @return void
      */
-    public function __construct(Payment $payout)
+    public function __construct(Payment $payment)
     {
         $this->payment = $payment;
 
@@ -54,7 +54,7 @@ class UpdatePayout extends Command
             $payoutItemId = $payout->payout_item_id;
 
              // get payoutItem
-            $payoutItem = $payment->getPaymentItemDetails($payoutItemId);
+            $payoutItem = $this->payment->getPaymentItemDetails($payoutItemId);
 
             //sender item id
             $senderItemId = $payoutItem->payout_item->getSenderItemId();
