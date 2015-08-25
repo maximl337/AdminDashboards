@@ -13,7 +13,7 @@ class FirstTest extends Command
      *
      * @var string
      */
-    protected $signature = 'test:first';
+    protected $signature = 'test';
 
     /**
      * The console command description.
