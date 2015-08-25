@@ -48,6 +48,8 @@ class UpdatePayout extends Command
                             ->orWhere('transaction_status', '<>', 'SUCCESS')
                             ->get();
 
+        if(!count($payouts)) return;
+        
         // call paypal to get info
         foreach($payouts as $payout) {
 
