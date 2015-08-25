@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Contracts\Payout;
+use App\Contracts\Payout as PayoutContract;
 use App\Contracts\Payment;
 
 class Payout extends Command
@@ -30,7 +30,7 @@ class Payout extends Command
      *
      * @return void
      */
-    public function __construct(Payout $payout, Payment $payment)
+    public function __construct(PayoutContract $payout, Payment $payment)
     {
         $this->payout = $payout;
 
