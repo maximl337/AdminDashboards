@@ -8,6 +8,7 @@ class PaypalDump extends Model
 {
     protected $fillable = [
         'dump',
+        'type',
         'response'
     ];
 }

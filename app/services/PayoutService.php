@@ -171,8 +171,6 @@ class PayoutService implements PayoutContract
         // get batch_status
         $batchStatus = $output->getBatchHeader()->getBatchStatus();
 
-        sleep(10);
-
         // Get Payout Batch Data
         $batchResponse = $payment->getBatchPaymentDetails($batchId);
 
