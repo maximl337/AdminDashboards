@@ -49,6 +49,6 @@ class Payout extends Command
 
         //if(date('d') != '25') return;
 
-        $this->payout->massPay($this->payment);
+        //$this->payout->massPay($this->payment);
     }
 }
