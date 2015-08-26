@@ -44,37 +44,36 @@ class UpdatePayout extends Command
     public function handle()
     {
         // get payouts that are null
-        // $payouts = Payout::whereNull('transaction_status')
-        //                     ->orWhere('transaction_status', '<>', 'SUCCESS')
-        //                     ->get();
+        $payouts = Payout::whereNull('transaction_status')
+                            ->orWhere('transaction_status', '<>', 'SUCCESS')
+                            ->get();
 
-        // if(!count($payouts)) return;
+        if(!count($payouts)) return;
         
-        // // call paypal to get info
-        // foreach($payouts as $payout) {
+        // call paypal to get info
+        foreach($payouts as $payout) {
 
-        //     $payoutItemId = $payout->payout_item_id;
+            $payoutItemId = $payout->payout_item_id;
 
-        //      // get payoutItem
-        //     $payoutItem = $this->payment->getPaymentItemDetails($payoutItemId);
+             // get payoutItem
+            $payoutItem = $this->payment->getPaymentItemDetails($payoutItemId);
 
-        //     //sender item id
-        //     $senderItemId = $payoutItem->payout_item->getSenderItemId();
+            //sender item id
+            $senderItemId = $payoutItem->payout_item->getSenderItemId();
 
-        //     // trasaction_id
-        //     $transactionId = $payoutItem->getTransactionId();
+            // trasaction_id
+            $transactionId = $payoutItem->getTransactionId();
 
-        //     // trasaction_status 
-        //     $transactionStatus = $payoutItem->getTransactionStatus();
+            // trasaction_status 
+            $transactionStatus = $payoutItem->getTransactionStatus();
             
-        //     Payout::where('sender_item_id', $senderItemId)
-        //             ->update([
-        //                     'transaction_id'        => $transactionId,
-        //                     'transaction_status'    => $transactionStatus
-        //                 ]);
+            Payout::where('sender_item_id', $senderItemId)
+                    ->update([
+                            'transaction_id'        => $transactionId,
+                            'transaction_status'    => $transactionStatus
+                        ]);
 
 
-        // }
-        // update payout 
+        }
     }
 }
