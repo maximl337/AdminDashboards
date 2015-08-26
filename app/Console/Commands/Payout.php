@@ -47,7 +47,7 @@ class Payout extends Command
     public function handle()
     {
 
-        if(date('d') != '25') return;
+        //if(date('d') != '25') return;
 
         $this->payout->massPay($this->payment);
     }
