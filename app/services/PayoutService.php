@@ -141,7 +141,7 @@ class PayoutService implements PayoutContract
 
             $earnings = $this->earnings($user); 
 
-            //if($earnings['pending'] < 100) continue;
+            if($earnings['pending'] < 100) continue;
 
             $senderItemId = substr($user->id . '-' . microtime(true), 0, 30);
 
@@ -161,6 +161,8 @@ class PayoutService implements PayoutContract
                 ]);
 
         } // EO foreach
+
+        if(!count($payoutItems)) return;
 
         // Send payment
         $output = $payment->sendBatchPayment($payoutItems, $senderBatchId);
