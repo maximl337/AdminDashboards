@@ -59,7 +59,7 @@ class UpdatePayout extends Command
             $payoutItem = $this->payment->getPaymentItemDetails($payoutItemId);
 
             //sender item id
-            $senderItemId = $payoutItem->payout_item->getSenderItemId();
+            $senderItemId = $payoutItem->getPayoutItem()->getSenderItemId();
 
             // trasaction_id
             $transactionId = $payoutItem->getTransactionId();
