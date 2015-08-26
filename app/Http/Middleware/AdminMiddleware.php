@@ -16,7 +16,8 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $is_admin = Auth::user()->roles()->where('name', 'admin')->exists(); 
+        $is_admin = Auth::user()->roles()->where('name', 'admin')->exists();
+         
         if(! $is_admin) {
 
             return response()->json([

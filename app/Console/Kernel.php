@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\Inspire::class,
-        \App\Console\Commands\Payout::class,
+        \App\Console\Commands\MassPayout::class,
         \App\Console\Commands\UpdatePayout::class,
     ];
 

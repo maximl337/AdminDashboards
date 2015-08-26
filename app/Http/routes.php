@@ -1,14 +1,13 @@
 <?php
 
-use App\Contracts\FileStorage;
-
 if (App::environment('staging')) {
-    $monolog = Log::getMonolog();
-    $syslog = new \Monolog\Handler\SyslogHandler('papertrail');
-    $formatter = new \Monolog\Formatter\LineFormatter('%channel%.%level_name%: %message% %extra%');
-    $syslog->setFormatter($formatter);
+    // $monolog = Log::getMonolog();
+    // $syslog = new \Monolog\Handler\SyslogHandler('papertrail');
+    // $formatter = new \Monolog\Formatter\LineFormatter('%channel%.%level_name%: %message% %extra%');
+    // $syslog->setFormatter($formatter);
 
-    $monolog->pushHandler($syslog);
+    // $monolog->pushHandler($syslog);
+    Log::useFiles('php://stderr');
 }
 
 Route::get('test/payout', 'PayoutController@test');
