@@ -53,4 +53,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
     Route::get('payouts', 'PayoutController@index');
 
+    Route::resource('commissions', 'CommissionController');
+
 });

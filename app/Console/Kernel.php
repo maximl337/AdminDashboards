@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\MassPayout::class,
         \App\Console\Commands\UpdatePayout::class,
+        \App\Console\Commands\MakeAdmin::class,
     ];
 
     /**
