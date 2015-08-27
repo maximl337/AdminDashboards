@@ -19,9 +19,25 @@ class PagesController extends Controller
         $this->middleware('auth', ['only' => ['dashboard']]);
     }
 
-    public function home()
+    public function home(Request $request)
     {
-        return view('pages.home');
+        $limit = $request->get('limit') ?: 4;
+
+        $page = $request->get('page') ?: 0;
+
+        $templates = Template::where('approved', true)->latest()->paginate($limit);
+
+        $recent = Template::where('approved', true)->latest()->take(2)->get();
+
+        $popular   = Template::where('approved', true)->take(3)->get();
+
+        return view('pages.home')->with([
+
+                'templates' => $templates,
+                'recent'    => $recent,
+                'popular'   => $popular
+
+            ]);
     }
 
     public function dashboard()
