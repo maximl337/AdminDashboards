@@ -1,31 +1,17 @@
 <?php
 
-use Log;
-
 if (App::environment('staging')) {
-    // $monolog = Log::getMonolog();
-    // $syslog = new \Monolog\Handler\SyslogHandler('papertrail');
-    // $formatter = new \Monolog\Formatter\LineFormatter('%channel%.%level_name%: %message% %extra%');
-    // $syslog->setFormatter($formatter);
 
-    // $monolog->pushHandler($syslog);
     Log::useFiles('php://stderr');
 }
 
-Route::get('test/payout', 'PayoutController@test');
+// Route::get('test/payout', 'PayoutController@test');
 
-Route::get('test/payout/{id}', 'PayoutController@testPayout');
+// Route::get('test/payout/{id}', 'PayoutController@testPayout');
 
-Route::get('test/payoutDetails/{id}', 'PayoutController@payoutDetails');
+// Route::get('test/payoutDetails/{id}', 'PayoutController@payoutDetails');
 
-Route::get('test/payoutItem/{id}', 'PayoutController@payoutItem');
-
-Route::get('test/log', function() {
-
-    Log::info('LOGGING IS WORKING BOIIIII');
-
-    return "attempted to log";
-});
+// Route::get('test/payoutItem/{id}', 'PayoutController@payoutItem');
 
 Route::get('/', 'PagesController@home');
 
@@ -58,5 +44,13 @@ Route::get('paypal/callback', 'OrderController@confirmation');
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
 
     Route::get('/', 'AdminController@index');
-    
+
+    Route::resource('users', 'UserController');
+
+    Route::resource('templates', 'TemplateController');
+
+    Route::get('orders', 'OrderController@index');
+
+    Route::get('payouts', 'PayoutController@index');
+
 });

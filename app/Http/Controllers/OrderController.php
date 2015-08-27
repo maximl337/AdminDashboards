@@ -243,6 +243,8 @@ class OrderController extends Controller
             'dump'      => serialize($input),
             ]);
 
+        // update payouts
+
         
     //     if (strcmp ($res, "VERIFIED") == 0) {
 
