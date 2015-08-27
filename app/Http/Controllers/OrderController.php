@@ -244,43 +244,43 @@ class OrderController extends Controller
             ]);
 
         
-        if (strcmp ($res, "VERIFIED") == 0) {
+    //     if (strcmp ($res, "VERIFIED") == 0) {
 
-            $customVars = explode(",", $input['custom']);
+    //         $customVars = explode(",", $input['custom']);
 
-            $input['template_id'] = $customVars[0];
+    //         $input['template_id'] = $customVars[0];
 
-            $input['licence_type'] = $customVars[1];
+    //         $input['licence_type'] = $customVars[1];
 
-            //check if payment was successful
-            $paymentSuccessful = $input['payment_status'] == 'Completed';
+    //         //check if payment was successful
+    //         $paymentSuccessful = $input['payment_status'] == 'Completed';
 
-            $oldTransaction = PaypalIpn::where('txn_id', $input['txn_id'])->exists();
+    //         $oldTransaction = PaypalIpn::where('txn_id', $input['txn_id'])->exists();
 
-            // Payment was successful and Transaction is new
-            if($paymentSuccessful && !$oldTransaction) {
+    //         // Payment was successful and Transaction is new
+    //         if($paymentSuccessful && !$oldTransaction) {
 
-                $paypalIpn = PaypalIpn::create($input);
+    //             $paypalIpn = PaypalIpn::create($input);
 
-                // GET TXN ID
-                // CHECK IF AN ORDER EXISTS WITH TXN ID AND ITEM NUMBER
-                // IF EXISTS CHECK STATUS AND UPDATE IF REQUIRED
-                // IF NOT EXISTS CREATE ORDER
-                Log::info('created a paypal transaction record');
-            }
+    //             // GET TXN ID
+    //             // CHECK IF AN ORDER EXISTS WITH TXN ID AND ITEM NUMBER
+    //             // IF EXISTS CHECK STATUS AND UPDATE IF REQUIRED
+    //             // IF NOT EXISTS CREATE ORDER
+    //             Log::info('created a paypal transaction record');
+    //         }
 
-        } 
-        else if (strcmp ($res, "INVALID") == 0) {
+    //     } 
+    //     else if (strcmp ($res, "INVALID") == 0) {
 
             
-            Log::error('Payment was not successful or transaction was old');
+    //         Log::error('Payment was not successful or transaction was old');
 
-            throw new \Exception('Payment was not successful or transaction was old');
-        }
-        else {
-            Log::error("Paypal Ipn Failed" . $res);
+    //         throw new \Exception('Payment was not successful or transaction was old');
+    //     }
+    //     else {
+    //         Log::error("Paypal Ipn Failed" . $res);
 
-            throw new \Exception("Paypal Ipn Failed" . $res);
-        }
-    }
+    //         throw new \Exception("Paypal Ipn Failed" . $res);
+    //     }
+    // }
 }
