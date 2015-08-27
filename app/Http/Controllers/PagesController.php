@@ -25,11 +25,11 @@ class PagesController extends Controller
 
         $page = $request->get('page') ?: 0;
 
-        $templates = Template::where('approved', true)->latest()->paginate($limit);
+        $templates  = Template::approved()->latest()->paginate($limit);
 
-        $recent = Template::where('approved', true)->latest()->take(2)->get();
+        $recent     = Template::approved()->latest()->take(2)->get();
 
-        $popular   = Template::where('approved', true)->take(3)->get();
+        $popular    = Template::approved()->take(3)->get();
 
         return view('pages.home')->with([
 

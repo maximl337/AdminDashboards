@@ -28,7 +28,7 @@ $factory->define(App\Template::class, function ($faker) {
         'price' => 20, 
         'version' => $faker->randomFloat,
         'description' => $faker->text,
-        'screenshot' => $faker->imageUrl($width=600, $height=375, 'nature', true, 'Faker'),
+        'screenshot' => $faker->imageUrl($width=1100, $height=590, 'nature', true, 'Faker'),
         'preview_url' => $faker->url,
         'files_url' => $faker->url,
         'approved'  => true
