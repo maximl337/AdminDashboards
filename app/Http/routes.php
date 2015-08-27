@@ -1,5 +1,7 @@
 <?php
 
+use Log;
+
 if (App::environment('staging')) {
     // $monolog = Log::getMonolog();
     // $syslog = new \Monolog\Handler\SyslogHandler('papertrail');
@@ -17,6 +19,13 @@ Route::get('test/payout/{id}', 'PayoutController@testPayout');
 Route::get('test/payoutDetails/{id}', 'PayoutController@payoutDetails');
 
 Route::get('test/payoutItem/{id}', 'PayoutController@payoutItem');
+
+Route::get('test/log', function() {
+
+    Log::info('LOGGING IS WORKING BOIIIII');
+
+    return "attempted to log";
+});
 
 Route::get('/', 'PagesController@home');
 
