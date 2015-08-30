@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Imgur;
 use Auth;
+use App\User;
 use Storage;
 use OpenCloud\Rackspace;
 use App\Contracts\FileStorage;
@@ -55,7 +56,7 @@ class TemplateController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(CreateTemplateRequest $request)
+    public function saveTemplate(CreateTemplateRequest $request) //CreateTemplateRequest $request
     {
         $input = $request->input();
 
@@ -64,6 +65,18 @@ class TemplateController extends Controller
         $input['price_multiple'] = round($request->get('price_multiple'));
 
         $input['price_extended'] = round($request->get('price_extended'));
+
+        if(!empty($input['frameworks']))
+
+            $input['frameworks'] = implode(", ", $input['frameworks']);
+
+        if(!empty($input['browser']))
+
+            $input['browser'] = implode(", ", $input['browser']);
+
+        if(!empty($input['build_tools']))
+
+            $input['build_tools'] = implode(", ", $input['build_tools']);
 
         // Handle Image
         $image_path = $request->file('screenshot')->getRealPath();
@@ -82,14 +95,8 @@ class TemplateController extends Controller
 
         $fileDestination = 'templates/' 
                             . Auth::id() 
-                            . '-' . Auth::user()->templates()->count() 
+                            . '-' . Auth::user()->templates()->count()
                             . '-' . $request->file('files')->getClientOriginalName();
-
-        //Handle File
-        // Storage::put(
-        //     $fileDestination,
-        //     file_get_contents($request->file('files')->getRealPath())
-        // );
 
         $this->storage->put($fileDestination, $request->file('files')->getRealPath());     
 
@@ -99,7 +106,14 @@ class TemplateController extends Controller
 
         Auth::user()->templates()->save($template);
 
-        return redirect()->action('TemplateController@show', [ $template->id ]);
+        $data = [
+            'template'      => $template,
+            'amount'        => $template->price,
+            'license_type'  => 'single'
+        ];
+
+        return redirect()->action('TemplateController@getTemplate', $data);
+        
     }
 
     /**
@@ -108,7 +122,42 @@ class TemplateController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id, Request $request)
+    public function getTemplate($id, Request $request)
+    {
+        $template = Template::findOrFail($id);
+
+        $license_type = $request->get('license_type') ?: 'single';
+
+        if($license_type == 'single') {
+
+            $amount = $template->price;
+        }
+        elseif($license_type == 'multiple') {
+
+            $amount = $template->price * 4;
+        }
+        elseif($license_type == 'extended') {
+
+            $amount = "80.00";
+        }
+
+        $data = [
+            'template'      => $template,
+            'amount'        => $amount,
+            'license_type'  => $license_type,
+            'author'        => User::find($template->user_id)
+        ];
+
+        return view('template.show', compact('data'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
     {
         $template = Template::findOrFail($id);
 

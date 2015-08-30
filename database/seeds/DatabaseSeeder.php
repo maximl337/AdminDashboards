@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         $this->call(RoleTableSeeder::class);
         $this->call(CommissionTableSeeder::class);
+        $this->call(TagTableSeeder::class);
         
         DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
 

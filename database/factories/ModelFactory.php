@@ -26,14 +26,22 @@ $factory->define(App\Template::class, function ($faker) {
     return [
         'name' => $faker->sentence, 
         'price' => 20, 
-        'version' => $faker->randomFloat,
+        'price_multiple' => 200,
+        'price_extended' => 400,
+        'version' => 1.0,
         'description' => $faker->text,
         'screenshot' => $faker->imageUrl($width=1100, $height=590, 'nature', true, 'Faker'),
         'preview_url' => $faker->url,
         'files_url' => $faker->url,
+        'layout' => 'Responsive',
+        'frameworks' => 'Bootstrap',
+        'preprocessor' => 'Sass',
+        'browser' => 'Chrome, Firefox, Safari, Opera, IE11, IE10, IE9, IE8',
+        'columns' => '3',
+        'exclusive' => false,
+        'files_included' => 'Lorem, ipsum, dolor, sit, amet',
         'approved'  => true
     ];
 });
-
 
 

@@ -23,6 +23,7 @@
   
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,300,200,600,600italic,700">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
 
   <!--[if lt IE 9]>
     <script src="./js/html5shiv.js"></script>
@@ -67,10 +68,10 @@
               @if(Auth::check())
                 
                 <li><a href="dashboard">Dashboard</a></li>
-                <li><a href="auth/logout">Sign Out</a></li>
+                <li><a href="/auth/logout">Sign Out</a></li>
                 
               @else
-                <li><a href="auth/login">Sign In</a></li>
+                <li><a href="/auth/login">Sign In</a></li>
                 <li class="join-now"><a href="/auth/register">Join Now</a></li>
               @endif
             </ul>
@@ -111,7 +112,7 @@
             <li>No Exclusivity Lock-In</li>
             <li>Set Your Own Prices</li>
           </ul>
-          <a href="register.html" class="btn btn-default btn-teal">Start Selling</a>
+          <a href="/sell" class="btn btn-default btn-teal">Start Selling</a>
         </div>
         <div class="col-md-4">
           <h3>Stay Connected</h3>
@@ -192,6 +193,9 @@
   <script src="/js/modernizr.min.js" type="text/javascript"></script>
   <script src="/js/jquery.prettyPhoto.js" type="text/javascript" ></script>
   <script src="/js/custom.js" type="text/javascript"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+  @yield('footer')
 
 </body>
 </html>

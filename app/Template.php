@@ -29,7 +29,14 @@ class Template extends Model
                 'screenshot',
                 'preview_url',
                 'files_url',
-                'user_id'
+                'user_id',
+                'layout',
+                'frameworks',
+                'preprocessor',
+                'browser',
+                'columns',
+                'exclusive',
+                'files_included'
 
                 ];
 
@@ -57,6 +64,11 @@ class Template extends Model
     public function orders()
     {
         return $this->hasMany('App\Order');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
     }
 
     public function paypalipn()

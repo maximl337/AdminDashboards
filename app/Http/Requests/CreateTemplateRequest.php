@@ -32,6 +32,11 @@ class CreateTemplateRequest extends Request
             'screenshot'        => 'required|image',
             'preview_url'       => 'required',
             'files'             => 'required|mimes:zip|max:150000',
+            'layout'            => 'required',
+            'frameworks'        => 'required',
+            'browser'           => 'required',
+            'columns'           => 'required',
+            'files_included'    => 'required'
         ];
     }
 }

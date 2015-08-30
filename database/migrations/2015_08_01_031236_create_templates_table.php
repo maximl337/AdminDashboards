@@ -18,9 +18,19 @@ class CreateTemplatesTable extends Migration
             $table->integer('price');
             $table->integer('price_multiple')->nullable();
             $table->integer('price_extended')->nullable();
-            $table->string('version')->nullable();
+
+            $table->string('version');
             $table->text('description');
             $table->string('screenshot');
+            $table->string('layout');
+            $table->string('frameworks');
+            $table->string('columns');
+            
+            $table->string('browser');
+            $table->string('files_included');
+            $table->string('preprocessor')->nullable();
+            $table->string('build_tools')->nullable();
+            
             $table->string('preview_url');
             $table->string('files_url');
             $table->integer('user_id')->unsigned();
