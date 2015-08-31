@@ -18,6 +18,10 @@ use App\Http\Controllers\Controller;
 class OrderController extends Controller
 {
 
+    /**
+     * Storage contract
+     * @var attribute
+     */
     protected $storage;
 
     public function __construct(FileStorage $storage)
@@ -25,14 +29,24 @@ class OrderController extends Controller
         $this->storage = $storage;
     }
 
+    /**
+     * Payment confirmation
+     * @param  Request $request 
+     * @return view           payment confirmation
+     */
     public function confirmation(Request $request)
     {
 
         $transaction_id     = $request->get('tx');
+
         $status             = $request->get('st'); 
+
         $customVars         = explode(", ", $request->get('cm'));
+
         $template_id        = $request->get('item_number');
+
         $licence_type       = $customVars[0];
+
         $user_id            = isset($customVars[1]) ? $customVars[1] : "";
 
         $res = $this->paypalPDT($transaction_id);
@@ -44,24 +58,32 @@ class OrderController extends Controller
     protected function paypalPDT($transaction_id)
     {
 
-
         $internalResp = [
             'status'    => false
         ];
 
         // params to post
         $req = 'cmd=_notify-synch';
+
         $tx_token = $_GET['tx'];
+
         $auth_token = env('PAYPAL_PDT_TOKEN');
+
         $req .= '&tx='.$tx_token.'&at='.$auth_token;
 
         // Post back to PayPal to validate
         $c = curl_init(env('PAYPAL_HOST_URL'));
+
         curl_setopt($c, CURLOPT_POST, 1);
+
         curl_setopt($c, CURLOPT_POSTFIELDS, $req);
+
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+
         $contents = curl_exec($c);
+
         $response_code = curl_getinfo($c, CURLINFO_HTTP_CODE);
+
         curl_close($c);
 
         if(!$contents || $response_code != 200) {
@@ -135,7 +157,6 @@ class OrderController extends Controller
                 }
 
                 // check that payment_amount/payment_currency are correct
-
                 $paypalTxnPrice = (float) $response['mc_gross'] - (float) $response['tax'];
 
                 if($response['custom'] == 'single') {
@@ -167,12 +188,9 @@ class OrderController extends Controller
                     return $internalResp;
                 }
 
-                   
-
                 $paypalpdt = PaypalPdt::create($response);
 
                 // process the order
-
                 $order = Order::create([
                         'template_id'               => $response['item_number'],
                         'licence_type'              => $response['custom'],

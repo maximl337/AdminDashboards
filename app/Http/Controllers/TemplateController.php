@@ -32,7 +32,7 @@ class TemplateController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function getTemplates()
     {
         $templates = Template::approved()->get();
 
@@ -46,7 +46,7 @@ class TemplateController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function makeTemplate()
     {
         $tags = Tag::all();
 
@@ -186,36 +186,6 @@ class TemplateController extends Controller
         ];
 
         return view('template.show', compact('data'));
-    }
-
-    public function testTempUrl($id)
-    {
-        // $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-        //     'username' => getenv('RACKSPACE_USERNAME'),
-        //     'apiKey'   => getenv('RACKSPACE_KEY')
-        // ));
-
-        // $objectStoreService = $client->objectStoreService(null, 'IAD');
-
-        // $container = $objectStoreService->getContainer('bd-files');
-
-        // $template = Template::find($id);
-
-        // $object = $container->getObject($template->files_url);
-
-        // $account = $objectStoreService->getAccount();
-
-        // $account->setTempUrlSecret();
-
-        // // Get a temporary URL that will expire in 3600 seconds (1 hour) from now
-        // // and only allow GET HTTP requests to it.
-        // $tempUrl = $object->getTemporaryUrl(3600, 'GET');
-
-        $template = Template::findOrFail($id);
-
-        return $this->stroage->getTempUrl($template->files_url);
-
-        //return $tempUrl;
     }
 
     /**

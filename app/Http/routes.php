@@ -5,29 +5,24 @@ if (App::environment('staging')) {
     Log::useFiles('php://stderr');
 }
 
-// Route::get('test/payout', 'PayoutController@test');
-
-// Route::get('test/payout/{id}', 'PayoutController@testPayout');
-
-// Route::get('test/payoutDetails/{id}', 'PayoutController@payoutDetails');
-
-// Route::get('test/payoutItem/{id}', 'PayoutController@payoutItem');
-
 Route::get('/', 'PagesController@home');
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
+
 Route::post('auth/login', 'Auth\AuthController@postLogin');
+
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
+
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 
-Route::get('browse', 'TemplateController@index');
+Route::get('browse', 'TemplateController@getTemplates');
 
-Route::get('sell', 'TemplateController@create');
+Route::get('sell', 'TemplateController@makeTemplate');
 
 Route::post('templates', 'TemplateController@saveTemplate');
 
@@ -41,6 +36,10 @@ Route::post('paypal/ipn', 'OrderController@paypalIPN');
 
 Route::get('paypal/callback', 'OrderController@confirmation');
 
+
+/**
+ * ADMIN
+ */
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
 
     Route::get('/', 'AdminController@index');

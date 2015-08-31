@@ -4,43 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-//use App\Payout;
+use App\Payout;
 use App\User;
 use App\Order;
 use App\Commission;
 use App\Template;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Contracts\Payout;
+use App\Contracts\Payout as PayoutContract;
 use App\Contracts\Payment;
 
 class PayoutController extends Controller
 {
 
-    public function test(Payout $payoutContract, Payment $payment)
-    {
 
-        return $payoutContract->massPay($payment);
-        
-    }
-
-
-    public function testPayout($id, Payout $payoutContract)
-    {
-        $user = User::findOrFail($id);
-
-        return $payoutContract->earnings($user);
-    }
-
-    public function payoutDetails($id, Payment $payment)
-    {
-        return $payment->getBatchPaymentDetails($id);
-    }
-
-    public function payoutItem($id, Payment $payment)
-    {
-        return $payment->getPaymentItemDetails($id);
-    }
 
     public function PaypalIpn(Request $request)
     {
@@ -81,25 +58,22 @@ class PayoutController extends Controller
 
                 $paypalIpn = PaypalIpn::create($input);
 
-                // GET TXN ID
-                // CHECK IF AN ORDER EXISTS WITH TXN ID AND ITEM NUMBER
-                // IF EXISTS CHECK STATUS AND UPDATE IF REQUIRED
-                // IF NOT EXISTS CREATE ORDER
                 Log::info('created a paypal transaction record');
             }
 
         } 
         else if (strcmp ($res, "INVALID") == 0) {
 
-            
             Log::error('Payment was not successful or transaction was old');
 
             throw new \Exception('Payment was not successful or transaction was old');
         }
         else {
+
             Log::error("Paypal Ipn Failed" . $res);
 
             throw new \Exception("Paypal Ipn Failed" . $res);
+
         }
     }
     
