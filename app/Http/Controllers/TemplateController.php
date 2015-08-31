@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Imgur;
 use Auth;
 use App\User;
+use App\Tag;
 use Storage;
 use OpenCloud\Rackspace;
 use App\Contracts\FileStorage;
@@ -47,7 +48,9 @@ class TemplateController extends Controller
      */
     public function create()
     {
-        return view('template.create');
+        $tags = Tag::all();
+
+        return view('template.create')->with(compact('tags'));
     }
 
     /**
@@ -56,7 +59,7 @@ class TemplateController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function saveTemplate(CreateTemplateRequest $request) //CreateTemplateRequest $request
+    public function saveTemplate(CreateTemplateRequest $request)
     {
         $input = $request->input();
 
