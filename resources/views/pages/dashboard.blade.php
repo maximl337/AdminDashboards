@@ -134,7 +134,7 @@
                                 <td>{{ $order['id'] }}</td>
                                 <td><a href="/templates/{{ $order['template']['id'] }}">{{ $order['template']['name'] }}</a></td>
                                 <td>{{ $order['template']['price'] }}</td>
-                                <td><small>Pending</small></td>
+                                <td><small>{{ $order['status'] }}</small></td>
                               </tr>
                             @endforeach
                           </tbody>
