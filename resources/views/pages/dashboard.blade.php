@@ -20,7 +20,7 @@
                 </div>
                 <div class="panel-body">
                     <ul class="nav nav-pills" style="margin-bottom: 25px;">
-                      <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">Home</a></li>
+                      <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">Earnings</a></li>
                       <li><a href="#template" data-toggle="tab" aria-expanded="true">Templates</a></li>
                       <li><a href="#orders" data-toggle="tab" aria-expanded="false">Orders</a></li>
                       <li><a href="#payment-settings" data-toggle="tab" aria-expanded="false">Payment Settings</a></li>
@@ -40,37 +40,24 @@
 
                       <div class="tab-pane fade active in" id="home">
                         <div class="row">
-
                           <div class="col-md-4">
-                            <div class="panel panel-primary">
-                              <div class="panel-heading">
-                                <h3 class="panel-title">Pending Earnings</h3>
-                              </div>
-                              <div class="panel-body">
-                                ${{ $data['earnings']['pending'] }}
-                              </div>
+                            <div class="well">
+                              <h1>${{ $data['earnings']['pending'] }}</h1><br />
+                              <small>Pending</small>
                             </div>
                           </div> <!-- /.col-md-4 -->
 
                           <div class="col-md-4">
-                            <div class="panel panel-warning">
-                              <div class="panel-heading">
-                                <h3 class="panel-title">Paid Earnings</h3>
-                              </div>
-                              <div class="panel-body">
-                                ${{ $data['earnings']['paid'] }}
-                              </div>
+                            <div class="well">
+                              <h1>${{ $data['earnings']['paid'] }}</h1><br />
+                              <small>Paid</small>
                             </div>
                           </div> <!-- /.col-md-4 -->
 
                           <div class="col-md-4">
-                            <div class="panel panel-success">
-                              <div class="panel-heading">
-                                <h3 class="panel-title">Lifetime earnings</h3>
-                              </div>
-                              <div class="panel-body">
-                                ${{ $data['earnings']['lifetime'] }}
-                              </div>
+                            <div class="well">
+                              <h1>${{ $data['earnings']['lifetime'] }}</h1><br />
+                              <small>Lifetime</small>
                             </div>
                           </div> <!-- /.col-md-4 -->
 
