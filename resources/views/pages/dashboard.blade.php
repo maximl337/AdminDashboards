@@ -130,10 +130,10 @@
                           <tbody>
                             @foreach($data['orders'] as $order)
                               <tr>
-                                <td>{{ $order['created_at'] }}</td>
+                                <td>{{ $order['created_at']->format('m/d/Y') }}</td>
                                 <td>{{ $order['id'] }}</td>
                                 <td><a href="/templates/{{ $order['template']['id'] }}">{{ $order['template']['name'] }}</a></td>
-                                <td>{{ $order['template']['price'] }}</td>
+                                <td>${{ $order['template']['price'] }}</td>
                                 <td><small>{{ $order['status'] }}</small></td>
                               </tr>
                             @endforeach
