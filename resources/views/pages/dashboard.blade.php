@@ -2,6 +2,8 @@
 
 @section('content')
 
+<section id="main-content" class="section bg-grey">
+    <div class="container" style="padding-top: 50px;">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             @if (session('status'))
@@ -42,10 +44,10 @@
                           <div class="col-md-4">
                             <div class="panel panel-primary">
                               <div class="panel-heading">
-                                <h3 class="panel-title">Total Templates</h3>
+                                <h3 class="panel-title">Pending Earnings</h3>
                               </div>
                               <div class="panel-body">
-                                {{ count($data['templates']) }}
+                                ${{ $data['earnings']['pending'] }}
                               </div>
                             </div>
                           </div> <!-- /.col-md-4 -->
@@ -53,10 +55,10 @@
                           <div class="col-md-4">
                             <div class="panel panel-warning">
                               <div class="panel-heading">
-                                <h3 class="panel-title">Total Orders</h3>
+                                <h3 class="panel-title">Paid Earnings</h3>
                               </div>
                               <div class="panel-body">
-                                {{ count($data['orders']) }}
+                                ${{ $data['earnings']['paid'] }}
                               </div>
                             </div>
                           </div> <!-- /.col-md-4 -->
@@ -64,10 +66,10 @@
                           <div class="col-md-4">
                             <div class="panel panel-success">
                               <div class="panel-heading">
-                                <h3 class="panel-title">Total earnings $</h3>
+                                <h3 class="panel-title">Lifetime earnings</h3>
                               </div>
                               <div class="panel-body">
-                                {{ $data['earnings'] }}
+                                ${{ $data['earnings']['lifetime'] }}
                               </div>
                             </div>
                           </div> <!-- /.col-md-4 -->
@@ -154,5 +156,7 @@
 
         </div>
     </div>
+  </div>
+</section>
 
 @stop

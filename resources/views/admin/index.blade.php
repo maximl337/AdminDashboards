@@ -3,43 +3,43 @@
 @section('content')
 
 
-    
-
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    Revenue
+<section id="main-content" class="section bg-grey">
+    <div class="container" style="padding-top: 50px;">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="#">
+                            <div class="well text-center">
+                                <h3>
+                                    Orders
+                                </h3>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#">
+                            <div class="well text-center">
+                                <h3>
+                                    Templates
+                                </h3>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#">
+                            <div class="well text-center">
+                                <h3>
+                                    Users
+                                </h3>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                        
-                            <div class="well">
-                                <small>Week</small><br />
-                                <h1>$ 500</h1>
-                            </div>
 
-                        </div>
-                        <div class="col-md-4">
-
-                            <div class="well">
-                                <small>Month</small><br />
-                                <h1>$ 5000</h1>
-                            </div>
-                            
-                        </div>
-                        <div class="col-md-4">
-                            <div class="well">
-                                <small>Total</small><br />
-                                <h1>$ 15000</h1>
-                            </div>
-                        </div>
-                    </div> <!-- /.row -->
-
-                </div> <!-- /.panel-body -->
             </div>
-        </div>
-    </div> <!-- /.row -->
-
+        </div> <!-- /.row -->
+    </div>
+</section>
 @endsection

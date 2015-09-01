@@ -67,7 +67,7 @@
               <li><a href="how-it-works.html">How it works</a></li>
               @if(Auth::check())
                 
-                <li><a href="dashboard">Dashboard</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/auth/logout">Sign Out</a></li>
                 
               @else

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Auth;
+use App\Contracts\Payout;
 use App\User;
 use App\Order;
 use App\Template;
@@ -16,7 +17,11 @@ class PagesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['dashboard']]);
+
+        $this->middleware('auth', ['only' => ['dashboard', 'adminDashboard']]);
+
+        $this->middleware('admin', ['only' => ['adminDashboard']]);
+
     }
 
     public function home(Request $request)
@@ -40,7 +45,7 @@ class PagesController extends Controller
             ]);
     }
 
-    public function dashboard()
+    public function dashboard(Payout $payout)
     {
         $templates = Auth::user()->templates->toArray();
 
@@ -48,13 +53,7 @@ class PagesController extends Controller
 
         $orders = $incomingOrders->toArray();
 
-        $earnings = 0;
-
-        foreach($orders as $order) {
-
-            $earnings += $order['template']['price'];
-
-        }
+        $earnings = $payout->earnings(Auth::user());
 
         $data = [
             'templates'     => $templates,
@@ -63,5 +62,10 @@ class PagesController extends Controller
         ];
 
         return view('pages.dashboard', compact('data'));
+    }
+
+    public function adminDashboard()
+    {
+        return view('admin.index');
     }
 }
