@@ -60,6 +60,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
     Route::resource('templates', 'TemplateController');
 
+    Route::post('templates/{id}', 'TemplateController@templateActions');
+
     Route::get('orders', 'OrderController@index');
 
     Route::get('payouts', 'PayoutController@index');

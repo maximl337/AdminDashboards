@@ -198,6 +198,23 @@ class TemplateController extends Controller
         //
     }
 
+    public function templateActions($id, Request $request)
+    {
+        $template = Template::findOrFail($id);
+
+        $input = $request->input();
+
+        $template->approved = !empty($input['approved']) ? true : false;
+
+        $template->rejected = !empty($input['rejected']) ? true : false;
+
+        $template->disabled = !empty($input['disabled']) ? true : false;
+
+        $template->save();
+
+        return back()->with('status', "Template Updated");
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -207,7 +224,7 @@ class TemplateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**

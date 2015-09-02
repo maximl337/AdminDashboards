@@ -10,8 +10,11 @@
 <section id="main-content" class="section bg-grey">
     <div class="container" style="padding-top: 50px;">
          <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                
+            <div class="col-md-10 col-md-offset-1">
+                        
+                        @if (session('status'))
+                                    <div class="alert alert-success">{{ session('status') }}</div>
+                        @endif 
 
                         <div class="list-group">
                           <a href="#" class="list-group-item">
@@ -116,9 +119,49 @@
                         <div class="list-group">
                           <a href="#" class="list-group-item">
                             <h4 class="list-group-item-heading">Files</h4>
-                            <p class="list-group-item-text">URL: {{ $template->files_url }}</p>
-                            <p class="list-group-item-text"><a href="{{ $files }}" class="btn btn-primary">Files</a></p>
+                            <p class="list-group-item-text">
+                              URL: {{ $template->files_url }}
+                              
+                            </p>
                           </a>
+                        </div>
+
+                        <div class="list-group">
+                          <a href="{{ $files }}" class="btn btn-primary">Download Files</a> 
+                          <br />
+                          <small>Valid for 1 hour ( refresh page to get new link )</small>
+                        </div>
+
+
+                        <div class="panel panel-default">
+                          <div class="panel-heading">Actions</div>
+                          <div class="panel-body">
+                            
+                            <form class="form" role="form" method="post">
+                              {!! csrf_field() !!}
+                              <div class="form-group">
+                                  <label for="">
+                                    <input type="checkbox" name="approved" {{ $template->approved ? ' checked="checked"' : ''  }}> Approve
+                                  </label>
+                              </div>
+                              <div class="form-group">
+                                  <label for="">
+                                    <input type="checkbox" name="rejected" {{ $template->rejected ? ' checked="checked"' : ''  }}> Reject
+                                  </label>
+                              </div>
+                              <div class="form-group">
+                                  <label for="">
+                                    <input type="checkbox" name="disabled" {{ $template->disabled ? ' checked="checked"' : ''  }}> Disable
+                                  </label>
+                              </div>
+
+                              <div class="form-group">
+                                  <input type="submit" value="update" class="btn btn-success">  
+                              </div>
+
+                            </form>
+
+                          </div>
                         </div>
 
 
