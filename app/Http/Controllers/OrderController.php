@@ -303,4 +303,11 @@ class OrderController extends Controller
     //         throw new \Exception("Paypal Ipn Failed" . $res);
     //     }
     }
+
+    public function index()
+    {
+        $orders = Order::with('template')->latest()->get();
+
+        return view('admin.orders.index', compact('orders'));
+    }
 }

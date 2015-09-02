@@ -24,7 +24,8 @@
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,300,200,600,600italic,700">
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
-
+  
+  @yield('head')
   <!--[if lt IE 9]>
     <script src="./js/html5shiv.js"></script>
     <script src="./js/respond.js"></script>

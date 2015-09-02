@@ -155,6 +155,20 @@ class TemplateController extends Controller
     }
 
     /**
+     * index
+     * 
+     * @return get all templates
+     */     
+    public function index()
+    {
+        $templates = Template::with('user')
+                                ->with('orders')
+                                ->latest()->get();
+
+        return view('admin.templates.index', compact('templates'));
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -164,28 +178,13 @@ class TemplateController extends Controller
     {
         $template = Template::findOrFail($id);
 
-        $license_type = $request->get('license_type') ?: 'single';
+        $fileUrl = $this->storage->getTempUrl($template->files_url);
 
-        if($license_type == 'single') {
+        return view('admin.templates.show')->with([
+                'template'  => $template,
+                'files'     => $fileUrl
+            ]);
 
-            $amount = $template->price;
-        }
-        elseif($license_type == 'multiple') {
-
-            $amount = $template->price * 4;
-        }
-        elseif($license_type == 'extended') {
-
-            $amount = "80.00";
-        }
-
-        $data = [
-            'template'      => $template,
-            'amount'        => $amount,
-            'license_type'  => $license_type
-        ];
-
-        return view('template.show', compact('data'));
     }
 
     /**

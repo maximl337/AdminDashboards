@@ -39,15 +39,24 @@ class RackspaceService implements FileStorage
 
     public function getTempUrl($remoteFilePath)
     {
-        $this->object = $this->container->getObject($remoteFilePath);
+    
+        try {
 
-        $account = $this->objectStoreService->getAccount();
+            $this->object = $this->container->getObject($remoteFilePath);
 
-        $account->setTempUrlSecret();
+            $account = $this->objectStoreService->getAccount();
 
-        // Get a temporary URL that will expire in 3600 seconds (1 hour) from now
-        // and only allow GET HTTP requests to it.
-        return $this->object->getTemporaryUrl(3600, 'GET');
+            $account->setTempUrlSecret();
+
+            // Get a temporary URL that will expire in 3600 seconds (1 hour) from now
+            // and only allow GET HTTP requests to it.
+            return $this->object->getTemporaryUrl(3600, 'GET');
+            
+        } catch(\Exception $e) {
+
+            return $e->getMessage();
+        }     
+        
     }
 
     public function getPublicUrl($filePath)

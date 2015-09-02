@@ -10,7 +10,7 @@
                 
                 <div class="row">
                     <div class="col-md-4">
-                        <a href="#">
+                        <a href="/admin/orders">
                             <div class="well text-center">
                                 <h3>
                                     Orders
