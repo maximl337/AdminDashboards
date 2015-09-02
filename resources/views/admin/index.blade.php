@@ -19,7 +19,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="#">
+                        <a href="/admin/templates">
                             <div class="well text-center">
                                 <h3>
                                     Templates
@@ -28,7 +28,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="#">
+                        <a href="/admin/users">
                             <div class="well text-center">
                                 <h3>
                                     Users

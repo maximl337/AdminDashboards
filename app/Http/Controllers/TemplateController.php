@@ -180,9 +180,12 @@ class TemplateController extends Controller
 
         $fileUrl = $this->storage->getTempUrl($template->files_url);
 
+        $orders = $template->orders()->get();
+
         return view('admin.templates.show')->with([
                 'template'  => $template,
-                'files'     => $fileUrl
+                'files'     => $fileUrl,
+                'orders'    => $orders
             ]);
 
     }
