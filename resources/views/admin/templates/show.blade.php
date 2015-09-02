@@ -117,7 +117,7 @@
                           <a href="#" class="list-group-item">
                             <h4 class="list-group-item-heading">Files</h4>
                             <p class="list-group-item-text">URL: {{ $template->files_url }}</p>
-                            <p class="list-group-item-text"><a href="{{ $template->files }}" class="btn btn-primary">Files</a></p>
+                            <p class="list-group-item-text"><a href="{{ $files }}" class="btn btn-primary">Files</a></p>
                           </a>
                         </div>
 
