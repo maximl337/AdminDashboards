@@ -23,7 +23,7 @@ class TemplateController extends Controller
 
     public function __construct(FileStorage $storage)
     {
-        $this->middleware('auth', ['only' => ['create', 'store']]);
+        $this->middleware('auth', ['only' => ['makeTemplate', 'saveTemplate']]);
 
         $this->storage = $storage;
     }
