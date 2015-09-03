@@ -32,11 +32,10 @@ class TemplateController extends Controller
      *
      * @return Response
      */
-    public function getTemplates()
+    public function getTemplates(Request $request)
     {
-        $templates = Template::approved()->get();
 
-        $templates = $templates->toArray();
+        $templates = Template::approved()->get();
 
         return view('template.browse', compact('templates'));
     }

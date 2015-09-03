@@ -14,14 +14,14 @@
                         
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                {{ $template['name'] }}
+                                {{ $template->name }}
                             </div>
                           <div class="panel-body">
-                            <img src="{{ $template['screenshot'] }}" class="template-screenshot">
+                            <img src="{{ $template->screenshot }}" class="template-screenshot">
                           </div>
                             <div class="panel-footer">
-                                <a href="/templates/{{ $template['id'] }}" class="btn btn-primary">Preview</a>
-                                <a href="/templates/{{ $template['id'] }}" class="btn btn-primary pull-right">Details</a>
+                                <a href="/templates/{{ $template->id }}" class="btn btn-primary">Preview</a>
+                                <a href="/templates/{{ $template->id }}" class="btn btn-primary pull-right">Details</a>
                             </div>
                         </div>
                     </div>

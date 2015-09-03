@@ -77,10 +77,10 @@
           <div class="home-filter">
             <div class="row">
               <div class="dropdown">
-                <select>
-                  <option>Sort by Price..</option>
-                  <option>Highest First</option>  
-                  <option>Lowest First</option>
+                <select ONCHANGE="location = this.options[this.selectedIndex].value;">
+                  <option value="">Sort by Price..</option>
+                  <option value="?sort=price_highest">Highest First</option>  
+                  <option value="?sort=price_lowest">Lowest First</option>
                 </select>
               </div>
             </div>
@@ -132,3 +132,15 @@
   
   
 @stop
+
+
+@section('footer')
+
+<script type="text/javascript">
+    (function() {
+
+        
+
+    })();
+</script>
+@endsection

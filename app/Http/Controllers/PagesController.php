@@ -32,6 +32,12 @@ class PagesController extends Controller
 
         $templates  = Template::approved()->latest()->paginate($limit);
 
+        if($request->get('sort') == 'price_highest') $templates =  Template::approved()->orderBy('price', 'desc')->paginate($limit);
+
+        if($request->get('sort') == 'price_lowest') $templates = Template::approved()->orderBy('price', 'asc')->paginate($limit);
+
+        
+
         $recent     = Template::approved()->latest()->take(2)->get();
 
         $popular    = Template::approved()->take(3)->get();
