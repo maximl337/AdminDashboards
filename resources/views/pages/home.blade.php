@@ -42,8 +42,8 @@
                 <div class="item-listing-meta">
                   <h4><a href="/templates/{{ $template->id }}">{{ $template->name }}</a></h4>
                   <ul>
-                    <li><i class="ion-ios-cart-outline"></i> 100 Sales</li>
-                    <li><i class="ion-calendar"></i> Released 3 months ago</li>
+                    <li><i class="ion-ios-cart-outline"></i> {{ count($template->orders) }} Sales</li>
+                    <li><i class="ion-calendar"></i> Released {{ $template->created_at->diffForHumans() }}</li>
                   </ul>
                 </div>
               </div>

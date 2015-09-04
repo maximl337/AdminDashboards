@@ -41,6 +41,13 @@ class Template extends Model
                 ];
 
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['created_at', 'updated_at'];
+
     public function scopeApproved($query)
     {
         return $query->where('approved', true);
