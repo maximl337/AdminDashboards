@@ -52,11 +52,17 @@ class PagesController extends Controller
 
     public function dashboard(Payout $payout)
     {
-        $templates = Auth::user()->templates->toArray();
+        $templates = Auth::user()->templates()->get();
 
-        $incomingOrders = Auth::user()->orders()->with('template')->get();
+        $orders = Auth::user()->orders()->with('template')->get();
 
-        $orders = $incomingOrders->toArray();
+        foreach($orders as $order) {
+
+            $order->commission = $payout->commission($order->template);
+
+            $order->earning = $order->template->price * $order->commission / 100;        
+            
+        }
 
         $earnings = $payout->earnings(Auth::user());
 

@@ -5,7 +5,7 @@
 <section id="main-content" class="section bg-grey">
     <div class="container" style="padding-top: 50px;">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             @if (session('status'))
                 <div class="alert alert-success text-center">
                     {{ session('status') }}
@@ -15,7 +15,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     
-                    <h5 class="text-white">{{ Auth::user()->username }}'s  Dashboard </h5>
+                    <h3>Dashboard </h3>
 
                 </div>
                 <div class="panel-body">
@@ -83,13 +83,13 @@
                               <tbody>
                                 @foreach($data['templates'] as $template)
                                   <tr>
-                                    <td><a href="/templates/{{ $template['id'] }}">{{ $template['name'] }}</a></td>
-                                    <td>{{ $template['price'] }}</td>
-                                    <td>{{ $template['version'] }}</td>
-                                    <td>{{ $template['preview_url'] }}</td>
-                                    <td>{{ $template['approved'] }}</td>
-                                    <td>{{ $template['rejected'] }}</td>
-                                    <td>{{ $template['created_at'] }}</td>
+                                    <td><a href="/templates/{{ $template->id }}">{{ $template['name'] }}</a></td>
+                                    <td>{{ $template->price }}</td>
+                                    <td>{{ $template->version }}</td>
+                                    <td>{{ $template->preview_url }}</td>
+                                    <td>{{ $template->approved }}</td>
+                                    <td>{{ $template->rejected }}</td>
+                                    <td>{{ $template->created_at }}</td>
                                   </tr>
                                 @endforeach
                               </tbody>
@@ -107,21 +107,23 @@
                         <table class="table table-striped table-hover ">
                           <thead>
                             <tr>
-                              <th>Date</th>
-                              <th>Number</th>
                               <th>Template</th>
-                              <th>Amount</th>
+                              <th>Price</th>
+                              <th>Earning</th>
+                              <th>Licence</th>
                               <th>Status</th>
+                              <th>Date</th>
                             </tr>
                           </thead>
                           <tbody>
                             @foreach($data['orders'] as $order)
                               <tr>
-                                <td>{{ $order['created_at'] }}</td>
-                                <td>{{ $order['id'] }}</td>
-                                <td><a href="/templates/{{ $order['template']['id'] }}">{{ $order['template']['name'] }}</a></td>
-                                <td>${{ $order['template']['price'] }}</td>
-                                <td><small>{{ $order['status'] }}</small></td>
+                                <td><a href="/templates/{{ $order->template->id }}">{{ $order->template->name }}</a></td>
+                                <td>${{ $order->template->price }}</td>
+                                <td>${{ $order->earning }}</td>
+                                <td>{{ $order->licence_type }}</td>
+                                <td>{{ $order->status }}</td>
+                                <td>{{ $order->created_at }}</td>
                               </tr>
                             @endforeach
                           </tbody>

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\User;
 use App\Payout;
+use App\Template;
 use App\Order;
 use App\Commission;
 use App\Contracts\Payout as PayoutContract;
@@ -43,42 +44,42 @@ class PayoutService implements PayoutContract
         // Iterate through templates
         foreach($templates as $template) {
 
-            // Init earnings per template
-            $order_amount_per_template = 0;
+                // Init earnings per template
+                $order_amount_per_template = 0;
 
-            // Get orders
-            $orders = $template->orders()->get();
+                // Get orders
+                $orders = $template->orders()->get();
 
-            // Iterate through orders
-            foreach($orders as $order) {
+                // Iterate through orders
+                foreach($orders as $order) {
 
-                // Calculate total earnings
-                // for single template
-                $order_amount_per_template += ( $order->payment_gross - $order->tax );
-            
-            }
+                    // Calculate total earnings
+                    // for single template
+                    $order_amount_per_template += ( $order->payment_gross - $order->tax );
+                
+                }
 
-            // Get commision rate for
-            // exclusive templates
-            if($template->exclusive) {
+                // Get commision rate for
+                // exclusive templates
+                if($template->exclusive) {
 
-                // Get base exclusive commission rate
-                $commission_rate = $this->base_exclusive_commission;
+                    // Get base exclusive commission rate
+                    $commission_rate = $this->base_exclusive_commission;
 
-                $commission = Commission::where('amount', '<=', $order_amount_per_template)->orderBy('amount', 'DESC')->first();
+                    $commission = Commission::where('amount', '<=', $order_amount_per_template)->orderBy('amount', 'DESC')->first();
 
-                // Adjust commission rate
-                // according to order volume
-                if($commission) $commission_rate = $commission->percentage;
+                    // Adjust commission rate
+                    // according to order volume
+                    if($commission) $commission_rate = $commission->percentage;
 
-            }
+                }
 
-            // Calculate lifetime earnings 
-            // with commision rate
-            $lifetime_earnings += $order_amount_per_template * $commission_rate / 100;
-            
-            // Running grand total
-            $grand_total += $order_amount_per_template;
+                // Calculate lifetime earnings 
+                // with commision rate
+                $lifetime_earnings += $order_amount_per_template * $commission_rate / 100;
+                
+                // Running grand total
+                $grand_total += $order_amount_per_template;
 
         }
 
@@ -106,9 +107,52 @@ class PayoutService implements PayoutContract
 
     }
 
-    public function commission(User $user)
+    /**
+     * Return commision rate for template
+     * based on sales volume
+     *         
+     * @param  Template $template App\Template
+     * @return int             commission rate
+     */
+    public function commission(Template $template)
     {
-        # code...
+        
+        // earnings per order
+
+        // Init commision rate
+        $commission_rate = $this->nonexclusive_commission;
+
+        $total_amount = 0;
+        
+        //get template
+        $template = $order->template()->get();
+
+        // get total orders of template
+        $total_orders = $template->orders()->get();
+
+        foreach($total_orders as $perOrder) {
+
+            $total_amount += ( $perOrder->payment_gross - $perOrder->tax );
+        }
+
+        // Get commision rate for
+        // exclusive templates
+        if($template->exclusive) {
+
+            // Get base exclusive commission rate
+            $commission_rate = $this->base_exclusive_commission;
+
+            $commission = Commission::where('amount', '<=', $total_amount)->orderBy('amount', 'DESC')->first();
+
+            // Adjust commission rate
+            // according to order volume
+            if($commission) $commission_rate = $commission->percentage;
+
+        }
+
+        return $commission;
+
+
     }
 
     public function massPay(Payment $payment) {
