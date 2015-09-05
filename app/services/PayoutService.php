@@ -147,7 +147,7 @@ class PayoutService implements PayoutContract
 
         }
 
-        return $commission;
+        return $commission_rate;
 
 
     }
