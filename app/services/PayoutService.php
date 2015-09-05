@@ -123,9 +123,6 @@ class PayoutService implements PayoutContract
         $commission_rate = $this->nonexclusive_commission;
 
         $total_amount = 0;
-        
-        //get template
-        $template = $order->template()->get();
 
         // get total orders of template
         $total_orders = $template->orders()->get();
