@@ -116,8 +116,6 @@ class PayoutService implements PayoutContract
      */
     public function commission(Template $template)
     {
-        
-        // earnings per order
 
         // Init commision rate
         $commission_rate = $this->nonexclusive_commission;
