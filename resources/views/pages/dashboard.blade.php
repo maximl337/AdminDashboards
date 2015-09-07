@@ -68,7 +68,7 @@
                         @if(count($data['templates']))
 
 
-                            <table class="table table-striped table-hover ">
+                            <table id="tempaltes-table" class="table table-striped table-hover ">
                               <thead>
                                 <tr>
                                   <th>Name</th>
@@ -104,7 +104,7 @@
                       </div>
                       <div class="tab-pane fade" id="orders">
                         @if(count($data['orders']))
-                        <table class="table table-striped table-hover ">
+                        <table id="orders-table" class="table table-striped table-hover ">
                           <thead>
                             <tr>
                               <th>Template</th>
@@ -149,3 +149,17 @@
 </section>
 
 @stop
+
+@section('footer')
+<script type="text/javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+    (function() {
+
+        $("#tempaltes-table").dataTable();
+
+        $("#orders-table").dataTable();
+
+    })();
+</script>
+@endsection

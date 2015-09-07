@@ -8,9 +8,9 @@
 <head>
   <meta charset="utf-8">
   <title>Admin Dashboards</title>
-  <meta name="author" content="">
-  <meta name="keywords" content="">
-  <meta name="description" content="">
+  <meta name="author" content="RED MESA SOFTWARE">
+  <meta name="keywords" content="bootstrap, admin, dashboards, templates, sell, buy, money">
+  <meta name="description" content="Admin dashboard is a marketplace for developer and designers to sell admin dashboard tempaltes.">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/img/ico/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/img/ico/apple-icon-60x60.png">
