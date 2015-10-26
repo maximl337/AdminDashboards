@@ -25,4 +25,11 @@ class UserController extends Controller
         return redirect()->back()->with('status', 'Payment settings updated!');
 
     }
+
+    public function index()
+    {
+        $users = User::all();
+
+        return view('admin.users.index', compact('users'));
+    }
 }

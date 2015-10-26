@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('tax_number')->nullable();
             $table->string('business_type')->nullable();
             $table->string('paypal_account')->nullable();
+            $table->boolean('approved_seller')->default(false);
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->rememberToken();

@@ -1,5 +1,9 @@
 @extends('layout.main')
 
+@section('head')
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+@endsection
+
 @section('content')
 
 <section id="main-content" class="section bg-grey">
