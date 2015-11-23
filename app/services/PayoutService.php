@@ -151,7 +151,7 @@ class PayoutService implements PayoutContract
 
     }
 
-    public function massPay(Payment $payment) {
+    public function massPay() {
 
         // GET ORDERS
         $orders = Order::with('template')->get();
