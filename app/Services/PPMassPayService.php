@@ -64,18 +64,23 @@ class PPMassPayService
 
 		}
 
-		if(isset($massPayResponse)) {
-
-			Log::info('PPMassPay:MassPayResponse', [serialize($massPayResponse)]);
-
-		}
+		
 		
 		Log::info('PPMassPay:Response', [
 				'request' => $paypalService->getLastRequest(),
 				'response' => $paypalService->getLastResponse()
 			]);
 
-		return;
+		if(isset($massPayResponse)) {
+
+			Log::info('PPMassPay:MassPayResponse', [serialize($massPayResponse)]);
+
+			return $massPayResponse->Ack;
+
+		}
+
+		return false;
+		
 	}
 
 }

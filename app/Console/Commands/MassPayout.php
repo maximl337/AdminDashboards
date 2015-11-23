@@ -2,10 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Contracts\Payout;
-use App\Contracts\Payment;
 use Log;
+use App\Contracts\Payout;
+use Illuminate\Console\Command;
 
 class MassPayout extends Command
 {   
@@ -31,11 +30,9 @@ class MassPayout extends Command
      *
      * @return void
      */
-    public function __construct(Payout $payout, Payment $payment)
+    public function __construct(Payout $payout)
     {
         $this->payout = $payout;
-
-        $this->payment = $payment;
 
         parent::__construct();
     }
@@ -52,7 +49,7 @@ class MassPayout extends Command
 
             Log::info('Attempted Mass Payout');
 
-            $this->payout->massPay($this->payment);
+            $this->payout->massPay();
 
         }
 

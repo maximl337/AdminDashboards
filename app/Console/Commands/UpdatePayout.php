@@ -73,7 +73,6 @@ class UpdatePayout extends Command
                             'transaction_status'    => $transactionStatus
                         ]);
 
-
         }
     }
 }

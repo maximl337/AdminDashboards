@@ -166,8 +166,6 @@ class PayoutService implements PayoutContract
 
         $recipients = [];
 
-        $senderBatchId = uniqid();
-
         // Get users of orders
         foreach($orders as $order) {
 
@@ -189,7 +187,7 @@ class PayoutService implements PayoutContract
 
         } // EO foreach
 
-       (new PPMassPayService)->send($recipients);
+       return (new PPMassPayService)->send($recipients);
 
     } // send mass payout
 }
