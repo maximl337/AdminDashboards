@@ -179,7 +179,7 @@ class PayoutService implements PayoutContract
 
             $earnings = $this->earnings($user); 
 
-            if($earnings['pending'] < 100) continue;
+            //if($earnings['pending'] < 100) continue;
 
             $user->amount = $earnings['pending'];
 
