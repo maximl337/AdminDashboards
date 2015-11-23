@@ -45,13 +45,13 @@ class MassPayout extends Command
     public function handle()
     {
 
-        if(date('d') == 15) {
+        //if(date('d') == 15) {
 
             Log::info('Attempted Mass Payout');
 
             $this->payout->massPay();
 
-        }
+        //}
 
         
     }
