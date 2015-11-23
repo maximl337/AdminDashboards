@@ -9,6 +9,7 @@ use App\Order;
 use App\Commission;
 use App\Contracts\Payout as PayoutContract;
 use App\Contracts\Payment;
+use App\Services\PPMassPayService;
 
 
 class PayoutService implements PayoutContract
@@ -163,7 +164,7 @@ class PayoutService implements PayoutContract
 
         $earnings = [];
 
-        $payoutItems = [];
+        $recipients = [];
 
         $senderBatchId = uniqid();
 
@@ -182,71 +183,13 @@ class PayoutService implements PayoutContract
 
             if($earnings['pending'] < 100) continue;
 
-            $senderItemId = substr($user->id . '-' . microtime(true), 0, 30);
+            $user->amount = $earnings['pending'];
 
-            $payoutItems[] = [
-
-                'sender_item_id'    => $senderItemId,
-                'email'             => $user->email,
-                'amount'            => $earnings['pending']
-
-            ];
-
-            Payout::create([
-                    'user_id' => $user->id,
-                    'amount' => $earnings['pending'],
-                    'sender_batch_id' => $senderBatchId,
-                    'sender_item_id' => $senderItemId,
-                ]);
+            $recipients[] = $user;
 
         } // EO foreach
 
-        if(!count($payoutItems)) return;
-
-        // Send payment
-        $output = $payment->sendBatchPayment($payoutItems, $senderBatchId);
-
-        // Get batch id
-        $batchId = $output->getBatchHeader()->getPayoutBatchId();
-
-        // get batch_status
-        $batchStatus = $output->getBatchHeader()->getBatchStatus();
-
-        // Get Payout Batch Data
-        $batchResponse = $payment->getBatchPaymentDetails($batchId);
-
-        // Get each payout item
-        $batchItems = $batchResponse->getItems();
-
-        foreach($batchItems as $batchItem) {
-            
-            //get payout item info
-            $payoutItemId = $batchItem->getPayoutItemId();
-
-            // get payoutItem
-            $payoutItem = $payment->getPaymentItemDetails($payoutItemId);
-
-            //sender item id
-            $senderItemId = $payoutItem->getPayoutItem()->getSenderItemId();
-
-            // trasaction_id
-            $transactionId = $payoutItem->getTransactionId();
-
-            // trasaction_status 
-            $transactionStatus = $payoutItem->getTransactionStatus();
-            
-            Payout::where('sender_item_id', $senderItemId)
-                    ->update([
-                            'payout_batch_id'       => $batchId,
-                            'payout_item_id'        => $payoutItemId,
-                            'batch_status'          => $batchStatus,
-                            'transaction_id'        => $transactionId,
-                            'transaction_status'    => $transactionStatus
-                        ]);
-
-        } // EO foreach
-
-        return $output;
+       (new PPMassPayService)->send($recipients);
 
     } // send mass payout
 }

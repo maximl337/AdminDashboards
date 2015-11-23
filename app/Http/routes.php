@@ -44,7 +44,7 @@ Route::post('users/payment-settings', 'UserController@updatePaymentSettings');
 /**
  * PAYMENT
  */
-Route::post('paypal/ipn', 'OrderController@paypalIPN');
+Route::post('paypal/ipn', 'PaypalController@ipn');
 
 Route::get('paypal/callback', 'OrderController@confirmation');
 

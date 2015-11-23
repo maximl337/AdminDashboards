@@ -14,12 +14,10 @@ use App\Http\Controllers\Controller;
 use App\Contracts\Payout as PayoutContract;
 use App\Contracts\Payment;
 
-class PayoutController extends Controller
+class PaypalController extends Controller
 {
 
-
-
-    public function PaypalIpn(Request $request)
+    public function ipn(Request $request)
     {
         $input = $request->input();
 
