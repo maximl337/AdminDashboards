@@ -47,9 +47,9 @@ class MassPayout extends Command
 
         //if(date('d') == 15) {
 
-            Log::info('Attempted Mass Payout');
+            Log::info('Attempted Mass Payout - DISABLED FOR TESTING');
 
-            $this->payout->massPay();
+            //$this->payout->massPay();
 
         //}
 
