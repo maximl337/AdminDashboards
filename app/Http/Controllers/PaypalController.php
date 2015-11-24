@@ -28,11 +28,11 @@ class PaypalController extends Controller
 
         $ipn_valid = $this->verfiryIpn($input);
 
-        if ($ipn_valid) {
-
-            PaypalDump::create([
+        PaypalDump::create([
                 'dump'      => serialize($input),
             ]);
+
+        if ($ipn_valid) {
 
             // check txn type
             $txn_type = $input['txn_type'];
@@ -89,6 +89,8 @@ class PaypalController extends Controller
         $response = (new GuzzleClient)->request('POST', env('PAYPAL_HOST_URL'), $input);
 
         $res = $response->getBody();
+
+        Log::info('PAYPAL IPN: VERIFY', [$res]);
 
         if (strcmp ($res, "VERIFIED") == 0) return true;
 
