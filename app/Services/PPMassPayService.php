@@ -29,7 +29,7 @@ class PPMassPayService
 	public function send(array $recipients)
 	{
 
-			if(empty($recipients)) return;
+			if(empty($recipients)) throw new Exception("No recipients given");
 
 			$massPayRequest = new PayPalAPI\MassPayRequestType();
 
@@ -63,7 +63,6 @@ class PPMassPayService
 			Log::error('PPMassPay:Error', [$ex->getMessage()]);
 
 		}
-
 		
 		
 		Log::info('PPMassPay:Response', [
