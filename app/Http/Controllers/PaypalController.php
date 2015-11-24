@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Payout;
+use Log;
 use App\User;
 use App\Order;
-use App\Commission;
+use App\Payout;
 use App\Template;
+use App\PaypalPdt;
+use App\PaypalIpn;
+use App\Commission;
+use App\PaypalDump;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Contracts\Payout as PayoutContract;
 use App\Contracts\Payment;
+use App\Http\Controllers\Controller;
+use GuzzleHttp\Client as GuzzleClient;
+use App\Contracts\Payout as PayoutContract;
 
 class PaypalController extends Controller
 {
@@ -23,11 +28,11 @@ class PaypalController extends Controller
 
         $ipn_valid = $this->verfiryIpn($input);
 
-        PaypalDump::create([
-            'dump'      => serialize($input),
-            ]);
-
         if ($ipn_valid) {
+
+            PaypalDump::create([
+                'dump'      => serialize($input),
+            ]);
 
             // check txn type
             $txn_type = $input['txn_type'];
@@ -50,7 +55,7 @@ class PaypalController extends Controller
 
                     $paypalIpn = PaypalIpn::create($input);
 
-                    Log::info('created a paypal transaction record');
+                    Log::info('PAYPAL IPN: Created a paypal transaction record');
                 }
 
             }
@@ -63,7 +68,7 @@ class PaypalController extends Controller
         } 
         else {
 
-            Log::error("Paypal Ipn Failed" . $res);
+            Log::error("PAYPAL IPN: Paypal Ipn Failed");
 
 
         }
@@ -73,13 +78,15 @@ class PaypalController extends Controller
     {
         $input = ['cmd' => '_notify-validate'] + $input;
 
-        $preValidateUrl = http_build_query($input);
+        // $preValidateUrl = http_build_query($input);
 
-        $client = new GuzzleClient(env('PAYPAL_HOST_URL'));
+        // $client = new GuzzleClient(env('PAYPAL_HOST_URL'));
 
-        $validateUrl = '?' . $preValidateUrl;
+        // $validateUrl = '?' . $preValidateUrl;
 
-        $response = $client->post($validateUrl)->send();
+        // $response = $client->post($validateUrl)->send();
+
+        $response = (new GuzzleClient)->request('POST', env('PAYPAL_HOST_URL'), $input);
 
         $res = $response->getBody();
 

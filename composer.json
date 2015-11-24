@@ -12,7 +12,8 @@
         "rackspace/php-opencloud": "^1.14",
         "fzaninotto/faker": "^1.5",
         "paypal/rest-api-sdk-php": "*",
-        "paypal/merchant-sdk-php":"*"
+        "paypal/merchant-sdk-php":"*",
+        "guzzlehttp/guzzle": "~5.3|~6.0"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
