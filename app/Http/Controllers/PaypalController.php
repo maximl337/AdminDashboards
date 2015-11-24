@@ -78,15 +78,15 @@ class PaypalController extends Controller
     {
         $input = ['cmd' => '_notify-validate'] + $input;
 
-        // $preValidateUrl = http_build_query($input);
+        $preValidateUrl = http_build_query($input);
+
+        $validateUrl = '?' . $preValidateUrl;
 
         // $client = new GuzzleClient(env('PAYPAL_HOST_URL'));
-
-        // $validateUrl = '?' . $preValidateUrl;
-
+        
         // $response = $client->post($validateUrl)->send();
 
-        $response = (new GuzzleClient)->request('POST', env('PAYPAL_HOST_URL'), $input);
+        $response = (new GuzzleClient)->request('POST', env('PAYPAL_HOST_URL') . $validateUrl, []);
 
         $res = $response->getBody();
 
