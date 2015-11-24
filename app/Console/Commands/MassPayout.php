@@ -49,7 +49,7 @@ class MassPayout extends Command
 
             Log::info('Attempted Mass Payout - DISABLED FOR TESTING');
 
-            //$this->payout->massPay();
+            $this->payout->massPay();
 
         //}
 
