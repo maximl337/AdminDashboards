@@ -177,17 +177,33 @@ class PayoutService implements PayoutContract
 
         foreach($users as $user) {
 
-            $earnings = $this->earnings($user); 
+            $earnings = $this->earnings($user);
 
             //if($earnings['pending'] < 100) continue;
 
             $user->amount = $earnings['pending'];
 
+            $user->unique_id = $user->id . "-" . uniqid();
+
             $recipients[] = $user;
+
+            Payout::create([
+                    'user_id'   => $user->id,
+                    'amount'    => $user->amount,
+                    'unique_id' => $user->unique_id
+                ]);
 
         } // EO foreach
 
-       return (new PPMassPayService)->send($recipients);
+        try {
+
+            $resp = (new PPMassPayService)->send($recipients);
+
+        } catch(Exception $e) {
+
+            Log::error('Paypal Masspay:' . $e->getMessage(). [serialize($e)]);
+        }
+       
 
     } // send mass payout
 }

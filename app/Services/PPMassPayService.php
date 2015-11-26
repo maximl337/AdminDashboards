@@ -44,6 +44,8 @@ class PPMassPayService
 				$masspayItem->Amount = new CoreComponentTypes\BasicAmountType('CAD', $recipients[$i]->amount);
 
 				$masspayItem->ReceiverEmail = $recipients[$i]->email;
+
+				$masspayItem->UniqueId = $recipients[$i]->unique_id;
 				
 				$massPayRequest->MassPayItem[] = $masspayItem;
 			}
@@ -62,6 +64,8 @@ class PPMassPayService
 
 			Log::error('PPMassPay:Error', [$ex->getMessage()]);
 
+			throw $ex;
+
 		}
 		
 		
@@ -78,7 +82,7 @@ class PPMassPayService
 
 		}
 
-		return false;
+		throw new Exception("Did not receive a response");
 		
 	}
 

@@ -14,7 +14,7 @@ class CreatePaypalIpnsTable extends Migration
     {
         Schema::create('paypal_ipns', function (Blueprint $table) {
             $table->increments('id');
-
+            $table->string('txn_type');
             $table->integer('template_id')->unsigned();
             $table->string('licence_type')->nullable();
             $table->string('mc_gross')->nullable();
@@ -42,10 +42,10 @@ class CreatePaypalIpnsTable extends Migration
             $table->string('payment_type')->nullable();
             $table->string('last_name')->nullable();
             $table->string('address_state')->nullable();
+            $table->string('business')->nullable();
             $table->string('receiver_email')->nullable();
             $table->string('payment_fee')->nullable();
             $table->string('receiver_id')->nullable();
-            $table->string('txn_type')->nullable();
             $table->string('item_name')->nullable();
             $table->string('mc_currency')->nullable();
             $table->string('residence_country')->nullable();

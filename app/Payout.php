@@ -20,13 +20,11 @@ class Payout extends Model
 
         'user_id',
         'amount',
-        'sender_batch_id',
-        'sender_item_id',
-        'payout_batch_id',
-        'payout_item_id',
-        'batch_status',
-        'transaction_id',
-        'transaction_status'
+        'unique_id',
+        'masspay_txn_id',
+        'payment_date',
+        'payment_status',
+
 
     ];
 

@@ -13,17 +13,17 @@ class CreatePayoutsTable extends Migration
     public function up()
     {
         Schema::create('payouts', function (Blueprint $table) {
+
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->float('amount')->unsigned();
-            $table->string('sender_batch_id');
-            $table->string('sender_item_id');
-            $table->string('payout_batch_id')->nullable();
-            $table->string('payout_item_id')->nullable();
-            $table->string('batch_status')->nullable();
-            $table->string('transaction_id')->nullable();
-            $table->string('transaction_status')->nullable();
+            $table->string('uniqueid');
+
+            $table->string('masspay_txn_id')->nullable();
+            $table->string('payment_date')->nullable();
+            $table->string('payment_status')->nullable();
             $table->timestamps();
+            
         });
 
         Schema::table('payouts', function (Blueprint $table) {

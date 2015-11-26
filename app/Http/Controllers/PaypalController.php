@@ -28,40 +28,24 @@ class PaypalController extends Controller
 
         $ipn_valid = $this->verfiryIpn($input);
 
-        PaypalDump::create([
-                'dump'      => serialize($input),
-            ]);
+        $dump = PaypalDump::create([
+                    'dump'      => serialize($input),
+                ]);
 
         if ($ipn_valid) {
 
             // check txn type
             $txn_type = $input['txn_type'];
 
+            $dump->update(['type' => $txn_type]);
+
             if($txn_type == 'web_accept') {
 
-                // $customVars = explode(",", $input['custom']);
-
-                // $input['template_id'] = $customVars[0];
-
-                // $input['licence_type'] = $customVars[1];
-
-                // //check if payment was successful
-                // $paymentSuccessful = $input['payment_status'] == 'Completed';
-
-                // $oldTransaction = PaypalIpn::where('txn_id', $input['txn_id'])->exists();
-
-                // // Payment was successful and Transaction is new
-                // if($paymentSuccessful && !$oldTransaction) {
-
-                //     $paypalIpn = PaypalIpn::create($input);
-
-                //     Log::info('PAYPAL IPN: Created a paypal transaction record');
-                // }
 
             }
             elseif($txn_type == 'masspay') {
 
-
+                // parse input;
             }
            
 
