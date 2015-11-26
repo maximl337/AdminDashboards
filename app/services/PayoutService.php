@@ -84,7 +84,7 @@ class PayoutService implements PayoutContract
 
         }
 
-        $payouts = $user->payouts()->whereNotNull('transaction_status')->get();
+        $payouts = $user->payouts()->where('payment_status', 'Processed')->get();
 
         foreach($payouts as $payout) {
 
