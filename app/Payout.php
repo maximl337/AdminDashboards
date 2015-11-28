@@ -20,7 +20,7 @@ class Payout extends Model
 
         'user_id',
         'amount',
-        'unique_id',
+        'uniqueid',
         'masspay_txn_id',
         'payment_date',
         'payment_status',
