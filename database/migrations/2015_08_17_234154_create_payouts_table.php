@@ -17,11 +17,13 @@ class CreatePayoutsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->float('amount')->unsigned();
-            $table->string('uniqueid');
+            $table->string('unique_id');
 
             $table->string('masspay_txn_id')->nullable();
-            $table->string('payment_date')->nullable();
-            $table->string('payment_status')->nullable();
+            $table->string('status')->nullable();
+            $table->string('mc_fee')->nullable();
+            $table->string('mc_gross')->nullable();
+            $table->string('reason_code')->nullable();
             $table->timestamps();
             
         });

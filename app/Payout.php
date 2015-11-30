@@ -20,11 +20,12 @@ class Payout extends Model
 
         'user_id',
         'amount',
-        'uniqueid',
+        'unique_id',
         'masspay_txn_id',
-        'payment_date',
-        'payment_status',
-
+        'status',
+        'mc_fee',
+        'mc_gross',
+        'reason_code'
 
     ];
 

@@ -190,7 +190,7 @@ class PayoutService implements PayoutContract
             Payout::create([
                     'user_id'   => $user->id,
                     'amount'    => $user->amount,
-                    'uniqueid' => $user->unique_id
+                    'unique_id' => $user->unique_id
                 ]);
 
         } // EO foreach
