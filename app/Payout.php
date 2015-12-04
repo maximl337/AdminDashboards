@@ -31,11 +31,25 @@ class Payout extends Model
 
     /**
      * Illuminate\Database\Eloquent\Relations\BelongsTo
+     * 
      * @return Eloquent Model User Model
      */
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * Get completed or processed payouts
+     *
+     * @param  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeProcessed($query)
+    {
+        return $query->where('status', 'Processed')
+                        ->orWhere('status', 'Completed');
+
     }
 
 
