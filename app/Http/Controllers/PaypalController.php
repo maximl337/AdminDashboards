@@ -76,7 +76,7 @@ class PaypalController extends Controller
                             'status'         => $v['status'],
                             'mc_fee'         => $v['mc_fee'],
                             'mc_gross'       => $v['mc_gross'],
-                            'reason_code'    => $v['reason_code']
+                            'reason_code'    => !empty($v['reason_code']) ? $v['reason_code'] : ""
                         ]);
                 }
                 
