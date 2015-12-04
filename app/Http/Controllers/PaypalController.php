@@ -71,7 +71,13 @@ class PaypalController extends Controller
 
                     $payout = Payout::where('unique_id', $v['unique_id']);
 
-                    $payout->update($v);
+                    $payout->update([
+                            'masspay_txn_id' => $v['masspay_txn'],
+                            'status'         => $v['status'],
+                            'mc_fee'         => $v['mc_fee'],
+                            'mc_gross'       => $v['mc_gross'],
+                            'reason_code'    => $v['reason_code']
+                        ]);
                 }
                 
             }
