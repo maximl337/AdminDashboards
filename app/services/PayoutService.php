@@ -202,6 +202,7 @@ class PayoutService implements PayoutContract
         } catch(Exception $e) {
 
             Log::error('Paypal Masspay:' . $e->getMessage(). [serialize($e)]);
+            // Send mail
         }
        
 

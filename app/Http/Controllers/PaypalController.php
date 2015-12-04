@@ -44,9 +44,15 @@ class PaypalController extends Controller
 
             if($txn_type == 'web_accept') {
 
-                //  Find a way to store transaction IPN in case PDT fails
-                //  Make a mechanism where buyers can ask for refund
+                if(strtolower($input['payment_status']) !== 'completed') {
 
+                    // Mail Admin if status not completed
+                    Log::info('Web Accept IPN: Failed', [serialize($input)]);
+
+                }
+
+                // update order table
+                $this->processWebAcceptIpn($input);
             }
             elseif($txn_type == 'masspay') {
 
@@ -147,6 +153,40 @@ class PaypalController extends Controller
         }
 
         return $outarray;
+    }
+
+    public function processWebAcceptIpn(array $response)
+    {
+        // check if order exists 
+        $orderExists = Order::where('txn_id', $response['txn_id'])->exists();
+
+        if(!$orderExists) {
+
+            $order = Order::create([
+                'template_id'               => $response['item_number'],
+                'licence_type'              => $response['custom'],
+                'txn_id'                    => $response['txn_id'],
+                'payment_gross'             => $response['mc_gross'],
+                'email'                     => $response['payer_email'],
+                'tax'                       => $response['tax'],
+                'status'                    => strtolower($response['payment_status'])
+            ]);
+        
+        }
+        else {
+
+            $order = Order::update([
+                'template_id'               => $response['item_number'],
+                'licence_type'              => $response['custom'],
+                'txn_id'                    => $response['txn_id'],
+                'payment_gross'             => $response['mc_gross'],
+                'email'                     => $response['payer_email'],
+                'tax'                       => $response['tax'],
+                'status'                    => strtolower($response['payment_status'])
+            ]);
+
+        }
+
     }
     
 }

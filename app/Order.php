@@ -27,7 +27,8 @@ class Order extends Model
                 'download_request_count',
                 'status',
                 'payment_gross',
-                'tax'
+                'tax',
+                'email'
 
                 ];
 
