@@ -41,14 +41,14 @@ class Payout extends Model
 
     /**
      * Get completed or processed payouts
+     * Status: completed, failed, returned, reversed, unclaimed, pending, blocked
      *
      * @param  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeProcessed($query)
     {
-        return $query->where('status', 'Processed')
-                        ->orWhere('status', 'Completed');
+        return $query->whereNotNull('status');
 
     }
 
