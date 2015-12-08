@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Imgur;
+use Mail;
 use Auth;
 use App\User;
 use App\Tag;
@@ -48,6 +49,8 @@ class TemplateController extends Controller
     public function makeTemplate()
     {
         $tags = Tag::all();
+
+        $user = User::first();
 
         return view('template.create')->with(compact('tags'));
     }
