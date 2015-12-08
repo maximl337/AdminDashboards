@@ -36,7 +36,8 @@ class CreateTemplateRequest extends Request
             'frameworks'        => 'required',
             'browser'           => 'required',
             'columns'           => 'required',
-            'files_included'    => 'required'
+            'files_included'    => 'required',
+            'g-recaptcha-response' => 'required|recaptcha',
         ];
     }
 }

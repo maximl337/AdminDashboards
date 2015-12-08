@@ -13,7 +13,8 @@
         "fzaninotto/faker": "^1.5",
         "paypal/rest-api-sdk-php": "*",
         "paypal/merchant-sdk-php":"*",
-        "guzzlehttp/guzzle": "~5.3|~6.0"
+        "guzzlehttp/guzzle": "~5.3|~6.0",
+        "greggilbert/recaptcha": "^2.0"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",

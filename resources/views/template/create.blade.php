@@ -228,6 +228,10 @@
                             </div>
 
                             <div class="form-group">
+                                {!! Recaptcha::render() !!}
+                            </div>
+
+                            <div class="form-group">
                                 <input type="submit" class="btn btn-primary form-control">
                             </div>
                             

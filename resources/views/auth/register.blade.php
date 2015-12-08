@@ -32,6 +32,10 @@
                     </div>
 
                     <div class="form-group">
+                        {!! Recaptcha::render() !!}
+                    </div>
+
+                    <div class="form-group">
                         <button class="form-control btn btn-primary" type="submit">Register</button>
                     </div>
                 </form>
